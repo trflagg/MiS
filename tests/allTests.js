@@ -4,6 +4,10 @@ var allTests = function() {
 	var expressTest = require('./expressTest');
 	var messageTest = require('./messageTest');
 	
+	var mongoose = require('mongoose');
+	mongoose.connect('localhost','test');
+	mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+	
 	console.log("");
 	console.log("_____________ Running All Tests ____________");
 	
@@ -16,6 +20,7 @@ var allTests = function() {
 				messageTest.runTest(function() {
 					console.log("________ Tests Ended ______________");
 					console.log("");
+					mongoose.disconnect();
 				});
 			});
 		});

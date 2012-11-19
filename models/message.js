@@ -7,13 +7,12 @@ module.exports = function (mongoose) {
 
 	/*************/
 	/* Message	
+	 * Abstract Class
 	/************/
-	var MessageProps = {
+	modelObject.MessageProps = {
 		text			: String,
 		subject			: String
 	};
-	var MessageSchema = new Schema(MessageProps);
-	modelObject.Message = mongoose.model('Message', MessageSchema);
 	
 	return modelObject;
 };

@@ -14,10 +14,9 @@ module.exports = function (mongoose) {
 		from			: String,
 		date			: String
 	};
-	_.extend(DirectMessageProps, MessageProps);
+	DirectMessageProps = _.extend(DirectMessageProps, MessageProps);
 	var DirectMessageSchema = new Schema(DirectMessageProps);
 
-	
 	modelObject.DirectMessage = mongoose.model('DirectMessage', DirectMessageSchema);
 	return modelObject;
 }

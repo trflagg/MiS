@@ -17,8 +17,12 @@ module.exports.runTest = function(callback) {
 	
 	//test mongoose
 	console.log("BEGIN Mongoose");
-	mongoose.connect('localhost','test');
-	mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+    var checkConnectionExists = (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2);
+    if(!checkConnectionExists)
+	{
+		mongoose.connect('localhost','test');
+		mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+	}
 	
 	//if default connection is active, readyState will be 1 or 2
 	assert.notEqual(mongoose.connection.readyState, 0, "Default connection not active. readyState = 0");

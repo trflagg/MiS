@@ -10,7 +10,6 @@ module.exports = function (app, service) {
 	app.post('/test', function(req, res) {
 		if (req.body.data === undefined)
 		{
-			console.log(req.body);
 			res.send(400, "POST object must contain item named 'data'");
 		}
 		else

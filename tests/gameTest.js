@@ -7,9 +7,12 @@ module.exports.runTest = function(callback) {
 	console.log("BEGIN ShipTest");
 	
 	//connect to mongoose
-	mongoose.connect('localhost','test');
-	mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-	
+    var checkConnectionExists = (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2);
+    if(!checkConnectionExists)
+	{
+		mongoose.connect('localhost','test');
+		mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+	}
 	//load models
 	var game = require('../models/game')(mongoose);
 	
@@ -59,7 +62,8 @@ module.exports.runTest = function(callback) {
 					assert.equal(emptyGame, undefined, "findOne after removal returned defined object")
 					
 					//disconnect
-					mongoose.disconnect(endTest());
+					//mongoose.disconnect(endTest());
+					endTest();
 				});
 			});
 		});
