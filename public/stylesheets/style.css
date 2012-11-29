@@ -1,8 +1,161 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 16px "Coda", Arial, Helvetica, sans-serif;
+	background: black;
+	color: #68434F;
+}
+
+h1 {
+	font-family: 'Audiowide', cursive;
+	font-size: 64px;
+	letter-spacing: -7px;
+}
+
+h2 {
+	font-family: 'Coda', sans-serif;
+	font-size: 38px;
 }
 
 a {
-  color: #00B7FF;
+	color: #eee;
+	text-decoration: none;
 }
+
+p {
+	font-family: 'Coda', sans-serif;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	padding-left: 20px;
+}
+
+td {
+	vertical-align: top;
+}
+
+*:focus
+{
+	outline: none;
+}
+
+form {
+	
+	font-size: 16px;
+}
+input, textarea {
+ 	background: #68434F;
+	padding: 3px;
+	color: #999;
+	font-size: 16px;
+	border: 0px solid #330C1C;
+	border-left-width: 1px;
+	border-right-width: 1px;
+}
+
+p.orbitron {
+	font-family: 'Orbitron', sans-serif;
+}
+
+.header {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	color: #68434F;
+}
+
+.header a {
+	color: #68434F;
+}
+
+.headerLine {
+	border-top: 3px solid white;
+	width: 0%;
+	margin-top: -1.1em;
+}
+
+#menu {
+	text-align: right;
+	font-size: 14px;
+}
+
+.locationHeader {
+	border: 3px solid #330C1C;
+ 	background: #68434F;
+	padding: 10px;
+}
+
+
+#locationName {
+	font-size: 42px;
+	margin-top: -13px;
+	margin-bottom: -10px;
+	font-family: Audiowide;
+}
+
+#locationInfo {
+	font-size: 16px;
+}
+
+div.locationHeader p {
+	font-size: 10px;
+	color: #330C1C;
+}
+	
+div#content {
+	padding: 30px;
+	overflow: scroll;
+}
+
+ul#commandList {
+	color: #330C1C;
+ 	background: #68434F;
+	border: 3px solid #330C1C;
+	border-top: 0px;
+	height: 100%;
+	padding-top: 30px;
+}
+
+ul#commandList a {
+	text-decoration: none;
+	color: #330C1C;
+}
+
+ul#commandList {
+	list-style: none;
+}
+
+	
+
+ul#commandList > li {
+	padding: 10px;
+	font-family: Coda;
+	font-size: 18px;
+	border-bottom: 1px solid #999;
+	border-color:  #330C1C;
+	color: #330C1C;
+}
+
+ul#commandList > ul > li {
+	font-size: 14px;
+	font-family: Audiowide;
+	padding-left: 10px;
+	margin-top: -10px;
+	
+}
+
+
+/* For Struven IV:
+
+.locationHeader {
+	border: 5px solid #0C330C;
+ 	background: rgba(87, 139, 87, 0.75);
+	padding: 10px;
+}
+
+div.locationHeader p {
+	font-size: 10px;
+	color: #0C330C;
+}
+*/

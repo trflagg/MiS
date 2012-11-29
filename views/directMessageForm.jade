@@ -1,0 +1,25 @@
+//extends layout
+
+block content
+
+	h2 #{title}
+	- if (!locals.directMessage) var directMessage = {subject : "",from : "",date : "", text : ""};
+	
+		
+	form(method="#{formMethod}", name="directMessage", action="#{formAction}")
+		table
+			tr
+				td Subject:
+				td: input(type="text", name="subject", tabindex=1, size=50, value="#{directMessage.subject}")
+			tr
+				td From:
+				td: input(type="text", name="from", tabindex=2, size=50, value="#{directMessage.from}")
+			tr
+				td Date:
+				td: input(type="text", name="date", tabindex=3, size=50, value="#{directMessage.date}")
+			tr
+				td Text:
+				td: textarea(name="text", tabindex=4, rows=15, cols=60) #{directMessage.text}
+			tr
+				td: input(type="Button", value="Submit", tabindex=5, onclick="ajaxRequest('#{formAction}', '#{formMethod}', {subject : this.form.subject.value, from : this.form.from.value, date : this.form.date.value, text : this.form.text.value},'html')")
+				td: input(type="Button", value="Cancel", onclick="ajaxRequest('/editor/directmessage/')")

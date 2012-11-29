@@ -34,6 +34,7 @@ module.exports = function (app, service) {
 		}
 	});
 	
+	
 		
 	/**
 	 * GET /game/directmessage/:id
@@ -99,4 +100,6 @@ module.exports = function (app, service) {
 	   		}
 		}); 
 	});
+	
+	
 }

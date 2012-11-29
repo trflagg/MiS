@@ -1,0 +1,10 @@
+//extends layout
+
+block content
+
+	h2 Direct Messages
+	ul
+		li: a(href='#', onclick='ajaxRequest("/editor/directmessage/new")') New
+		each message, i in messages
+			- var url = "/editor/directmessage/" + message._id +"/edit"
+			li: a(href='#', onclick='ajaxRequest("#{url}");') Subject: #{message.subject}

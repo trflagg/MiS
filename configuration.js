@@ -13,7 +13,10 @@ module.exports = function(app, express) {
 		app.use(express.methodOverride());
 		app.use(app.router);
 		app.use(express.static(path.join(__dirname, 'public')));
+		
 	});
+		//this makes jade errors prettier:
+		app.set('view options', { pretty: true });
 	
 	app.configure('development', function(){
 		app.use(express.errorHandler());
