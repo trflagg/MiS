@@ -1,0 +1,61 @@
+body 
+{
+	background-color: #000;
+}
+
+#titleScreen h1 
+{
+	font-family: 'Audiowide', sans;
+	font-size: 300px;
+	letter-spacing: -32px;
+	color: #000;
+	display: inline;
+}
+
+#titleScreen p 
+{
+	color: #000;
+	font-family: 'Coda', sans;
+	font-size: 20px;
+	display: inline;
+	padding-left: 45px;
+}
+
+#enterName
+{
+	text-align: center;
+	padding-top: 200px;
+}
+
+
+#enterName h2
+{
+	font-family: 'Coda', sans;
+	font-size: 30px;
+}
+
+#enterName p
+{
+	font-size: 20px;
+	margin-top: 100px;
+	font-family: 'Coda', sans;
+}
+
+*:focus
+{
+	outline: none;
+}
+
+#nameInput {
+	margin-top: 20px;
+ 	background: #000;
+	color: #111;
+	font-size:30px;
+	border: 0px solid #111;
+	border-left-width: 3px;
+	border-right-width: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: 'Coda', sans;
+}
+

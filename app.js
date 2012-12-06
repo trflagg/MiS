@@ -13,7 +13,7 @@ var environment = require('./environment');
 var service = require('./service');
     service.init(environment);
 
-require('./configuration')(app, express);
+require('./configuration')(app, express, environment);
 require('./controllers')(app, service, environment);
 
 

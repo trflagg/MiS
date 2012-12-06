@@ -3,9 +3,13 @@
 block content
 
 	h2 #{title}
-	- if (!locals.directMessage) var directMessage = {subject : "",from : "",date : "", text : ""};
 	
-		
+	//set defaults
+	- if (!locals.directMessage) var directMessage = {subject : "",from : "",date : "", text : ""};
+	- if (!err) var err = ""
+	
+	p.error #{err}
+	
 	form(method="#{formMethod}", name="directMessage", action="#{formAction}")
 		table
 			tr

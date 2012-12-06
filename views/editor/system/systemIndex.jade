@@ -1,0 +1,12 @@
+//extends layout
+
+block content
+
+	h2 Systems
+	ul
+		li: a(href='#', onclick='ajaxRequest("/editor/system/new")') New
+		each system, i in systems
+			- var editUrl = "/editor/system/" + system._id +"/edit"
+			- var deleteUrl = "/editor/system/" + system._id
+			li: a(href='#', onclick='ajaxRequest("#{editUrl}");') Name: #{system.name} &nbsp; 
+				a(href='#', onclick='answer=confirm("Are you sure you want to delete #{system.name}?")?ajaxRequest("#{deleteUrl}", "DELETE"):""').deleteLink DELETE

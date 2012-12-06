@@ -20,10 +20,19 @@ a {
 	text-decoration: none;
 }
 
+a.deleteLink {
+	color: red !important;
+	text-decoration: underline !important;
+}
+
 p {
 	font-family: 'Coda', sans-serif;
 }
 
+p.error {
+	color: red !important;
+}
+	
 ul {
 	list-style: none;
 }
@@ -45,6 +54,7 @@ form {
 	
 	font-size: 16px;
 }
+
 input, textarea {
  	background: #68434F;
 	padding: 3px;
@@ -105,7 +115,7 @@ div.locationHeader p {
 	
 div#content {
 	padding: 30px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 ul#commandList {

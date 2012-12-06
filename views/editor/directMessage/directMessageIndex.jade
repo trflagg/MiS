@@ -1,0 +1,12 @@
+//extends layout
+
+block content
+
+	h2 Direct Messages
+	ul
+		li: a(href='#', onclick='ajaxRequest("/editor/directmessage/new")') New
+		each message, i in messages
+			- var editUrl = "/editor/directmessage/" + message._id +"/edit"
+			- var deleteUrl = "/editor/directmessage/" + message._id
+			li: a(href='#', onclick='ajaxRequest("#{editUrl}");') Subject: #{message.subject} &nbsp; 
+				a(href='#', onclick='answer=confirm("Are you sure you want to delete #{message.subject}?")?ajaxRequest("#{deleteUrl}", "DELETE"):""').deleteLink DELETE
