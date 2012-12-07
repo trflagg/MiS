@@ -8,7 +8,10 @@ validateName = function()
 	if (event.keyCode==13)
 	{
 		//enter....
-		alert("Hello");
+		//validate name
+		var name = $('#nameInput').val();
+		if (name.length >= 3)
+			changePage("/start/nameEntry", "POST", {'name':name});
 	}
 	else
 	{
@@ -18,4 +21,12 @@ validateName = function()
 		else
 			$("#nameInstructions").fadeIn('slow');
 	}
+}
+
+onPageOut = function()
+{
+	$("#nameInput").animate({
+		backgroundColor:"#111"
+	}, 3000, "linear");
+	
 }

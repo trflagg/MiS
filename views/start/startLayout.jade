@@ -31,20 +31,33 @@ html
 				$("body").animate({
 						backgroundColor:"#999"
 					}, 2000, "linear", function() {
+						//wait a couple of seconds
+						window.setTimeout( function() {
+							$(".prompt").fadeIn("slow");
+						}, 1000);
 						//load nextURL
+						
 						if (nextURL != "")
 							changePage(nextURL);
 					});
 			});
 			
-			function changePage(url) 
+			function changePage(url, method, data) 
 			{
+				//run method
+				if ("onPageOut" in window)
+				{
+					onPageOut();
+				}
+
 				//fade out
 				$("body").animate({
 						backgroundColor:"#000"
 					}, 2000, "swing", function() {
+
 						//load URL
-						ajaxRequest(url);
+						ajaxRequest(url, method, data);
+						
 					});
 			}
 			
@@ -53,7 +66,7 @@ html
 				//if string, just replace content
 				if (typeof returnedData == "string")
 				{
-					$("#content").html(newPageData);
+					$("#content").html(returnedData);
 				}
 				else
 				{
@@ -76,9 +89,11 @@ html
 	// content
 	div#content
 		div.container#titleScreen
-			div.row
+			div.row#firstRow
 				div.twelvecol.last
 					h1 Make 
-			div.row
-				div.twelvecol.last.
+			div.row#secondRow
+				div.twelvecol.last
 					<h1>it so</h1> <p> by hi-scor.es</p>
+		div.center
+			p.prompt (click to continue)

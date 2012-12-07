@@ -74,7 +74,7 @@ module.exports = function (mongoose) {
 	/* GameSchema */
 	var GameSchema = new Schema({
 		dateStarted		: { type: Date },
-		captain			: { type: String, required: true },
+		name			: { type: String, required: true },
 		
 		//Array of Ship Documents
 		ships			: [ { } ], 

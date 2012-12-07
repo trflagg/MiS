@@ -3,6 +3,14 @@ body
 	background-color: #000;
 }
 
+p.prompt
+{
+	text-align: center;
+	font-family: 'Coda', sans;
+	font-size: 20px;
+	display: none;
+}
+
 #titleScreen h1 
 {
 	font-family: 'Audiowide', sans;
@@ -21,20 +29,30 @@ body
 	padding-left: 45px;
 }
 
-#enterName
+#titleScreen #firstRow
 {
-	text-align: center;
+	margin-top: -30px;
+}
+
+#titleScreen #secondRow
+{
+	margin-top: -100px;
+}
+
+#centerDiv
+{
 	padding-top: 200px;
+	text-align: center;
 }
 
 
-#enterName h2
+#centerDiv h2
 {
 	font-family: 'Coda', sans;
 	font-size: 30px;
 }
 
-#enterName p
+#centerDiv p
 {
 	font-size: 20px;
 	margin-top: 100px;
