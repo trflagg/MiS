@@ -1,7 +1,20 @@
+//runs on page load
 $("#nameInput").focus();
+$("body").animate({
+	backgroundColor:"#999"
+}, 2000, "linear");
 $("#nameInput").animate({
 	backgroundColor:"#999"
 }, 2000, "linear");
+
+/*
+onPageOut = function()
+{
+	$("#nameInput").animate({
+		backgroundColor:"#111"
+		}, 3000, "linear");
+}
+*/
 
 validateName = function() 
 {
@@ -21,12 +34,4 @@ validateName = function()
 		else
 			$("#nameInstructions").fadeIn('slow');
 	}
-}
-
-onPageOut = function()
-{
-	$("#nameInput").animate({
-		backgroundColor:"#111"
-	}, 3000, "linear");
-	
 }

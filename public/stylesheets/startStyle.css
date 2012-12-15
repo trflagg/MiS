@@ -9,6 +9,7 @@ p.prompt
 	font-family: 'Coda', sans;
 	font-size: 20px;
 	display: none;
+	color: #000;
 }
 
 #titleScreen h1 
@@ -43,6 +44,7 @@ p.prompt
 {
 	padding-top: 200px;
 	text-align: center;
+	color: #000;
 }
 
 

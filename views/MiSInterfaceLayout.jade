@@ -1,0 +1,35 @@
+
+script(type="text/javascript", src="/javascripts/MiSInterface.js")
+
+//header
+div.header
+	div.container
+		div.row
+			div.tencol
+				h1#headerText &nbsp;
+				div.headerLine
+			div.twocol.last#menu
+				p Captain &lt;Captain&gt;
+				p: a(href="#") &nbsp;
+				p: a(href="#") logout
+
+// location header
+div.container
+	div.row
+		div.twelvecol.last
+			div.locationHeader
+				p#locationLabel Current Location:
+				p#locationName &nbsp;
+				p#locationInfo &nbsp;
+				
+// main body
+div.mainBody
+	div.container
+		div.row
+			div.threecol
+				div#commands
+					// commands
+					ul#commandList
+			div.ninecol.last
+				div#bodyContent
+					block interfaceContent

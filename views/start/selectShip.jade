@@ -1,0 +1,15 @@
+
+//set default
+- if (!name) var name = ""
+
+div#centerDiv
+	h2 Captain #{name}, 
+	h2 please select your ship:
+	select
+		each ship, i in ships:
+			option #{ship}
+	
+	p #{err}
+	div#nameInstructions(style="display:none")
+		//make this say 'tap to continue' for iOS
+		p (press Enter to continue)

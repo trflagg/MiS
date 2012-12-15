@@ -10,7 +10,7 @@ function updatePageUI(newPageData)
 	if (typeof newPageData == "string")
 	{
 		pageUI.content = newPageData;
-		$("#content").html(newPageData);
+		$("#bodyContent").html(newPageData);
 	}
 	
 	reloadColors();
@@ -23,19 +23,19 @@ function loadPageUI(newPageUI)
 {
 	pageUI = newPageUI;
 	
-	setHeader(pageUI.header.text);
+	setHeader(pageUI.header);
 	setLocation(pageUI.locationHeader);
 	loadCommands(pageUI.commands);
-	$("#content").html(pageUI.content);
+	$("#bodyContent").html(pageUI.content);
 	reloadColors();
 }
 
 /**
  * setHeader()
  */
-function setHeader(headerText)
+function setHeader(header)
 {
-	$("#headerText").html(headerText)
+	$("#headerText").html(header.text)
 }
 
 /**
@@ -43,6 +43,13 @@ function setHeader(headerText)
  */
 function setLocation(locationInfo)
 {
+	if('showLabel' in locationInfo)
+	{
+		if (!locationInfo.showLabel)
+		{
+			$("p#locationLabel").css("display", "none");
+		}
+	}
 	$("#locationName").html(locationInfo.locationName);
 	$("#locationInfo").html(locationInfo.description);
 }
@@ -93,5 +100,5 @@ function resizeFrame()
     var h = $(window).height();
     var w = $(window).width();
     $("div#commands").css('height', h - 200);
-    $("div#content").css('height', h - 250);
+    $("div#bodyContent").css('height', h - 250);
 }

@@ -13,7 +13,7 @@ module.exports = function (app, service) {
 		if (req.cookies.game)
 		{
 			req.session.game = req.cookies.game;
-			nextURL = "/start/shipSelect";
+			nextURL = "/start/startInterface";
 		}
 		else
 		{
@@ -23,7 +23,7 @@ module.exports = function (app, service) {
 			//res.clearCookie('game')
 			nextURL = "/start/nameEntry";
 		}
-		res.render('./start/startLayout', { 'nextURL' : nextURL});
+		res.render('./start/startIndex', { 'nextURL' : nextURL});
 	}
 	
 	/**
@@ -33,13 +33,17 @@ module.exports = function (app, service) {
 	function deleteCookie(req, res)
 	{
 		var game = req.cookies.game
-		res.clearCookie('game');
-		res.send("Cookie deleted");
 		//delete game
+		res.clearCookie('game');
+		Game.findByIdAndRemove(game, function(err, game) {
+			console.log(game);
+			err = err || "";
+			res.send("Cookie deleted.  Err:"+err);
+		});
 	}
 		
 	/**
-	 * GET /start/newGame
+	 * GET /start/nameEntry
 	 */
 	app.get('/start/nameEntry', nameEntry);
 	function nameEntry(req, res) 
@@ -48,7 +52,7 @@ module.exports = function (app, service) {
 	};
 	
 	/**
-	 * POST /start/newGame
+	 * POST /start/nameEntry
 	 */
 	app.post('/start/nameEntry', nameEntryPOST);
 	function nameEntryPOST(req, res) {
@@ -65,8 +69,6 @@ module.exports = function (app, service) {
 						name : name,
 						dateStarted: new Date()
 					}, function(err, newGame) {
-						console.log(err);
-						console.log(newGame);
 						if (err)
 						{
 							sendJadeAndJS('./views/start/nameEntry', res, {err: err});
@@ -96,41 +98,111 @@ module.exports = function (app, service) {
 	
 		
 	/**
-	 * GET /start/shipSelect
+	 * GET /start/startInterface
 	 */
-	app.get('/start/shipSelect', shipSelect)
-	function shipSelect(req, res) {
+	app.get('/start/startInterface', startInterface)
+	function startInterface(req, res) {
 		//check session
 		if (req.session.game)
 		{
 			//find game
 			Game.findById(req.session.game, function(err, game) {
-				if (err)
+				if (err || (game == null))
 				{
+					console.log("Error getting game: "+ err);
 					start(req, res);
 				}
 				else
 				{
 					console.log(game);
-					sendJadeAndJS('./views/start/shipSelect', res, {'name' : game.name});
+					sendJadeAndJS('./views/start/startInterface', res, {defaultURL: "/start/selectShip", name:game.name});
 				}
 			});
 					
 		}
 		else
 		{
+			console.log("No game found.");
 			start(req, res);
 		}
 	}
+	
+	
+	/**
+	 * GET /start/selectShip
+	 */
+	app.get('/start/selectShip', selectShip)
+	function selectShip(req, res) {
+		//check session
+		if (req.session.game)
+		{
+			//find game
+			Game.findById(req.session.game, function(err, game) {
+				if (err || (game == null))
+				{
+					console.log("Error getting game: "+ err);
+					start(req, res);
+				}
+				else
+				{
+					console.log(game);
+					res.render('./start/selectShip', {
+						ships: game.ships,
+						name : game.name
+					});
+				}
+			});
+					
+		}
+		else
+		{
+			console.log("No game found.");
+			start(req, res);
+		}
+	}
+	
+	/**
+	 * GET /start/newShip
+	 */
+	app.get('/start/newShip', newShip)
+	function newShip(req, res) {
+		//check session
+		if (req.session.game)
+		{
+			//find game
+			Game.findById(req.session.game, function(err, game) {
+				if (err || (game == null))
+				{
+					console.log("Error getting game: "+ err);
+					start(req, res);
+				}
+				else
+				{
+					console.log(game);
+					res.render('./start/shipForm', {ships: game.ships});
+				}
+			});
+					
+		}
+		else
+		{
+			console.log("No game found.");
+			start(req, res);
+		}
+	}
+	
+	
+	
+	
 	
 	/**
 	 * sendJadeAndJS()
 	 */
 	function sendJadeAndJS(viewPath, res, locals) {
 		locals = locals || {};
-		
+		console.log("rendering viewPath: "+viewPath)
 		//read the jade and js files
-		fs.readFile(viewPath+'.jade', 'utf8', function (err,jadeResult) {
+		fs.readFile(viewPath+'.jade', 'utf8', function (err,jadeHTML) {
 			if (err) {
 				console.log(err);
 				res.send(err);
@@ -140,7 +212,11 @@ module.exports = function (app, service) {
 					console.log(err);
 					res.send(err);
 				}	
-				var fn = jade.compile(jadeResult);
+				var opts = { 
+					pretty: true,
+					filename: viewPath+'.jade',
+				}
+				var fn = jade.compile(jadeHTML, opts);
 				var html = fn(locals);
 				//send html and javascript
 				res.send({

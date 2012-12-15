@@ -1,19 +1,17 @@
-include ../layout
+include ../MiSInterfaceLayout
 
-script
+script(type="text/javascript")
 	var defaultPageUI = {
 		header : {
 			text : "Make it So",
 		},
 		locationHeader : {
-			locationName : "Editor",
-			description : "I Have The Power!!!"
+			locationName : "Captain #{name}",
+			description : "",
+			showLabel : false,
 		},
 		commands : [
-			{
-				text: 'System',
-				url: '/editor/system',
-			},
+		/*
 			{
 				text: 'Direct Message',
 				url: '/editor/directmessage',
@@ -23,8 +21,10 @@ script
 					url: '/editor/directmessage/new/',
 				}]
 			}
+		
+		*/
 		],
-		content : "<h2>Editor</h2>",
+		content : "<h2>Select your ship</h2>",
 		colors : [
 			{
 				value : "#999",
@@ -57,9 +57,8 @@ script
 		]
 	}
 
-	/**
-	* $(function()
-	*/
-	$(function() {
-		loadPageUI(defaultPageUI);
-	})
+	
+	var defaultURL = "#{defaultURL}" || "";
+	console.log(defaultURL);
+	ajaxRequest(defaultURL);
+

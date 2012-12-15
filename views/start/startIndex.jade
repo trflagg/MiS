@@ -1,0 +1,78 @@
+extends ../MiSLayout
+
+block append header
+	link(rel='stylesheet', href='/stylesheets/startStyle.css',  type="text/css")
+	script(type="text/javascript")
+		var nextURL = "#{nextURL}" || ""
+		$(function() {
+			$("body").animate({
+					backgroundColor:"#999"
+				}, 2000, "linear", function() {
+					//wait a couple of seconds
+					window.setTimeout( function() {
+						$(".prompt").fadeIn("slow");
+					}, 1000);
+					//load nextURL
+					//will be onkeydown
+					if (nextURL != "")
+						changePage(nextURL);
+				});
+		});
+		
+		onPageOut = function()
+		{
+			$("#nameInput").animate({
+				backgroundColor:"#111"
+				}, 3000, "linear");
+		}
+		
+		function changePage(url, method, data) 
+		{
+			//run method
+			if ("onPageOut" in window)
+			{
+				onPageOut();
+			}
+		
+			//fade out
+			$("body").animate({
+					backgroundColor:"#000"
+				}, 2000, "swing", function() {
+		
+					//load URL
+					ajaxRequest(url, method, data);
+					
+				});
+		}
+		
+		function updatePageUI(returnedData) 
+		{
+			//if string, just replace content
+			if (typeof returnedData == "string")
+			{
+				$("#content").html(returnedData);
+			}
+			else
+			{
+				if (returnedData.html)
+				{
+					$("#content").html(returnedData.html);
+				}
+				if (returnedData.js)
+				{
+					eval(returnedData.js);
+				}
+			}
+		}
+
+block content
+	div.container#titleScreen
+		div.row#firstRow
+			div.twelvecol.last
+				h1 Make 
+		div.row#secondRow
+			div.twelvecol.last
+				<h1>it so</h1> <p> by hi-scor.es</p>
+	div.center
+		p.prompt (click to continue)
+	

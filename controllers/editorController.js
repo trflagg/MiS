@@ -7,6 +7,6 @@ module.exports = function (app, service) {
 	 */
 	
 	app.get('/editor/', function(req, res) {
-		res.render('./editor/editorLayout');
+		res.render('./editor/editorIndex');
 	});
 }
