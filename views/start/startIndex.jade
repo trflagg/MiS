@@ -19,29 +19,23 @@ block append header
 				});
 		});
 		
+		/*
 		onPageOut = function()
 		{
 			$("#nameInput").animate({
 				backgroundColor:"#111"
 				}, 3000, "linear");
 		}
-		
+		*/
 		function changePage(url, method, data) 
 		{
-			//run method
-			if ("onPageOut" in window)
-			{
-				onPageOut();
-			}
-		
-			//fade out
+			
 			$("body").animate({
 					backgroundColor:"#000"
 				}, 2000, "swing", function() {
 		
 					//load URL
 					ajaxRequest(url, method, data);
-					
 				});
 		}
 		

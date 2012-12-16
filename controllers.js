@@ -7,6 +7,7 @@ module.exports = function(app, service, environment){
 	require('./controllers/testController')(app, service);
 	require('./controllers/directMessageController')(app, service);
 	require('./controllers/editorController')(app, service);
+	require('./controllers/gameController')(app, service);
 	require('./controllers/startController')(app, service);
 	
 	var directMessages = app.resource('editor/directmessage', require('./controllers/directMessageResource')(app, service));

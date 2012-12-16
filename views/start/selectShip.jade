@@ -1,12 +1,13 @@
 
-//set default
+//set defaults
+- if (!err) var err = ""
 - if (!name) var name = ""
 
 div#centerDiv
 	h2 Captain #{name}, 
 	h2 please select your ship:
 	select
-		each ship, i in ships:
+		each ship, i in ships
 			option #{ship}
 	
 	p #{err}

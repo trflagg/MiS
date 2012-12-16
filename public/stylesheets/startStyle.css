@@ -3,6 +3,10 @@ body
 	background-color: #000;
 }
 
+td {
+	vertical-align: middle;
+}
+
 p.prompt
 {
 	text-align: center;
@@ -54,7 +58,7 @@ p.prompt
 	font-size: 30px;
 }
 
-#centerDiv p
+#centerDiv p, td
 {
 	font-size: 20px;
 	margin-top: 100px;
@@ -76,6 +80,15 @@ p.prompt
 	border-right-width: 3px;
 	padding-left: 5px;
 	padding-right: 5px;
+	font-family: 'Coda', sans;
+}
+
+.crewInput {
+	background: #999;
+	font-size: 20px;
+	border-left-width: 2px;
+	border-right-width: 2px;
+	color: #111;
 	font-family: 'Coda', sans;
 }
 

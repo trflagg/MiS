@@ -2,6 +2,10 @@ module.exports = function (app, service) {
 	var jade = require('jade');
 	var fs = require('fs');
 	var Game = service.useModel('game').Game;
+	var Ship = service.useModel('game').Ship;
+	var CrewMember = service.useModel('game').CrewMember;
+	var ShipControl = service.useModel('game').ShipControl;
+	
 	/**
 	 * GET /start/
 	 */
@@ -13,7 +17,7 @@ module.exports = function (app, service) {
 		if (req.cookies.game)
 		{
 			req.session.game = req.cookies.game;
-			nextURL = "/start/startInterface";
+			nextURL = "/start/selectShip";
 		}
 		else
 		{
@@ -80,7 +84,7 @@ module.exports = function (app, service) {
 							res.cookie('game', newGame._id);
 							req.session.game = newGame._id;
 							//forward to selectShip
-							shipSelect(req, res);
+							selectShip(req, res);
 						}
 				});
 							
@@ -146,10 +150,18 @@ module.exports = function (app, service) {
 				else
 				{
 					console.log(game);
-					res.render('./start/selectShip', {
-						ships: game.ships,
-						name : game.name
-					});
+					//do we have any ships?
+					if (game.ships.length > 0)
+					{
+						res.render('./start/selectShip', {
+							ships: game.ships,
+							name : game.name
+						});
+					}
+					else
+					{
+						newShip(req, res);
+					}
 				}
 			});
 					
@@ -179,7 +191,69 @@ module.exports = function (app, service) {
 				else
 				{
 					console.log(game);
-					res.render('./start/shipForm', {ships: game.ships});
+					sendJadeAndJS('./views/start/newShip', res, {
+						ships: game.ships, 
+						name: game.name
+					});
+				}
+			});
+					
+		}
+		else
+		{
+			console.log("No game found.");
+			start(req, res);
+		}
+	}
+	
+	/**
+	 * POST /start/newShip
+	 */
+	app.post('/start/newShip', newShipPOST)
+	function newShipPOST(req, res) {
+		//check session
+		if (req.session.game)
+		{
+			//find game
+			Game.findById(req.session.game, function(err, game) {
+				if (err || (game == null))
+				{
+					console.log("Error getting game: "+ err);
+					start(req, res);
+				}
+				else
+				{
+					//create new ship
+					//need validation!!!
+					Ship.create({
+						name : req.body.shipName,
+						security : new CrewMember({ name : req.body.security }),
+						medical : new CrewMember({ name : req.body.medical }),
+						info : new CrewMember({ name : req.body.info }),
+						empat : new CrewMember({ name : req.body.empat }),
+						engineering : new CrewMember({ name : req.body.engineering }),
+						cultural : new CrewMember({ name : req.body.cultural }),
+						weapons : new ShipControl(),
+						shields : new ShipControl(),
+						sensors : new ShipControl(),
+						databank : new ShipControl(),
+						processors : new ShipControl()
+					}, function(err, newShip) {
+						if (err)
+						{
+							//need better error handling here
+							res.send(err);
+						}
+						else
+						{
+							//start the game!
+							req.session.ship = newShip._id;
+							game.ships.push(newShip);
+							//add error handling!
+							game.save();
+							res.redirect('/game');
+						}
+					});
 				}
 			});
 					

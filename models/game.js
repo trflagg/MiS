@@ -35,6 +35,9 @@ module.exports = function (mongoose) {
 		//list for all global variables
 		globals			: {},
 		
+		//name
+		name			: {type: String},
+		
 		//Location
 		location		: Schema.Types.ObjectId,
 		
@@ -46,12 +49,12 @@ module.exports = function (mongoose) {
 		processors		: {  },
 		
 		//To be filled with a CrewMember subdocument
-		securityOfficer		: {  },
-		medicalOfficer		: {  },
+		security			: {  },
+		medical				: {  },
 		empat				: {  },
-		engineeringOfficer	: {  },
-		culturalExpert		: {  },
-		informationOfficer	: {  },
+		engineering			: {  },
+		cultural			: {  },
+		info				: {  },
 		
 	});
 	
@@ -64,6 +67,7 @@ module.exports = function (mongoose) {
 		this[position] = member;
 		return this;
 	};
+	
 	
 	
 	modelObject.Ship = mongoose.model('Ship', ShipSchema);
