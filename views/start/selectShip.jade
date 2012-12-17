@@ -6,10 +6,12 @@
 div#centerDiv
 	h2 Captain #{name}, 
 	h2 please select your ship:
-	select
+	select#shipSelect
 		each ship, i in ships
-			option #{ship}
-	
+			option(value="#{ship._id}") #{ship.name}
+	a(href="#", onclick="changePage('/start/newShip')") New Ship
+	a(href="#", onclick="changePage('/start/selectShip','POST',{ship: $('#shipSelect').val()})") Make it so
+
 	p #{err}
 	div#nameInstructions(style="display:none")
 		//make this say 'tap to continue' for iOS

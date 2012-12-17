@@ -6,7 +6,7 @@ module.exports = function (app, service) {
 	/**
 	 * GET /game/
 	 */
-	app.get('/game/', game);
+	app.get('/game', game);
 	function game(req, res) {
 		sendJadeAndJS('./views/game/gameIndex', res);
 	}

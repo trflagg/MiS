@@ -4,6 +4,7 @@ var fs = require('fs');
 
 module.exports = function(app, service, environment){
 	
+	//based on code from https://github.com/dtryon/clog/blob/master/src/controllers.js
 	require('./controllers/testController')(app, service);
 	require('./controllers/directMessageController')(app, service);
 	require('./controllers/editorController')(app, service);

@@ -1,6 +1,7 @@
 module.exports = function (app, service) {
 	var jade = require('jade');
 	var fs = require('fs');
+	var middleware = require('./middleware');
 	var Game = service.useModel('game').Game;
 	var Ship = service.useModel('game').Ship;
 	var CrewMember = service.useModel('game').CrewMember;
@@ -58,7 +59,9 @@ module.exports = function (app, service) {
 	/**
 	 * POST /start/nameEntry
 	 */
-	app.post('/start/nameEntry', nameEntryPOST);
+	app.post('/start/nameEntry', 
+		middleware.requireParams(["name"]), 
+		nameEntryPOST);
 	function nameEntryPOST(req, res) {
 		//check for name
 		if (req.body)
@@ -83,6 +86,7 @@ module.exports = function (app, service) {
 							//store id in cookie and session
 							res.cookie('game', newGame._id);
 							req.session.game = newGame._id;
+							req.game = newGame;
 							//forward to selectShip
 							selectShip(req, res);
 						}
@@ -104,166 +108,115 @@ module.exports = function (app, service) {
 	/**
 	 * GET /start/startInterface
 	 */
-	app.get('/start/startInterface', startInterface)
+	app.get('/start/startInterface', 
+		middleware.requireGame(service), 
+		startInterface)
 	function startInterface(req, res) {
-		//check session
-		if (req.session.game)
-		{
-			//find game
-			Game.findById(req.session.game, function(err, game) {
-				if (err || (game == null))
-				{
-					console.log("Error getting game: "+ err);
-					start(req, res);
-				}
-				else
-				{
-					console.log(game);
-					sendJadeAndJS('./views/start/startInterface', res, {defaultURL: "/start/selectShip", name:game.name});
-				}
-			});
-					
-		}
-		else
-		{
-			console.log("No game found.");
-			start(req, res);
-		}
+		console.log(req.game);
+		sendJadeAndJS('./views/start/startInterface', res, {defaultURL: "/start/selectShip", name: req.game.name});
 	}
 	
 	
 	/**
 	 * GET /start/selectShip
 	 */
-	app.get('/start/selectShip', selectShip)
+	app.get('/start/selectShip', 
+		middleware.requireGame(service), 
+		selectShip)
 	function selectShip(req, res) {
-		//check session
-		if (req.session.game)
+		console.log(req.game);
+		//do we have any ships?
+		if (req.game.ships.length > 0)
 		{
-			//find game
-			Game.findById(req.session.game, function(err, game) {
-				if (err || (game == null))
-				{
-					console.log("Error getting game: "+ err);
-					start(req, res);
-				}
-				else
-				{
-					console.log(game);
-					//do we have any ships?
-					if (game.ships.length > 0)
-					{
-						res.render('./start/selectShip', {
-							ships: game.ships,
-							name : game.name
-						});
-					}
-					else
-					{
-						newShip(req, res);
-					}
-				}
+			sendJadeAndJS('./views/start/selectShip', res, {
+				ships: req.game.ships, 
+				name: req.game.name
 			});
-					
 		}
 		else
 		{
-			console.log("No game found.");
-			start(req, res);
+			newShip(req, res);
 		}
+	}
+	
+	
+	/**
+	 * POST /start/selectShip
+	 */
+	app.post('/start/selectShip', 
+		middleware.requireParams(["ship"]), 
+		middleware.requireGame(service),
+		selectShipPOST)
+	function selectShipPOST(req, res) {
+		//set session
+		req.session.ship = req.body.ship;
+		//start the game!
+		res.redirect('/game');
 	}
 	
 	/**
 	 * GET /start/newShip
 	 */
-	app.get('/start/newShip', newShip)
+	app.get('/start/newShip', 
+		middleware.requireGame(service),
+		newShip)
 	function newShip(req, res) {
-		//check session
-		if (req.session.game)
-		{
-			//find game
-			Game.findById(req.session.game, function(err, game) {
-				if (err || (game == null))
-				{
-					console.log("Error getting game: "+ err);
-					start(req, res);
-				}
-				else
-				{
-					console.log(game);
-					sendJadeAndJS('./views/start/newShip', res, {
-						ships: game.ships, 
-						name: game.name
-					});
-				}
-			});
-					
-		}
-		else
-		{
-			console.log("No game found.");
-			start(req, res);
-		}
+		console.log(req.game);
+		sendJadeAndJS('./views/start/newShip', res, {
+			ships: req.game.ships, 
+			name: req.game.name
+		});
 	}
 	
 	/**
 	 * POST /start/newShip
 	 */
-	app.post('/start/newShip', newShipPOST)
+	app.post('/start/newShip', 
+		middleware.requireParams([
+			"shipName",
+			"security",
+			"medical",
+			"info",
+			"empat",
+			"engineering",
+			"cultural"]), 
+		middleware.requireGame(service),
+		newShipPOST)
 	function newShipPOST(req, res) {
-		//check session
-		if (req.session.game)
-		{
-			//find game
-			Game.findById(req.session.game, function(err, game) {
-				if (err || (game == null))
-				{
-					console.log("Error getting game: "+ err);
-					start(req, res);
-				}
-				else
-				{
-					//create new ship
-					//need validation!!!
-					Ship.create({
-						name : req.body.shipName,
-						security : new CrewMember({ name : req.body.security }),
-						medical : new CrewMember({ name : req.body.medical }),
-						info : new CrewMember({ name : req.body.info }),
-						empat : new CrewMember({ name : req.body.empat }),
-						engineering : new CrewMember({ name : req.body.engineering }),
-						cultural : new CrewMember({ name : req.body.cultural }),
-						weapons : new ShipControl(),
-						shields : new ShipControl(),
-						sensors : new ShipControl(),
-						databank : new ShipControl(),
-						processors : new ShipControl()
-					}, function(err, newShip) {
-						if (err)
-						{
-							//need better error handling here
-							res.send(err);
-						}
-						else
-						{
-							//start the game!
-							req.session.ship = newShip._id;
-							game.ships.push(newShip);
-							//add error handling!
-							game.save();
-							res.redirect('/game');
-						}
-					});
-				}
-			});
-					
-		}
-		else
-		{
-			console.log("No game found.");
-			start(req, res);
-		}
+		//create new ship
+		//need some validation?
+		console.log(req.body);
+		Ship.create({
+			name : req.body.shipName,
+			security : new CrewMember({ name : req.body.security }),
+			medical : new CrewMember({ name : req.body.medical }),
+			info : new CrewMember({ name : req.body.info }),
+			empat : new CrewMember({ name : req.body.empat }),
+			engineering : new CrewMember({ name : req.body.engineering }),
+			cultural : new CrewMember({ name : req.body.cultural }),
+			weapons : new ShipControl(),
+			shields : new ShipControl(),
+			sensors : new ShipControl(),
+			databank : new ShipControl(),
+			processors : new ShipControl()
+		}, function(err, newShip) {
+			if (err)
+			{
+				//need better error handling here
+				res.send(err);
+			}
+			else
+			{
+				//start the game!
+				req.session.ship = newShip._id;
+				req.game.ships.push(newShip);
+				//add error handling!
+				req.game.save();
+				res.redirect('/game');
+			}
+		});
 	}
+	
 	
 	
 	

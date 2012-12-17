@@ -40,6 +40,7 @@ validateName = function()
 			var empat = $('#empat').val();
 			var engineering = $('#engineering').val();
 			var cultural = $('#cultural').val();
+			var shipName = $('#nameInput').val();
 			if (security.length >= 3 &&
 				medical.length >= 3 &&
 				info.length >= 3 &&
@@ -48,6 +49,9 @@ validateName = function()
 				cultural.length >= 3)
 			{
 				//send data
+				$('input').animate({
+					backgroundColor:"#000"
+				}, 2000, "swing")
 				changePage("/start/newShip", "POST", {
 					shipName : shipName,
 					security : security,
