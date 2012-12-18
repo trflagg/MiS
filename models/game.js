@@ -1,7 +1,8 @@
 
 module.exports = function (mongoose) {
 	var modelObject = {};
-	var Schema = mongoose.Schema;
+	var Schema = mongoose.Schema
+	  , ObjectId = Schema.ObjectId;
 
 	/*********************/
 	/* CrewMember		 */
@@ -39,7 +40,9 @@ module.exports = function (mongoose) {
 		name			: {type: String},
 		
 		//Location
-		location		: Schema.Types.ObjectId,
+		location		: {
+			id : Schema.Types.ObjectId,
+			variables : {} },
 		
 		//To be filled with a ShipControl subdocument
 		weapons			: {  },
@@ -56,6 +59,17 @@ module.exports = function (mongoose) {
 		cultural			: {  },
 		info				: {  },
 		
+		//current quest
+		quest : Schema.Types.ObjectId,
+		
+		//direct messages
+		directMessages : [{
+			id : Schema.Types.ObjectId,
+			read : Boolean
+		}],
+		
+		//message just previously run
+		lastMessage : Schema.Types.ObjectId,
 	});
 	
 	ShipSchema.methods.addShipControl = function(controlName, control) {
