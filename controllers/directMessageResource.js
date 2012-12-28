@@ -1,5 +1,6 @@
 module.exports = function (app, service) {
 	var DirectMessage = service.useModel('directMessage').DirectMessage;
+	var middleware = require('./middleware');
 	var resource = {};
 
 	/**
@@ -84,6 +85,7 @@ module.exports = function (app, service) {
 	   		else
 	   		{
 	   			//success!
+				console.log(foundMessage);
 				res.render('./editor/directMessage/directMessageForm', {
 					title : "Edit Direct Message",
 					formMethod : "PUT",

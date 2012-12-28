@@ -10,13 +10,13 @@ module.exports = function (mongoose) {
 
 	var MessageProps = require('../models/message')(mongoose).MessageProps;
 	
-	var DirectMessageProps = {
-		subject			: String,
-		from			: String,
+	var CrewCommandProps = {
+		control			: String,
+		name			: String,
 	};
-	DirectMessageProps = _.extend(DirectMessageProps, MessageProps);
-	var DirectMessageSchema = new Schema(DirectMessageProps);
+	CrewCommandProps = _.extend(CrewCommandProps, MessageProps);
+	var CrewCommandSchema = new Schema(CrewCommandProps);
 
-	modelObject.DirectMessage = mongoose.model('DirectMessage', DirectMessageSchema);
+	modelObject.CrewCommand = mongoose.model('CrewCommand', CrewCommandSchema);
 	return modelObject;
 }

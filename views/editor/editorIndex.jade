@@ -1,6 +1,7 @@
 extends ../MiSLayout
 
 block append header
+	script(src="/javascripts/libs/expanding.js")
 	script(type="text/javascript")
 		var defaultPageUI = {
 			header : {
@@ -12,11 +13,23 @@ block append header
 			},
 			commands : [
 				{
-					text: 'System',
+					text: 'Systems',
 					url: '/editor/system',
 				},
 				{
-					text: 'Direct Message',
+					text: 'Quests',
+					url: '/editor/quest',
+				},
+				{
+					text: 'Crew Command',
+					url: '/editor/crewcommand',
+				},
+				{
+					text: 'Ship Command',
+					url: '/editor/shipcommand',
+				},
+				{
+					text: 'Direct Messages',
 					url: '/editor/directmessage',
 					subcommands: [
 					{

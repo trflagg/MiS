@@ -8,12 +8,14 @@ module.exports = function (mongoose) {
 	var Schema = mongoose.Schema
 	  , ObjectId = Schema.ObjectId;
 
-	var LocationProps = require('../models/location')(mongoose).LocationProps;
+	var MessageProps = require('../models/message')(mongoose).MessageProps;
 	
 	var SystemProps = {
-		
+		name				: { type: String, required : true},
+		description			: { type: String, required : true},
+		locationName 		: String,
 	};
-	SystemProps = _.extend(SystemProps, LocationProps);
+	SystemProps = _.extend(SystemProps, MessageProps);
 	var SystemSchema = new Schema(SystemProps);
 
 	modelObject.System = mongoose.model('System', SystemSchema);

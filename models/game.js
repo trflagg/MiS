@@ -4,6 +4,10 @@ module.exports = function (mongoose) {
 	var Schema = mongoose.Schema
 	  , ObjectId = Schema.ObjectId;
 
+	/**
+	 * MessageContainer
+	 */
+	
 	/*********************/
 	/* CrewMember		 */
 	var positions = ["securityOfficer", "medicalOfficer", "empat", "engineeringOfficer", "culturalExpert", "informationOfficer"];
@@ -13,6 +17,7 @@ module.exports = function (mongoose) {
 		level			: { type: Number, default: 1 },
 		position		: { type: String, enum: positions },
 		
+		messages		: [{ }],
 		
 	});
 	modelObject.CrewMember = mongoose.model('CrewMember', CrewMemberSchema);
@@ -24,6 +29,8 @@ module.exports = function (mongoose) {
 	
 	var ShipControlSchema = new Schema({
 		level			: {type: Number, default: 1},
+		
+		messages		: [{ }],
 		
 	});
 	modelObject.ShipControl = mongoose.model('ShipControl', ShipControlSchema);	
@@ -38,11 +45,6 @@ module.exports = function (mongoose) {
 		
 		//name
 		name			: {type: String},
-		
-		//Location
-		location		: {
-			id : Schema.Types.ObjectId,
-			variables : {} },
 		
 		//To be filled with a ShipControl subdocument
 		weapons			: {  },
@@ -59,8 +61,14 @@ module.exports = function (mongoose) {
 		cultural			: {  },
 		info				: {  },
 		
+		//system
+		system			: {},
+		
+		//Location
+		location		: {},
+		
 		//current quest
-		quest : Schema.Types.ObjectId,
+		quest 			: {},
 		
 		//direct messages
 		directMessages : [{
@@ -69,19 +77,8 @@ module.exports = function (mongoose) {
 		}],
 		
 		//message just previously run
-		lastMessage : Schema.Types.ObjectId,
+		lastMessage : String,
 	});
-	
-	ShipSchema.methods.addShipControl = function(controlName, control) {
-		this[controlName] = control;
-		return this;
-	};
-	
-	ShipSchema.methods.addCrewMember = function(position, member) {
-		this[position] = member;
-		return this;
-	};
-	
 	
 	
 	modelObject.Ship = mongoose.model('Ship', ShipSchema);

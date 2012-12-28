@@ -30,8 +30,7 @@ module.exports.runTest = function(callback) {
 	var newMessage = new directMessage.DirectMessage({
 		subject	: "Upon arrival at Struven",
 		from	: "Arthurian Delegation",
-		date	: "35811411",
-		text	: "Captain,78 hours ago, a 22 year-old Kruger female was reported dead in her dorm room by her roommate, a 22 year-old Arthurian female."})
+		message	: "Captain,78 hours ago, a 22 year-old Kruger female was reported dead in her dorm room by her roommate, a 22 year-old Arthurian female."})
 	.on('error', function() {
 		console.error.bind(console, 'directMessage error:');
 		endTest();
@@ -70,8 +69,7 @@ module.exports.runTest = function(callback) {
 				directMessage : {
 					subject : "Well done!",
 					from 	: "Arthurian Delegation",
-					date	: "35911411",
-					text	: "You have performed beyond the call of duty! Congratulations!"
+					message	: "You have performed beyond the call of duty! Congratulations!"
 				},
 			},
 		}

@@ -10,10 +10,12 @@ module.exports = function (mongoose) {
 	 * Abstract Class
 	/************/
 	modelObject.MessageProps = {
-		text			: {type : String, required : true},
-		subject			: {type : String, required : true},
-		messageId		: {type : String, required : true}
+		message			: {type : String, required : true},
 	};
+	
+	var MessgeSchema = new Schema(modelObject.MessageProps);
+
+	modelObject.Message = mongoose.model('Message', MessgeSchema);
 	
 	return modelObject;
 };

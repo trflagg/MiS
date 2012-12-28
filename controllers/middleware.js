@@ -46,7 +46,7 @@ function requireGame(service)
 		}
 		else
 		{
-			res.redirect('/start');
+			res.redirect('/start/');
 		}
 	}
 }

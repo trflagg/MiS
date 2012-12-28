@@ -13,6 +13,8 @@ function updatePageUI(newPageData)
 		$("#bodyContent").html(newPageData);
 	}
 	
+	$('input[tabindex="1"]').focus();
+	
 	reloadColors();
 }
 

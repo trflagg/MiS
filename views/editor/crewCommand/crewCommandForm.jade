@@ -1,0 +1,26 @@
+//extends layout
+
+block content
+
+	h2 #{title}
+	
+	//set defaults
+	- if (!locals.command) var command = {control : "",name : "", message : ""};
+	- if (!err) var err = ""
+	
+	p.error #{err}
+	
+	form(method="#{formMethod}", name="command", action="#{formAction}")
+		table
+			tr
+				td Name:
+				td: input(type="text", name="name", tabindex=1, size=50, value="#{command.name}")
+			tr
+				td Control:
+				td: input(type="text", name="control", tabindex=2, size=50, value="#{command.control}")
+			tr
+				td Message:
+				td: textarea(type="text", name="message", tabindex=3, rows=15, cols=60) #{command.message}
+			tr
+				td: input(type="Button", value="Submit", tabindex=5, onclick="ajaxRequest('#{formAction}', '#{formMethod}', {name : this.form.name.value, control : this.form.control.value, message : this.form.message.value},'html')")
+				td: input(type="Button", value="Cancel", onclick="ajaxRequest('/editor/crewcommand/')")

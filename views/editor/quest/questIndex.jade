@@ -1,0 +1,12 @@
+//extends layout
+
+block content
+
+	h2 Quests
+	ul
+		li: a(href='#', onclick='ajaxRequest("/editor/quest/new")') New
+		each quest, i in quests
+			- var editUrl = "/editor/quest/" + quest._id +"/edit"
+			- var deleteUrl = "/editor/quest/" + quest._id
+			li: a(href='#', onclick='ajaxRequest("#{editUrl}");') Name: #{quest.name} &nbsp; 
+				a(href='#', onclick='answer=confirm("Are you sure you want to delete #{quest.name}?")?ajaxRequest("#{deleteUrl}", "DELETE"):""').deleteLink DELETE

@@ -12,6 +12,8 @@ module.exports = function(app, service, environment){
 	require('./controllers/startController')(app, service);
 	
 	var directMessages = app.resource('editor/directmessage', require('./controllers/directMessageResource')(app, service));
+	var directMessages = app.resource('editor/crewcommand', require('./controllers/crewcommandResource')(app, service));
+	var directMessages = app.resource('editor/quest', require('./controllers/questResource')(app, service));
 	var systems = app.resource('editor/system', require('./controllers/systemResource')(app, service));
 	
 	

@@ -1,11 +1,16 @@
 module.exports = function (app, service) {
 	var jade = require('jade');
 	var fs = require('fs');
+	
 	var middleware = require('./middleware');
+	
 	var Game = service.useModel('game').Game;
 	var Ship = service.useModel('game').Ship;
 	var CrewMember = service.useModel('game').CrewMember;
 	var ShipControl = service.useModel('game').ShipControl;
+	var Quest = service.useModel('quest').Quest;
+	
+	var shipHelper = require('../helpers/shipHelper')(service);
 	
 	/**
 	 * GET /start/
@@ -67,6 +72,7 @@ module.exports = function (app, service) {
 		if (req.body)
 		{
 			//get the name
+			console.log(req.body);
 			var name = req.body.name;
 			//server-side validation
 			if (name.length >= 3)
@@ -170,6 +176,8 @@ module.exports = function (app, service) {
 	
 	/**
 	 * POST /start/newShip
+	 * TODO: Error Handling for creation errors
+	 * TODO: Error handling for quest find/mongoose errors
 	 */
 	app.post('/start/newShip', 
 		middleware.requireParams([
@@ -184,21 +192,21 @@ module.exports = function (app, service) {
 		newShipPOST)
 	function newShipPOST(req, res) {
 		//create new ship
-		//need some validation?
+		//need some validation!!!
 		console.log(req.body);
 		Ship.create({
-			name : req.body.shipName,
-			security : new CrewMember({ name : req.body.security }),
-			medical : new CrewMember({ name : req.body.medical }),
-			info : new CrewMember({ name : req.body.info }),
-			empat : new CrewMember({ name : req.body.empat }),
-			engineering : new CrewMember({ name : req.body.engineering }),
-			cultural : new CrewMember({ name : req.body.cultural }),
-			weapons : new ShipControl(),
-			shields : new ShipControl(),
-			sensors : new ShipControl(),
-			databank : new ShipControl(),
-			processors : new ShipControl()
+					name : req.body.shipName,
+					security : new CrewMember({ name : req.body.security }),
+					medical : new CrewMember({ name : req.body.medical }),
+					info : new CrewMember({ name : req.body.info }),
+					empat : new CrewMember({ name : req.body.empat }),
+					engineering : new CrewMember({ name : req.body.engineering }),
+					cultural : new CrewMember({ name : req.body.cultural }),
+					weapons : new ShipControl(),
+					shields : new ShipControl(),
+					sensors : new ShipControl(),
+					databank : new ShipControl(),
+					processors : new ShipControl()
 		}, function(err, newShip) {
 			if (err)
 			{
@@ -210,9 +218,26 @@ module.exports = function (app, service) {
 				//start the game!
 				req.session.ship = newShip._id;
 				req.game.ships.push(newShip);
+				
 				//add error handling!
 				req.game.save();
-				res.redirect('/game');
+				
+				//set starting location
+				shipHelper.setSystemByName(newShip, "Struven", function(err, ship) {
+					console.log("System");
+					console.log(err);
+					console.log(ship);
+					
+					//set starting quest
+					shipHelper.setQuestByName(ship, "Murder on Struven", function(err, ship) {
+						console.log("Quest");
+						console.log(err);
+						console.log(ship);
+						//start the game!
+						res.redirect('/game/');
+					});
+						
+				});
 			}
 		});
 	}

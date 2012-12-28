@@ -1,14 +1,20 @@
 module.exports = function (app, service) {
 	var jade = require('jade');
 	var fs = require('fs');
+	var middleware = require('./middleware');
 	var Game = service.useModel('game').Game;
 	
 	/**
 	 * GET /game/
 	 */
-	app.get('/game', game);
+	app.get('/game', 
+			middleware.requireGame(service), 
+			game);
 	function game(req, res) {
-		sendJadeAndJS('./views/game/gameIndex', res);
+		if (req.body.ajax)
+			sendJadeAndJS('./views/game/gameIndex', res);
+		else
+			res.render('./game/gameIndex');
 	}
 		
 	
