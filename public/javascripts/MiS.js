@@ -19,11 +19,13 @@ function ajaxRequest(url, type, data, dataType)
 			{ Accept : "text/xml" },
 		dataType : dataType
 	};
-	console.log(params);
 	
 	$.ajax(params)
-    .done(function(returnedData) { updatePageUI(returnedData); })
-    .fail(function(jqXHR, textStatus) {
-  		$("#content").html( "Request failed. " + jqXHR.status + " " + jqXHR.statusText );
+    .done(function(returnedData, successString, jqXHR) { 
+		console.log(successString);
+		console.log(jqXHR);
+		updatePageUI(returnedData); 
+	}).fail(function(jqXHR, textStatus) {
+  		$("#content").html( "ajaxRequest failed. " + jqXHR.status + " " + jqXHR.statusText );
 	});
 }

@@ -5,6 +5,12 @@ block append header
 	script(type="text/javascript")
 		var nextURL = "#{nextURL}" || ""
 		$(function() {
+			$("body").bind("click", function() {
+				$("body").unbind("click");
+				if (nextURL != "")
+					changePage(nextURL);
+			});
+
 			$("body").animate({
 					backgroundColor:"#999"
 				}, 2000, "linear", function() {
@@ -12,10 +18,6 @@ block append header
 					window.setTimeout( function() {
 						$(".prompt").fadeIn("slow");
 					}, 1000);
-					//load nextURL
-					//will be onkeydown
-					if (nextURL != "")
-						changePage(nextURL);
 				});
 		});
 		

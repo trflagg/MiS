@@ -66,8 +66,23 @@ module.exports.runTest = function(callback) {
 				
 				assert.equal(clientResponse.statusCode, 302, "ship data status code != 302. Error = " + clientResponse.statusCode + " "+ body);
 				console.log("ship created");
-				console.log("ship PageUI:");
-				endTest();
+				
+				//get game 
+				var opts = {
+					uri : 'http://localhost:3000/game/',
+					method : 'GET',
+				}
+			
+				request(opts, function(error, clientResponse, body) {
+					if(error) 
+					{
+						console.log('problem GETing game: ' + error.message);
+						endTest();
+					}
+					console.log("GET /game/");
+					console.log(body);
+					endTest();
+				});
 			});
 		});
 	});

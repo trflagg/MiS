@@ -51,3 +51,26 @@ function requireGame(service)
 	}
 }
 module.exports.requireGame = requireGame;
+
+/**
+ * requireShip()
+ * checks for a valid ship id in session 
+ * and redirects to /start if not found
+ */
+function requireShip(service) 
+{
+	var Ship = service.useModel('game').Ship;
+	return function(req, res, next) {
+		if (req.session.ship)
+		{
+			//set req.shipId
+			req.shipId = req.session.ship;
+			next();
+		}
+		else
+		{
+			res.redirect('/start/');
+		}
+	}
+}
+module.exports.requireShip = requireShip;

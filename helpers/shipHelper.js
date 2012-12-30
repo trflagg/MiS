@@ -11,11 +11,25 @@ module.exports = function (service) {
 		//look up quest
 		Quest.findOne({name : questName}, function(err, quest) {
 			if (err) callback(err, null);
-			
-			ship.quest = quest;
-			
-			//console.log(quest);
-			callback(null,ship);
+			else
+			{
+				if (quest === undefined)
+				{
+					callback("Cannot find quest "+questName, null);
+				}
+				else
+				{
+					ship.quest = quest;
+					ship.save(function(err) {
+						if (err) callback(err, null);
+						else 
+						{
+							//console.log(quest);
+							callback(null,ship);
+						}
+					});
+				}
+			}
 		});
 	};
 	
@@ -23,9 +37,26 @@ module.exports = function (service) {
 		//look up location
 		Location.findOne({name : locationName}, function(err, foundLocation) {
 			if (err) callback(err, null);
+			else
+			{
+				if (foundLocation === undefined)
+				{
+					callback("Cannot find location "+locationName, null);
+				}
+				else
+				{
+					ship.location = foundLocation;
+					ship.save(function(err) {
+						if (err) callback(err, null);
+						else 
+						{
+							//console.log(location);
+							callback(null,ship);
+						}
+					});
+				}
+			}
 			
-			ship.location = foundLocation;
-			callback(null,ship);
 		});
 	};
 	
@@ -33,9 +64,25 @@ module.exports = function (service) {
 		//look up system
 		System.findOne({name : systemName}, function(err, foundSystem) {
 			if (err) callback(err, null);
-			
-			ship.system = foundSystem;
-			helper.setLocationByName(ship, foundSystem.locationName, callback);
+			else
+			{
+				if (foundSystem === undefined)
+				{
+					callback("Cannot find system "+systemName, null);
+				}
+				else
+				{
+					ship.system = foundSystem;
+					ship.save(function(err) {
+						if (err) callback(err, null);
+						else 
+						{
+							//set location from system
+							helper.setLocationByName(ship, foundSystem.locationName, callback);
+						}
+					});
+				}
+			}
 		});
 	};
 	
@@ -54,7 +101,21 @@ module.exports = function (service) {
 			},
 			commands : [],
 			content : ship.location.message,
-			colors : ship.location.colors,
+		}
+		
+		pageUI.colors = [];
+		for (i in ship.location.colors)
+		{
+			var color = ship.location.colors[i];
+			newColor = {};
+			newColor.value = color.value;
+			newColor.selectors = {};
+			for (j in color.selectors)
+			{
+				var selector = color.selectors[j];
+				newColor.selectors[selector.selector] = selector.property;
+			}
+			pageUI.colors.push(newColor);
 		}
 		
 		return pageUI

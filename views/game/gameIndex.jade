@@ -1,16 +1,7 @@
-extends ../MiSLayout
+include ../MiSInterfaceLayout
 
-block append header
-	script(type="text/javascript")
-		- if (!locals.pageUI) var pageUI = {};
-		
-		/**
-		* $(function()
-		*/
-		$(function() {
-			loadPageUI(pageUI);
-		})
+- if (!pageUI) var pageUI = ""
+script(type="text/javascript")
+	var pageUI = #{pageUI}
+	console.log(pageUI)
 
-block content
-	include ../MiSInterfaceLayout
-	

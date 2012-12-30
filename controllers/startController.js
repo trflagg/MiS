@@ -134,9 +134,29 @@ module.exports = function (app, service) {
 		//do we have any ships?
 		if (req.game.ships.length > 0)
 		{
-			sendJadeAndJS('./views/start/selectShip', res, {
-				ships: req.game.ships, 
-				name: req.game.name
+			//get ship names & ids
+			ships = []
+			Ship.find({'_id': {$in : req.game.ships}}).select('name _id').exec(function(err, foundShips) {
+				if (err)
+				{
+					res.send(500, "Error retrieving ships from db: "+err);
+				}
+				else
+				{
+					console.log(foundShips);
+					for (var i in foundShips)
+					{
+						var foundShip = foundShips[i];
+						console.log(foundShip);
+						shipData = { name : foundShip.name, _id : foundShip._id };
+						ships.push(shipData);
+					}
+					console.log(ships);
+					sendJadeAndJS('./views/start/selectShip', res, {
+						ships: ships, 
+						name: req.game.name
+					});
+				}
 			});
 		}
 		else
@@ -157,6 +177,7 @@ module.exports = function (app, service) {
 		//set session
 		req.session.ship = req.body.ship;
 		//start the game!
+		req.method = "get"
 		res.redirect('/game');
 	}
 	
@@ -217,24 +238,19 @@ module.exports = function (app, service) {
 			{
 				//start the game!
 				req.session.ship = newShip._id;
-				req.game.ships.push(newShip);
+				req.game.ships.push(newShip._id);
 				
 				//add error handling!
 				req.game.save();
 				
 				//set starting location
 				shipHelper.setSystemByName(newShip, "Struven", function(err, ship) {
-					console.log("System");
-					console.log(err);
-					console.log(ship);
-					
+					//add error handling!
 					//set starting quest
 					shipHelper.setQuestByName(ship, "Murder on Struven", function(err, ship) {
-						console.log("Quest");
-						console.log(err);
-						console.log(ship);
+						//add error handling!
 						//start the game!
-						res.redirect('/game/');
+						res.redirect('/game');
 					});
 						
 				});

@@ -2,19 +2,33 @@ module.exports = function (app, service) {
 	var jade = require('jade');
 	var fs = require('fs');
 	var middleware = require('./middleware');
+	var shipHelper = require('../helpers/shipHelper')(service);
 	var Game = service.useModel('game').Game;
+	var Ship = service.useModel('game').Ship;
 	
 	/**
-	 * GET /game/
+	 * GET /game
 	 */
 	app.get('/game', 
 			middleware.requireGame(service), 
+			middleware.requireShip(service),
 			game);
 	function game(req, res) {
-		if (req.body.ajax)
-			sendJadeAndJS('./views/game/gameIndex', res);
-		else
-			res.render('./game/gameIndex');
+		console.log(req.game);
+		//grab ship info
+		Ship.findById(req.shipId, function(err, ship) {
+			if (err || (ship == null))
+			{
+				res.send("Error finding ship: "+ err);
+			}
+			else
+			{
+				//load pageUI
+				var pageUI = shipHelper.getPageUI(ship);
+				console.log(pageUI);
+				sendJadeAndJS('./views/game/gameIndex', res, {'pageUI' : pageUI});
+			}
+		});
 	}
 		
 	

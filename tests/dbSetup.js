@@ -27,32 +27,32 @@ module.exports = function() {
 			{
 				value : "#0C330C",
 				name : "light",
-				selectors : {
-					"body" : "color",
-					"a" : "color",
-					":input" : "color",
-					"textarea" : "color",
-					"ul#commandList" : "color",
-					"ul#commandList" : "border-color",
-					"div.locationHeader p" : "color",
-					".locationHeader" : "border-color",
-					":input" : "border-color",
-					"textarea" : "border-color",
-					"ul#commandList a" : "color",
-					"ul#commandList li" : "border-color",
-					".header" : "color",
-				}
+				selectors : [
+					{ selector : "body", property : "color"},
+					{ selector : "a", property : "color"},
+					{ selector : ":input", property : "color"},
+					{ selector : "textarea", property : "color"},
+					{ selector : "ul#commandList", property : "color"},
+					{ selector : "ul#commandList", property : "border-color"},
+					{ selector : "div.locationHeader p", property : "color"},
+					{ selector : ".locationHeader", property : "border-color"},
+					{ selector : ":input", property : "border-color"},
+					{ selector : "textarea", property : "border-color"},
+					{ selector : "ul#commandList a", property : "color"},
+					{ selector : "ul#commandList li", property : "border-color"},
+					{ selector : ".header", property : "color"},
+				]
 			},
 			{
 				
 				value : "rgba(87, 139, 87, 0.75)",
 				name : "dark",
-				selectors : {
-					":input" : "background",
-					"textarea" : "background",
-					".locationHeader" : "background",
-					"ul#commandList" : "background",
-				}
+				selectors : [
+					{ selector : ":input" , property : "background"},
+					{ selector : "textarea", property : "background"},
+					{ selector : ".locationHeader", property : "background"},
+					{ selector : "ul#commandList", property : "background"},
+				]
 			}
 		]
 	});
