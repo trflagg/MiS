@@ -9,35 +9,46 @@ module.exports = function (app, service) {
 	/**
 	 * GET /game
 	 */
-	app.get('/game', 
-			middleware.requireGame(service), 
-			middleware.requireShip(service),
-			game);
-	function game(req, res) {
-		console.log(req.game);
+	exports.game = function(req, res) {
+		console.log(req.shipId);
 		//grab ship info
 		Ship.findById(req.shipId, function(err, ship) {
+			console.log(req.shipId);
 			if (err || (ship == null))
 			{
-				res.send("Error finding ship: "+ err);
+				res.send(500, "Error finding ship: "+ err);
 			}
 			else
 			{
 				//load pageUI
 				var pageUI = shipHelper.getPageUI(ship);
 				console.log(pageUI);
-				sendJadeAndJS('./views/game/gameIndex', res, {'pageUI' : pageUI});
+				
+				//send ajax or html?
+				//TODO: base this test off of something else? request-type?
+				if (req.ajax)
+				{
+					console.log('ajax');
+					sendJadeAndJS('./views/game/gameAjax', res, {'pageUI' : pageUI});
+				}
+				else
+					res.render('./game/gameIndex', {pageUI : JSON.stringify(pageUI)});		
 			}
 		});
 	}
+	app.get('/game', 
+			middleware.requireGame(service), 
+			middleware.requireShip(service),
+			exports.game);
 		
 	
 	
 	/**
 	 * sendJadeAndJS()
 	 */
-	function sendJadeAndJS(viewPath, res, locals) {
-		locals = locals || {};
+	function sendJadeAndJS(viewPath, res, pageLocals) {
+		pageLocals = pageLocals || {};
+		locals = pageLocals.locals || {};
 		console.log("rendering viewPath: "+viewPath)
 		//read the jade and js files
 		fs.readFile(viewPath+'.jade', 'utf8', function (err,jadeHTML) {
@@ -57,11 +68,18 @@ module.exports = function (app, service) {
 				var fn = jade.compile(jadeHTML, opts);
 				var html = fn(locals);
 				//send html and javascript
-				res.send({
+				var responseObject = {
 					html: html,
 					js: js
-				});
+				};
+				console.log(pageLocals);
+				console.log(pageLocals.pageUI);
+				if (pageLocals.pageUI) responseObject.pageUI = pageLocals.pageUI;
+				
+				res.send(responseObject);
 			});
 		});
 	}
+	
+	return exports;
 }

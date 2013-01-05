@@ -64,7 +64,7 @@ module.exports.runTest = function(callback) {
 					endTest();
 				}
 				
-				assert.equal(clientResponse.statusCode, 302, "ship data status code != 302. Error = " + clientResponse.statusCode + " "+ body);
+				assert.equal(clientResponse.statusCode, 200, "ship data status code != 200. Error = " + clientResponse.statusCode + " "+ body);
 				console.log("ship created");
 				
 				//get game 

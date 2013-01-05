@@ -3,6 +3,7 @@ module.exports = function (app, service) {
 	var fs = require('fs');
 	
 	var middleware = require('./middleware');
+	var startGame = require('./gameController')(app, service).game;
 	
 	var Game = service.useModel('game').Game;
 	var Ship = service.useModel('game').Ship;
@@ -175,10 +176,12 @@ module.exports = function (app, service) {
 		selectShipPOST)
 	function selectShipPOST(req, res) {
 		//set session
+		console.log(req.body.ship);
 		req.session.ship = req.body.ship;
+		req.shipId = req.body.ship;
+		req.ajax = req.body.ajax;
 		//start the game!
-		req.method = "get"
-		res.redirect('/game');
+		return startGame(req, res);
 	}
 	
 	/**
@@ -250,7 +253,9 @@ module.exports = function (app, service) {
 					shipHelper.setQuestByName(ship, "Murder on Struven", function(err, ship) {
 						//add error handling!
 						//start the game!
-						res.redirect('/game');
+						req.shipId = newShip._id;
+						req.ajax = req.body.ajax;
+						return startGame(req, res);
 					});
 						
 				});
