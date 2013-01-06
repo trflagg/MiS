@@ -85,7 +85,6 @@ module.exports = function (app, service) {
 	   		else
 	   		{
 	   			//success!
-				console.log(foundMessage);
 				res.render('./editor/directMessage/directMessageForm', {
 					title : "Edit Direct Message",
 					formMethod : "PUT",

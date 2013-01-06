@@ -91,7 +91,8 @@ p.orbitron {
 }
 
 .locationHeader {
-	border: 3px solid #330C1C;
+	border-top : 1px solid #330C1C;
+	border-bottom : 1px solid #330C1C;
  	background: #68434F;
 	padding: 10px;
 }
@@ -121,7 +122,6 @@ div#content {
 ul#commandList {
 	color: #330C1C;
  	background: #68434F;
-	border: 3px solid #330C1C;
 	border-top: 0px;
 	height: 100%;
 	padding-top: 30px;
@@ -143,9 +143,17 @@ ul#commandList > li {
 	font-family: Coda;
 	font-size: 18px;
 	border-bottom: 1px solid #999;
+	border-top: 1px solid #999;
 	border-color:  #330C1C;
 	color: #330C1C;
+	border-radius: 100px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	margin-bottom: 20px;
 }
+/* 
+	border: 10px outset #1C259C;
+	*/
 
 ul#commandList > ul > li {
 	font-size: 14px;

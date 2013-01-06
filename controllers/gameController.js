@@ -10,10 +10,8 @@ module.exports = function (app, service) {
 	 * GET /game
 	 */
 	exports.game = function(req, res) {
-		console.log(req.shipId);
 		//grab ship info
 		Ship.findById(req.shipId, function(err, ship) {
-			console.log(req.shipId);
 			if (err || (ship == null))
 			{
 				res.send(500, "Error finding ship: "+ err);
@@ -29,10 +27,18 @@ module.exports = function (app, service) {
 				if (req.ajax)
 				{
 					console.log('ajax');
-					sendJadeAndJS('./views/game/gameAjax', res, {'pageUI' : pageUI});
+					sendJadeAndJS('./views/game/gameAjax', res, {
+						pageUI : pageUI, 
+						handed : req.game.handed,
+					});
 				}
 				else
-					res.render('./game/gameIndex', {pageUI : JSON.stringify(pageUI)});		
+				{
+					res.render('./game/gameIndex', {
+						pageUI : JSON.stringify(pageUI), 
+						handed : req.game.handed,
+					});	
+				}
 			}
 		});
 	}
@@ -40,7 +46,40 @@ module.exports = function (app, service) {
 			middleware.requireGame(service), 
 			middleware.requireShip(service),
 			exports.game);
+	
+	
+	/**
+	 * GET /controls/:control/:num
+	 */
+	app.get('/controls/:control/:num',
+			middleware.requireGame(service), 
+			middleware.requireShip(service),
+			controls);
+	function controls(req, res) {
+		var control = req.params.control;
+		var num = req.params.num;
+		if (control === {} && num === {})
+		{
+			return res.send(400, "Must include control & num.");
+		}
+		if (!req.ship.controls.hasOwnProperty(control))
+		{
+			return res.send(400, "Control not found: " + control);
+		}
+		var shipControl = req.ship.controls[control];
+		var command = shipControl[num];
+		if (command === undefined)
+		{
+			//default, 
+			//either wrong num was sent
+			//or control has now commands
+			return res.send("That doesn't apply");
+		}
 		
+		//perform command on shipControl
+		res.send("Hello world");
+		
+	}
 	
 	
 	/**
@@ -72,8 +111,6 @@ module.exports = function (app, service) {
 					html: html,
 					js: js
 				};
-				console.log(pageLocals);
-				console.log(pageLocals.pageUI);
 				if (pageLocals.pageUI) responseObject.pageUI = pageLocals.pageUI;
 				
 				res.send(responseObject);

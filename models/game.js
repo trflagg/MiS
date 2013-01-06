@@ -17,7 +17,7 @@ module.exports = function (mongoose) {
 		level			: { type: Number, default: 1 },
 		position		: { type: String, enum: positions },
 		
-		messages		: [{ }],
+		commands		: [{ }],
 		
 	});
 	modelObject.CrewMember = mongoose.model('CrewMember', CrewMemberSchema);
@@ -30,7 +30,7 @@ module.exports = function (mongoose) {
 	var ShipControlSchema = new Schema({
 		level			: {type: Number, default: 1},
 		
-		messages		: [{ }],
+		commands		: [{ }],
 		
 	});
 	modelObject.ShipControl = mongoose.model('ShipControl', ShipControlSchema);	
@@ -47,19 +47,26 @@ module.exports = function (mongoose) {
 		name			: {type: String},
 		
 		//To be filled with a ShipControl subdocument
-		weapons			: {  },
-		shields			: {  },
-		sensors			: {  },
-		databank		: {  },
-		processors		: {  },
+		controls 		: {
+			weapons			: {  },
+			shields			: {  },
+			sensors			: {  },
+			databank		: {  },
+			processor		: {  },
+		},
 		
 		//To be filled with a CrewMember subdocument
-		security			: {  },
-		medical				: {  },
-		empat				: {  },
-		engineering			: {  },
-		cultural			: {  },
-		info				: {  },
+		crew			: {
+			security			: {  },
+			medical				: {  },
+			empat				: {  },
+			engineering			: {  },
+			cultural			: {  },
+			info				: {  },
+		},
+		
+		//commands
+		commands		: [{}],
 		
 		//system
 		system			: {},
@@ -76,8 +83,8 @@ module.exports = function (mongoose) {
 			read : Boolean
 		}],
 		
-		//message just previously run
-		lastMessage : String,
+		//text of message just previously run
+		lastMessageText : String,
 	});
 	
 	
@@ -90,8 +97,9 @@ module.exports = function (mongoose) {
 	var GameSchema = new Schema({
 		dateStarted		: { type: Date },
 		name			: { type: String, required: true },
+		handed			: { type: String, default: 'right'},
 		
-		//Array of Ship Documents
+		//Array of Ship Ids
 		ships			: [ { } ], 
 	});
 	

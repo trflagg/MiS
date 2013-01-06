@@ -5,7 +5,7 @@ block append header
 	script(type="text/javascript")
 		var nextURL = "#{nextURL}" || ""
 		$(function() {
-			$("body").bind("click", function() {
+			$("body").bind("click touch", function() {
 				$("body").unbind("click");
 				if (nextURL != "")
 					changePage(nextURL);

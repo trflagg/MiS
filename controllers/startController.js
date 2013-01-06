@@ -47,7 +47,6 @@ module.exports = function (app, service) {
 		//delete game
 		res.clearCookie('game');
 		Game.findByIdAndRemove(game, function(err, game) {
-			console.log(game);
 			err = err || "";
 			res.send("Cookie deleted.  Err:"+err);
 		});
@@ -73,7 +72,6 @@ module.exports = function (app, service) {
 		if (req.body)
 		{
 			//get the name
-			console.log(req.body);
 			var name = req.body.name;
 			//server-side validation
 			if (name.length >= 3)
@@ -119,7 +117,6 @@ module.exports = function (app, service) {
 		middleware.requireGame(service), 
 		startInterface)
 	function startInterface(req, res) {
-		console.log(req.game);
 		sendJadeAndJS('./views/start/startInterface', res, {defaultURL: "/start/selectShip", name: req.game.name});
 	}
 	
@@ -131,7 +128,6 @@ module.exports = function (app, service) {
 		middleware.requireGame(service), 
 		selectShip)
 	function selectShip(req, res) {
-		console.log(req.game);
 		//do we have any ships?
 		if (req.game.ships.length > 0)
 		{
@@ -152,7 +148,6 @@ module.exports = function (app, service) {
 						shipData = { name : foundShip.name, _id : foundShip._id };
 						ships.push(shipData);
 					}
-					console.log(ships);
 					sendJadeAndJS('./views/start/selectShip', res, {
 						ships: ships, 
 						name: req.game.name
@@ -176,7 +171,6 @@ module.exports = function (app, service) {
 		selectShipPOST)
 	function selectShipPOST(req, res) {
 		//set session
-		console.log(req.body.ship);
 		req.session.ship = req.body.ship;
 		req.shipId = req.body.ship;
 		req.ajax = req.body.ajax;
@@ -191,7 +185,6 @@ module.exports = function (app, service) {
 		middleware.requireGame(service),
 		newShip)
 	function newShip(req, res) {
-		console.log(req.game);
 		sendJadeAndJS('./views/start/newShip', res, {
 			ships: req.game.ships, 
 			name: req.game.name
@@ -226,11 +219,13 @@ module.exports = function (app, service) {
 					empat : new CrewMember({ name : req.body.empat }),
 					engineering : new CrewMember({ name : req.body.engineering }),
 					cultural : new CrewMember({ name : req.body.cultural }),
-					weapons : new ShipControl(),
-					shields : new ShipControl(),
-					sensors : new ShipControl(),
-					databank : new ShipControl(),
-					processors : new ShipControl()
+					controls : {
+						weapons : new ShipControl(),
+						shields : new ShipControl(),
+						sensors : new ShipControl(),
+						databank : new ShipControl(),
+						processor : new ShipControl(),
+					},
 		}, function(err, newShip) {
 			if (err)
 			{

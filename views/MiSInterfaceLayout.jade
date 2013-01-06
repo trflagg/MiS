@@ -8,9 +8,9 @@ div.header
 				h1#headerText &nbsp;
 				div.headerLine
 			div.twocol.last#menu
-				p Captain &lt;Captain&gt;
-				p: a(href="#") &nbsp;
-				p: a(href="#") logout
+				//p Captain &lt;Captain&gt;
+				//p: a(href="#") &nbsp;
+				//p: a(href="#") logout
 
 // location header
 div.container
@@ -25,10 +25,21 @@ div.container
 div.mainBody
 	div.container
 		div.row
-			div.threecol
-				div#commands
-					// commands
-					ul#commandList
-			div.ninecol.last
-				div#bodyContent
-					block interfaceContent
+			//load either right handed, or left handed
+			- if (!handed) var handed = 'left'
+			if handed == 'left'
+				div.threecol
+					div#commands
+						// commands
+						ul#commandList
+				div.ninecol.last
+					div#bodyContent
+						block interfaceContent
+			else
+				div.ninecol
+					div#bodyContent
+						block interfaceContent
+				div.threecol.last
+					div#commands
+						// commands
+						ul#commandList

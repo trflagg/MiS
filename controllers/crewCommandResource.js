@@ -85,7 +85,6 @@ module.exports = function (app, service) {
 	   		else
 	   		{
 	   			//success!
-				console.log(foundCommand);
 				res.render('./editor/crewCommand/crewCommandForm', {
 					title : "Edit Crew Command",
 					formMethod : "PUT",

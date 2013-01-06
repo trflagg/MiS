@@ -65,7 +65,18 @@ function requireShip(service)
 		{
 			//set req.shipId
 			req.shipId = req.session.ship;
-			next();
+			//grab ship info
+			Ship.findById(req.shipId, function(err, ship) {
+				if (err || (ship == null))
+				{
+					return res.send(500, "Error finding ship: "+ err);
+				}
+				else
+				{
+					req.ship = ship;
+					next();
+				}
+			});
 		}
 		else
 		{
