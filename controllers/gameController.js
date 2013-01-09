@@ -21,6 +21,8 @@ module.exports = function (app, service) {
 				//load pageUI
 				var pageUI = shipHelper.getPageUI(ship);
 				console.log(pageUI);
+				console.log(req.game);
+				console.log(req.game.handed);
 				
 				//send ajax or html?
 				//TODO: base this test off of something else? request-type?
@@ -29,7 +31,9 @@ module.exports = function (app, service) {
 					console.log('ajax');
 					sendJadeAndJS('./views/game/gameAjax', res, {
 						pageUI : pageUI, 
-						handed : req.game.handed,
+						locals : {
+							handed : req.game.handed,
+						},
 					});
 				}
 				else
@@ -112,7 +116,7 @@ module.exports = function (app, service) {
 					js: js
 				};
 				if (pageLocals.pageUI) responseObject.pageUI = pageLocals.pageUI;
-				
+
 				res.send(responseObject);
 			});
 		});

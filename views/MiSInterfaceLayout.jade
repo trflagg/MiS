@@ -26,8 +26,7 @@ div.mainBody
 	div.container
 		div.row
 			//load either right handed, or left handed
-			- if (!handed) var handed = 'left'
-			if handed == 'left'
+			if locals.handed == 'left'
 				div.threecol
 					div#commands
 						// commands

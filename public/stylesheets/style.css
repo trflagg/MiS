@@ -73,6 +73,7 @@ p.orbitron {
 	margin-top: 0px;
 	margin-bottom: 5px;
 	color: #68434F;
+	display: none;
 }
 
 .header a {
@@ -91,10 +92,13 @@ p.orbitron {
 }
 
 .locationHeader {
-	border-top : 1px solid #330C1C;
-	border-bottom : 1px solid #330C1C;
  	background: #68434F;
 	padding: 10px;
+	border: 0px solid #1C259C;
+	border-bottom : 3px solid #330C1C;
+	color: #330C1C;
+	border-radius: 30px 10px;
+	padding-left: 20px;
 }
 
 
@@ -113,10 +117,14 @@ div.locationHeader p {
 	font-size: 10px;
 	color: #330C1C;
 }
-	
+
 div#content {
 	padding: 30px;
 	overflow: auto;
+}
+
+div#bodyContent {
+	margin-top: 30px;
 }
 
 ul#commandList {
@@ -127,7 +135,7 @@ ul#commandList {
 	padding-top: 30px;
 }
 
-ul#commandList a {
+ul#commandList > a {
 	text-decoration: none;
 	color: #330C1C;
 }
@@ -138,22 +146,18 @@ ul#commandList {
 
 	
 
-ul#commandList > li {
-	padding: 10px;
-	font-family: Coda;
-	font-size: 18px;
-	border-bottom: 1px solid #999;
-	border-top: 1px solid #999;
-	border-color:  #330C1C;
+.commandItem {
+	border: 2px solid #1C259C;
 	color: #330C1C;
-	border-radius: 100px;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	margin-bottom: 20px;
+	border-radius: 30px 10px;
+	margin-bottom: 10px;
+	font: 16px Coda;
+	letter-spacing: .1em;
+	padding: 15px;
+	margin-bottom: 15px;
+	text-align: center;
 }
-/* 
-	border: 10px outset #1C259C;
-	*/
+
 
 ul#commandList > ul > li {
 	font-size: 14px;

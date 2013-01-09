@@ -58,7 +58,7 @@ module.exports = function() {
 					{ selector : ".locationHeader", property  : "border-color"},
 					{ selector : ":input" , property : "border-color"},
 					{ selector : "textarea", property  : "border-color"},
-					{ selector : "ul#commandList a", property  : "color"},
+					{ selector : "ul#commandList a li", property  : "color"},
 					{ selector : "ul#commandList li", property  : "border-color"},
 					{ selector : ".header" , property : "color"},
 				]

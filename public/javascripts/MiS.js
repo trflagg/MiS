@@ -2,13 +2,14 @@
 /**
  * ajaxRequest()
  */
-function ajaxRequest(url, type, data, dataType)
+function ajaxRequest(url, type, data, dataType, myCallback)
 {
 	if (data)
 		data.ajax = true
 	
 	//default to GET
 	type = (typeof type == 'undefined')?"GET":type;
+	dataType = (typeof dataType == 'undefined')?"html":dataType;
 	
 	var params = {
 		type : type,
@@ -21,9 +22,17 @@ function ajaxRequest(url, type, data, dataType)
 	
 	$.ajax(params)
     .done(function(returnedData, successString, jqXHR) { 
-		console.log(successString);
-		console.log(jqXHR);
-		updatePageUI(returnedData); 
+	
+		//run callback or call updatePageUI
+		if (myCallback && typeof myCallback == 'function')
+		{
+			myCallback(returnedData)
+		}
+		else
+		{
+			updatePageUI(returnedData); 
+		}
+		
 	}).fail(function(jqXHR, textStatus) {
   		$("#content").html( "ajaxRequest failed. " + jqXHR.status + " " + jqXHR.statusText );
 	});
@@ -51,6 +60,7 @@ function updatePageUI(returnedData)
 		}
 		if (returnedData.js)
 		{
+			console.log(returnedData.js);
 			eval(returnedData.js);
 		}
 		if (returnedData.pageUI)
@@ -61,6 +71,7 @@ function updatePageUI(returnedData)
 	}
 	
 	$('input[tabindex="1"]').focus();
+	
 	
 }
 
@@ -110,7 +121,7 @@ function loadCommands(commands)
 {
 	for (var command in commands)
 	{
-		var newLi = $("#commandList").append("<li><a href='#' onclick='ajaxRequest(\""+commands[command].url+"\");'> &laquo;"+commands[command].text+"</a></li>");
+		var newLi = $("#commandList").append("<a href='#' onclick='ajaxRequest(\""+commands[command].url+"\");'><li class='commandItem'> "+commands[command].text+"</li></a>");
 	}
 }
 
@@ -141,6 +152,7 @@ function setColors(colorValue, selectorList)
 /**
  * resizeFrame()
  */
+
 jQuery.event.add(window, "load", resizeFrame);
 jQuery.event.add(window, "resize", resizeFrame);
 

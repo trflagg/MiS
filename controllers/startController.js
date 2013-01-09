@@ -68,56 +68,62 @@ module.exports = function (app, service) {
 		middleware.requireParams(["name"]), 
 		nameEntryPOST);
 	function nameEntryPOST(req, res) {
-		//check for name
-		if (req.body)
+		//get the name
+		var name = req.body.name;
+		//server-side validation
+		if (name.length >= 3)
 		{
-			//get the name
-			var name = req.body.name;
-			//server-side validation
-			if (name.length >= 3)
-			{
-				//create the game and set name
-				var newGame = Game.create({
-						name : name,
-						dateStarted: new Date()
-					}, function(err, newGame) {
-						if (err)
-						{
-							sendJadeAndJS('./views/start/nameEntry', res, {err: err});
-						}
-						else
-						{
-							//success!
-							//store id in cookie and session
-							res.cookie('game', newGame._id);
-							req.session.game = newGame._id;
-							req.game = newGame;
-							//forward to selectShip
-							selectShip(req, res);
-						}
-				});
-							
-			}
-			else
-			{
-				sendJadeAndJS('./views/start/nameEntry', res,  {err: "Name must be at least 3 characters."});
-			}
+			//create the game and set name
+			var newGame = Game.create({
+					name : name,
+					dateStarted: new Date()
+				}, function(err, newGame) {
+					if (err)
+					{
+						sendJadeAndJS('./views/start/nameEntry', res, {err: err});
+					}
+					else
+					{
+						//success!
+						//store id in cookie and session
+						res.cookie('game', newGame._id);
+						req.session.game = newGame._id;
+						req.game = newGame;
+						//ask handiness
+						sendJadeAndJS('./views/start/askHandiness', res, {name : name});
+					}
+			});
+						
 		}
 		else
 		{
-			sendJadeAndJS('./views/start/nameEntry', res,  {err: "Name not sent."});
+			sendJadeAndJS('./views/start/nameEntry', res,  {err: "Name must be at least 3 characters."});
 		}
 	}
 	
-		
 	/**
-	 * GET /start/startInterface
+	 * POST /start/askHandiness
 	 */
-	app.get('/start/startInterface', 
-		middleware.requireGame(service), 
-		startInterface)
-	function startInterface(req, res) {
-		sendJadeAndJS('./views/start/startInterface', res, {defaultURL: "/start/selectShip", name: req.game.name});
+	app.post('/start/askHandiness',
+		middleware.requireParams(["handiness"]), 
+		middleware.requireGame(service),
+		postHandiness)
+	function postHandiness(req, res) {
+		var handiness = req.body.handiness;
+		if (handiness != "left"  && handiness != "right")
+		{
+			return res.send(400, "Illegal handiness sent.");
+		}
+		
+		req.game.handed = handiness;
+		req.game.save(function(err) {
+			
+			if (err) { return res.send(500); }
+			
+			//success!
+			//move on with ship selection
+			return selectShip(req, res)
+		});
 	}
 	
 	
@@ -133,7 +139,7 @@ module.exports = function (app, service) {
 		{
 			//get ship names & ids
 			ships = []
-			Ship.find({'_id': {$in : req.game.ships}}).select('name _id').exec(function(err, foundShips) {
+			Ship.find({'_id': {$in : req.game.ships}}).select('name _id location.name').exec(function(err, foundShips) {
 				if (err)
 				{
 					res.send(500, "Error retrieving ships from db: "+err);
@@ -145,7 +151,7 @@ module.exports = function (app, service) {
 					{
 						var foundShip = foundShips[i];
 						console.log(foundShip);
-						shipData = { name : foundShip.name, _id : foundShip._id };
+						shipData = { name : foundShip.name, _id : foundShip._id, locationName : foundShip.location.name };
 						ships.push(shipData);
 					}
 					sendJadeAndJS('./views/start/selectShip', res, {

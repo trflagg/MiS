@@ -1,14 +1,7 @@
 //runs on page load
-$("#nameInput").focus();
-$("body").animate({
-	backgroundColor:"#999"
-}, 2000, "linear");
-$("#nameInput").animate({
-	backgroundColor:"#999"
-}, 2000, "linear");
+$("#shipNameInput").focus();
 
 var curPage = "ship";
-$("#crewDiv").css("display","none");
 
 validateName = function() 
 {
@@ -19,7 +12,7 @@ validateName = function()
 		if (curPage == "ship")
 		{
 			//validate data
-			var shipName = $('#nameInput').val();
+			var shipName = $('#shipNameInput').val();
 			if (shipName.length >= 3)
 			{
 				//show crew name
@@ -60,13 +53,13 @@ validateName = function()
 					empat : empat,
 					engineering : engineering,
 					cultural : cultural
-				});
+				}, true);
 			}
 		}
 	}
 	else
 	{
-		var shipName = $('#nameInput').val();
+		var shipName = $('#shipNameInput').val();
 		if (shipName.length <= 3)
 			$("#nameInstructions").fadeOut('slow');
 		else

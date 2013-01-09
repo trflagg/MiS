@@ -6,11 +6,17 @@
 div#centerDiv
 	h2 Captain #{name}, 
 	h2 please select your ship:
-	select#shipSelect
+	table
+		tr
+			th Ship
+			th Location
+			th &nbsp;
 		each ship, i in ships
-			option(value="#{ship._id}") #{ship.name}
+			tr
+				td #{ship.name}
+				td #{ship.locationName}
+				td: a(href="#", onclick="changePage('/start/selectShip','POST',{ship: '#{ship._id}'}, true);") Make it So
 	a(href="#", onclick="changePage('/start/newShip')") New Ship
-	a(href="#", onclick="changePage('/start/selectShip','POST',{ship: $('#shipSelect').val()})") Make it so
 
 	p #{err}
 	div#nameInstructions(style="display:none")

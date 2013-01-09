@@ -2,12 +2,15 @@
 //set default
 - if (!err) var err = ""
 
-div#centerDiv
-	h2 Welcome Captain, 
-	h2 please enter your name:
-	input#nameInput(type="text", size=20, onkeydown="validateName();")
-	
-	p #{err}
-	div#nameInstructions(style="display:none")
-		//make this say 'tap to continue' for iOS
-		p (press Enter to continue)
+div.container#nameEntry
+	div.row#firstRow
+		div.twelvecol.last
+			div#centerDiv
+				h2 Welcome Captain, 
+				h2 please enter your name:
+				input#nameInput(type="text", size=20, onkeydown="validateName();")
+				
+				p #{err}
+				div#nameInstructions(style="display:none")
+					//make this say 'tap to continue' for iOS
+					p (press Enter to continue)
