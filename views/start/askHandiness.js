@@ -1,4 +1,4 @@
 handiButtonClicked = function(handiness)
 {
-	changePage("/start/askHandiness", "POST", {handiness : handiness});
+	startChangePage("/start/askHandiness", "POST", {handiness : handiness});
 }

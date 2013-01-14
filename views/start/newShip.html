@@ -1,0 +1,37 @@
+
+{% macro crewInput label id %}
+<tr>
+	<td> <label for="{{ id }}">{{ label }}</label></td>
+	<td> <input class='crewInput' id="{{ id }}", type="text", size=30, onkeydown="validateName();")></td>
+</tr>
+{% endmacro %}
+
+				
+<div id="newShip" class="centerDiv">
+	<div id="shipNameDiv">
+		<h2>Captain {{ name }},</h2> 
+		<h2>please name your ship:</h2>
+		
+		<input id="shipNameInput", type="text", onkeydown="validateName();">
+	</div>
+	<div id="crewDiv", style="display:none">
+		<h2>Captain {{ name }},</h2> 
+		<h2>please name your crew:</h2>
+		<center>
+			<table>
+				{{ crewInput("Security Chief","security") }}
+				{{ crewInput("Medical Officer","medical") }}
+				{{ crewInput("Information Chief","info") }}
+				{{ crewInput("Empat","empat") }}
+				{{ crewInput("Head of Engineering","engineering") }}
+				{{ crewInput("Cultural Advisor","cultural") }}
+			</table>
+		</center>
+	</div>
+
+	<p class="error">{{ err }}</p>
+	
+	<div id="nameInstructions" style="display:none">
+		<p>(press Enter to continue)</p>
+	</div>
+</div>

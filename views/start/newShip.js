@@ -27,6 +27,7 @@ validateName = function()
 		else if (curPage == "crew")
 		{
 			//validate data
+			var shipName = $('#shipNameInput').val();
 			var security = $('#security').val();
 			var medical = $('#medical').val();
 			var info = $('#info').val();
@@ -45,7 +46,7 @@ validateName = function()
 				$('input').animate({
 					backgroundColor:"#000"
 				}, 2000, "swing")
-				changePage("/start/newShip", "POST", {
+				startChangePage("/start/newShip", "POST", {
 					shipName : shipName,
 					security : security,
 					medical : medical,

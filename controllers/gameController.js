@@ -1,10 +1,11 @@
 module.exports = function (app, service) {
-	var jade = require('jade');
 	var fs = require('fs');
 	var middleware = require('./middleware');
 	var shipHelper = require('../helpers/shipHelper')(service);
-	var Game = service.useModel('game').Game;
-	var Ship = service.useModel('game').Ship;
+	var Game = service.useModel('Game');
+	var Ship = service.useModel('Ship');
+	
+	var sendHTMLAndJS = require('../utils').sendHTMLAndJS;
 	
 	/**
 	 * GET /game
@@ -29,7 +30,7 @@ module.exports = function (app, service) {
 				if (req.ajax)
 				{
 					console.log('ajax');
-					sendJadeAndJS('./views/game/gameAjax', res, {
+					sendHTMLAndJS('./views/game/gameAjax', res, {
 						pageUI : pageUI, 
 						locals : {
 							handed : req.game.handed,
@@ -85,42 +86,7 @@ module.exports = function (app, service) {
 		
 	}
 	
-	
-	/**
-	 * sendJadeAndJS()
-	 */
-	function sendJadeAndJS(viewPath, res, pageLocals) {
-		pageLocals = pageLocals || {};
-		locals = pageLocals.locals || {};
-		console.log("rendering viewPath: "+viewPath)
-		//read the jade and js files
-		fs.readFile(viewPath+'.jade', 'utf8', function (err,jadeHTML) {
-			if (err) {
-				console.log(err);
-				res.send(err);
-			}
-			fs.readFile(viewPath+'.js', 'utf8', function (err,js) {
-				if (err) {
-					console.log(err);
-					res.send(err);
-				}	
-				var opts = { 
-					pretty: true,
-					filename: viewPath+'.jade',
-				}
-				var fn = jade.compile(jadeHTML, opts);
-				var html = fn(locals);
-				//send html and javascript
-				var responseObject = {
-					html: html,
-					js: js
-				};
-				if (pageLocals.pageUI) responseObject.pageUI = pageLocals.pageUI;
 
-				res.send(responseObject);
-			});
-		});
-	}
 	
 	return exports;
 }

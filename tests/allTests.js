@@ -6,7 +6,7 @@ var allTests = function() {
 	var shipTest = require('./shipTest');
 	
 	var mongoose = require('mongoose');
-	mongoose.connect('localhost','test');
+	mongoose.connect('localhost','testdb');
 	mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 	
 	//setup db

@@ -41,7 +41,7 @@ module.exports = function() {
 		name : "Struven IV",
 		description : "Struven is one of the earliest settled systems. Its only planet, Struven IV, is known across the galaxy for its old architecture and institutes of higher learning.",
 		message : 
-		"Currently orbiting Struven IV. Shuttle and away team required for landing on planet. [ADD_CONTROL(weapons,WEA_NON_FUNCTIONING)]",
+		"Currently orbiting Struven IV. Shuttle and away team required for landing on planet. [ADD_SHIP_COMMAND(weapons,WEA_NON_FUNCTIONING)]",
 		locationType : newLocationType._id,
 		colors : [
 			{

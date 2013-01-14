@@ -10,7 +10,7 @@ module.exports.runTest = function(callback) {
     var checkConnectionExists = (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2);
     if(!checkConnectionExists)
 	{
-		mongoose.connect('localhost','test');
+		mongoose.connect('localhost','testdb');
 		mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 	}
 	//load models

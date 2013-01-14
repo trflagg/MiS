@@ -15,7 +15,7 @@ module.exports.runTest = function(callback) {
     var checkConnectionExists = (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2);
     if(!checkConnectionExists)
 	{
-		mongoose.connect('localhost','test');
+		mongoose.connect('localhost','testdb');
 		mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 	}
 	
@@ -45,7 +45,7 @@ module.exports.runTest = function(callback) {
 	
 	//test via REST api
 	var opts = {
-		uri : 'http://localhost:3000/game/directmessage/'+newMessage.id,
+		uri : 'http://localhost:3000/test/directmessage/'+newMessage.id,
 		method : 'GET',
 	}
 	
@@ -63,7 +63,7 @@ module.exports.runTest = function(callback) {
 		
 		//POST
 		var POSTOpts = {
-			uri : 'http://localhost:3000/game/directmessage/',
+			uri : 'http://localhost:3000/test/directmessage/',
 			method : 'POST',
 			json : {
 				directMessage : {
@@ -85,7 +85,7 @@ module.exports.runTest = function(callback) {
 			
 			//GET what you just POSTED
 			var id = body.id
-			opts.uri = 'http://localhost:3000/game/directmessage/'+id;
+			opts.uri = 'http://localhost:3000/test/directmessage/'+id;
 			request(opts, function(error, clientResponse, body) {
 				if(error) 
 				{
@@ -100,7 +100,7 @@ module.exports.runTest = function(callback) {
 				
 				//now DELETE
 				var DELETEOpts = {
-					uri : 'http://localhost:3000/game/directmessage/'+id,
+					uri : 'http://localhost:3000/test/directmessage/'+id,
 					method : 'DELETE',
 				}
 				request(DELETEOpts, function(error, clientResponse) {
@@ -122,7 +122,7 @@ module.exports.runTest = function(callback) {
 						assert.equal(clientResponse.statusCode, 404, "3rd GET status code != 404. Error = " + clientResponse.statusCode);
 						
 						//Clean up after ourselves by DELETEing the first message
-						DELETEOpts.uri = 'http://localhost:3000/game/directmessage/'+newMessage.id,
+						DELETEOpts.uri = 'http://localhost:3000/test/directmessage/'+newMessage.id,
 						request(DELETEOpts, function(error, clientResponse) {
 							if(error)
 							{

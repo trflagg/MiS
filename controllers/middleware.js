@@ -27,7 +27,7 @@ module.exports.requireParams = requireParams;
  */
 function requireGame(service) 
 {
-	var Game = service.useModel('game').Game;
+	var Game = service.useModel('Game');
 	return function(req, res, next) {
 		if (req.session.game)
 		{
@@ -59,7 +59,7 @@ module.exports.requireGame = requireGame;
  */
 function requireShip(service) 
 {
-	var Ship = service.useModel('game').Ship;
+	var Ship = service.useModel('Ship');
 	return function(req, res, next) {
 		if (req.session.ship)
 		{

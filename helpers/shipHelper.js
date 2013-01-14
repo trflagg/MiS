@@ -1,44 +1,14 @@
 module.exports = function (service) {
 	
-	var Ship = service.useModel('game').Ship;
-	var System = service.useModel('system').System;
-	var Location = service.useModel('location').Location;
-	var ShipCommand = service.useModel('shipCommand').ShipCommand;
-	var Quest = service.useModel('quest').Quest;
+	var Ship = service.useModel('Ship');
+	var System = service.useModel('System');
+	var Location = service.useModel('Location');
+	var ShipCommand = service.useModel('ShipCommand');
+	var Quest = service.useModel('Quest');
+	
+	var MessageHelper = require('./messageHelper')(service);
 	
 	var helper = {};
-	
-	
-	helper.runMessage = function(ship, message) {
-		var text = "";
-		var inBrackets = false;
-		var bracketText = "";
-		//loop through every character
-		for (i in message)
-		{
-			var c = message[i];
-			if (inBrackets)
-			{
-				if(c == ']')
-				{
-					inBrackets = false;
-					//process bracketText
-				}
-			}
-			else
-			{
-				if(c == '[')
-				{
-					inBrackets = true;
-					bracketText = "";
-				}
-				else
-					text = text.concat(c);
-			}
-		}
-		ship.lastMessageText = text;
-		return ship;
-	};
 	
 	helper.setQuestByName = function(ship, questName, callback) {
 		//look up quest
@@ -84,7 +54,7 @@ module.exports = function (service) {
 					ship.location = foundLocation;
 					
 					//run location's message
-					helper.runMessage(ship, foundLocation.message);
+					MessageHelper.runMessage(ship, foundLocation.message);
 					
 					//add location's default commands to ship
 					var defaultShipsCommands = foundLocation.locationType.defaultShipCommands;

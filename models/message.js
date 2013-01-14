@@ -13,9 +13,9 @@ module.exports = function (mongoose) {
 		message			: {type : String, required : true},
 	};
 	
-	var MessgeSchema = new Schema(modelObject.MessageProps);
+	//var MessgeSchema = new Schema(modelObject.MessageProps);
 
-	modelObject.Message = mongoose.model('Message', MessgeSchema);
+	//modelObject.Message = mongoose.model('Message', MessgeSchema);
 	
 	return modelObject;
 };

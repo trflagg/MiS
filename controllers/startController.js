@@ -1,40 +1,39 @@
 module.exports = function (app, service) {
-	var jade = require('jade');
+	var swig = require('swig');
 	var fs = require('fs');
 	
 	var middleware = require('./middleware');
 	var startGame = require('./gameController')(app, service).game;
 	
-	var Game = service.useModel('game').Game;
-	var Ship = service.useModel('game').Ship;
-	var CrewMember = service.useModel('game').CrewMember;
-	var ShipControl = service.useModel('game').ShipControl;
-	var Quest = service.useModel('quest').Quest;
+	var Game = service.useModel('Game');
+	var Ship = service.useModel('Ship');
+	var CrewMember = service.useModel('CrewMember');
+	var ShipControl = service.useModel('ShipControl');
+	var Quest = service.useModel('Quest');
 	
 	var shipHelper = require('../helpers/shipHelper')(service);
+	
+	var sendHTMLAndJS = require('../utils').sendHTMLAndJS;
 	
 	/**
 	 * GET /start/
 	 */
 	app.get('/start/', start);
 	function start(req, res) {
-		
 		//check for cookie
-		//res.clearCookie('game');
 		if (req.cookies.game)
 		{
 			req.session.game = req.cookies.game;
 			nextURL = "/start/selectShip";
+			//uncomment to turn cookie forwarding off
+			nextURL = "/start/nameEntry";
 		}
 		else
 		{
-			//set cookie:
-			//res.cookie('game', 1);
-			//delete cookie:
-			//res.clearCookie('game')
 			nextURL = "/start/nameEntry";
 		}
-		res.render('./start/startIndex', { 'nextURL' : nextURL});
+		//res.render('./start/simple.html');
+		res.render('./start/startIndex.html', { locals: { 'nextURL' : nextURL}});
 	}
 	
 	/**
@@ -58,7 +57,7 @@ module.exports = function (app, service) {
 	app.get('/start/nameEntry', nameEntry);
 	function nameEntry(req, res) 
 	{
-		sendJadeAndJS('./views/start/nameEntry',res);
+		sendHTMLAndJS('start/nameEntry',res);
 	};
 	
 	/**
@@ -80,7 +79,7 @@ module.exports = function (app, service) {
 				}, function(err, newGame) {
 					if (err)
 					{
-						sendJadeAndJS('./views/start/nameEntry', res, {err: err});
+						sendHTMLAndJS('start/nameEntry', res, { locals: {err: err}});
 					}
 					else
 					{
@@ -90,14 +89,14 @@ module.exports = function (app, service) {
 						req.session.game = newGame._id;
 						req.game = newGame;
 						//ask handiness
-						sendJadeAndJS('./views/start/askHandiness', res, {name : name});
+						sendHTMLAndJS('start/askHandiness', res, { locals: {name : name}});
 					}
 			});
 						
 		}
 		else
 		{
-			sendJadeAndJS('./views/start/nameEntry', res,  {err: "Name must be at least 3 characters."});
+			sendHTMLAndJS('start/nameEntry', res,  { locals: {err: "Name must be at least 3 characters."}});
 		}
 	}
 	
@@ -154,10 +153,10 @@ module.exports = function (app, service) {
 						shipData = { name : foundShip.name, _id : foundShip._id, locationName : foundShip.location.name };
 						ships.push(shipData);
 					}
-					sendJadeAndJS('./views/start/selectShip', res, {
+					sendHTMLAndJS('./views/start/selectShip', res, { locals: {
 						ships: ships, 
 						name: req.game.name
-					});
+					}});
 				}
 			});
 		}
@@ -191,10 +190,7 @@ module.exports = function (app, service) {
 		middleware.requireGame(service),
 		newShip)
 	function newShip(req, res) {
-		sendJadeAndJS('./views/start/newShip', res, {
-			ships: req.game.ships, 
-			name: req.game.name
-		});
+		sendHTMLAndJS('start/newShip', res, { locals: { name: req.game.name }});
 	}
 	
 	/**
@@ -268,37 +264,6 @@ module.exports = function (app, service) {
 	
 	
 	
-	
-	/**
-	 * sendJadeAndJS()
-	 */
-	function sendJadeAndJS(viewPath, res, locals) {
-		locals = locals || {};
-		console.log("rendering viewPath: "+viewPath)
-		//read the jade and js files
-		fs.readFile(viewPath+'.jade', 'utf8', function (err,jadeHTML) {
-			if (err) {
-				console.log(err);
-				res.send(err);
-			}
-			fs.readFile(viewPath+'.js', 'utf8', function (err,js) {
-				if (err) {
-					console.log(err);
-					res.send(err);
-				}	
-				var opts = { 
-					pretty: true,
-					filename: viewPath+'.jade',
-				}
-				var fn = jade.compile(jadeHTML, opts);
-				var html = fn(locals);
-				//send html and javascript
-				res.send({
-					html: html,
-					js: js
-				});
-			});
-		});
-	}
+
 
 }

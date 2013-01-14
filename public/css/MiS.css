@@ -1,0 +1,279 @@
+/* general styles */
+body 
+{
+	background-color: #000;
+	color: #999;
+	overflow: hidden;
+}
+
+#content 
+{
+	overflow: hidden;
+}
+
+td {
+	vertical-align: middle;
+}
+
+h1 {
+	font-family: 'Audiowide', sans-serif;
+	font-size: 64px;
+	letter-spacing: -7px;
+}
+
+h2 {
+	font-family: 'Coda', sans-serif;
+}
+
+p { 
+	font-size: 20px;
+	font: 'Coda', sans-serif;
+}
+
+*:focus
+{
+	outline: none;
+
+}
+
+input[type="text"] {
+ 	background: #000;
+	color: #999;
+	font-size:30px;
+	height: 1.5em;
+	width: 12em;
+	padding-left: .5em;
+	padding-right: .5em;
+	font-family: 'Coda', sans;
+	border-radius: 30px; 
+	-moz-border-radius: 30px; 
+	-webkit-border-radius: 30px; 
+	border: 3px solid #999;
+}
+
+@media (max-width: 480px) { 
+	input[type="text"] {
+		font-size: 18px;
+	}
+}
+
+/* Why doesn't this overload bootstrap!!! ARGG! */
+input:focus !important {
+	color: rgba(82, 168, 236, 0.8);
+	box-shadow: 0px 0px 45px 4px rgba(82, 168, 236, 0.8);
+	-webkit-box-shadow: 0px 0px 45px 4px rgba(82, 168, 236, 0.8);
+	-moz-box-shadow: 0px 0px 45px 4px rgba(82, 168, 236, 0.8);
+	-o-box-shadow: 0px 0px 45px 4px rgba(82, 168, 236, 0.8);
+}
+
+button {
+	font-family: Coda;
+	font-size: 30px;
+	color: #999;
+	background: black;
+	height: 1.7em;
+	width: 15em;
+	text-align: center;
+	margin-top: 1em;
+	border: 3px solid #999;
+	border-radius: 30px; 
+	-moz-border-radius: 30px; 
+	-webkit-border-radius: 30px; 
+}
+
+@media (max-width: 480px) { 
+	button{
+		font-size: 20px;
+	}
+}
+button:hover {
+	color: rgba(82, 168, 236, 0.8);
+	border-color: rgba(82, 168, 236, 0.8);
+	-moz-box-shadow: 0px 0px 15px 4px rgba(82, 168, 236, 0.8);
+	-webkit-box-shadow: 0px 0px 15px 4px rgba(82, 168, 236, 0.8);
+	-o-box-shadow: 0px 0px 15px 4px rgba(82, 168, 236, 0.8);
+	box-shadow: 0px 0px 15px 4px rgba(82, 168, 236, 0.8);
+	-moz-text-shadow: 1px 1px 5px 4px rgba(82, 168, 236, 0.8);
+	-webkit-text-shadow: 1px 1px 5px 4px rgba(82, 168, 236, 0.8);
+	-o-text-shadow: 1px 1px 5px 4px rgba(82, 168, 236, 0.8);
+	text-shadow: 1px 1px 5px 4px rgba(82, 168, 236, 0.8);
+}
+
+select {
+	font-size: 30px;
+	font-family: "Coda";
+	color: black;
+	background-color: #999;
+	border: 1px solid black;
+}
+
+.error {
+	color: #b94a48;
+}
+
+.centerDiv {
+	text-align: center;
+}
+
+div.prompt {
+	margin-top: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+.prompt p
+{
+	text-align: center;
+	font-family: 'Coda', sans;
+	opacity: 0.1;
+	transition: opacity 1s linear;
+	-webkit-transition: opacity 1s linear;
+	-moz-transition: opacity 1s linear;
+	-o-transition: opacity 1s linear;
+}
+.prompt.showPrompt p
+{
+	opacity: 1;
+}
+
+/* Star backgrounds */
+.stars {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	transition: transform 2s linear;
+	-webkit-transition: -webkit-transform 2s linear;
+	-moz-transition: -moz-transform 2s linear;
+	-o-transition: -o-transform 2s linear;
+}
+#starBackground {
+	background: url(../images/starBackground.png) repeat;
+	z-index: 100;
+}
+
+#starMidfield {
+	background: url(../images/starMidfield.png) repeat;
+	z-index: 200;
+}
+
+#starForward {
+	background: url(../images/starForward.png) repeat;
+	z-index: 300;
+}
+
+#starForward1 {
+	background: url(../images/starForward1.png) repeat;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 300;
+}
+#starForward2 {
+	background: url(../images/starForward2.png) repeat;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 300;
+}
+#starForward3 {
+	background: url(../images/starForward3.png) repeat;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 300;
+}
+
+
+/* title screen */
+.startScreen
+{
+	transition: all 2s linear;
+	-webkit-transition: all 2s linear;
+	-moz-transition: all 2s linear;
+	-o-transition: all 2s linear;
+	z-index: 400; 
+	margin-top: 95px;
+}
+
+#titleScreen
+{
+	color: #000;
+	position: relative;
+}
+#titleScreen.showText
+{
+	color: #999;
+}
+
+#titleScreen h1 
+{
+	font-family: 'Audiowide', sans;
+	font-size: 250px;
+	letter-spacing: -.1em;
+	display: inline;
+	margin-left: .3em;
+}
+
+
+#titleScreen p 
+{
+	font-family: 'Coda', sans;
+	display: inline;
+	padding-left: 2em;
+}
+
+#titleScreen #firstRow
+{
+	margin-top: 11em;
+}
+
+#titleScreen #secondRow
+{
+	margin-top: 8em;
+}
+
+/* title size depends on screen size */
+@media (min-width: 768px) and (max-width: 979px) {
+	#titleScreen h1 {
+		font-size: 180px;
+	}
+	#titleScreen #secondRow{
+		margin-top: 5em;
+	}
+	p {
+		font-size: 15px;
+	}
+}
+@media (max-width: 767px) {
+	#titleScreen h1 {
+		font-size: 130px;
+	}
+	#titleScreen #firstRow{
+		margin-top: 9em;
+	}
+	#titleScreen #secondRow{
+		margin-top: 3em;
+	}
+	p {
+		font-size: 10px;
+	}
+}
+@media (max-width: 480px) { 
+	#titleScreen h1 {
+		font-size: 80px;
+	}
+	#titleScreen #firstRow{
+		margin-top: 4em;
+	}
+	#titleScreen #secondRow{
+		margin-top: 2em;
+	}
+	#titleScreen p {
+		display: block;
+		font-size: 20px;
+		padding-left: 1.5em;
+	}
+}
+
+/* newShip */
+#crewDiv input,
+#crewDiv label {
+	font-size: 20px;
+	font-family: 'Coda', sans-serif;
+}

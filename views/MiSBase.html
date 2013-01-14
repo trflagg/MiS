@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %} Make it So by hi-scor.es {% endblock %}</title>
+
+	{% block css %}
+ 		<!-- fonts -->
+ 		<link href='http://fonts.googleapis.com/css?family=Audiowide|Coda|Orbitron', rel='stylesheet', type='text/css'>
+ 		
+		<!-- twitter bootstrap & responsive -->
+		<link href="/css/libs/bootstrap.css", rel='stylesheet', type='text/css'>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/css/libs/bootstrap-responsive.css", rel='stylesheet', type='text/css'>
+ 		
+ 		<!--  my style sheets -->
+ 		<link rel='stylesheet', href='/css/MiS.css',  type="text/css", media="screen">
+ 		
+	{% endblock %}
+	
+	{% block head %}
+	{% endblock %}
+
+</head>
+<body>
+	<div id="content">
+  		{% block content %}{% endblock %}
+	</div>
+	
+	{% block scripts %}
+ 		<!-- jquery -->
+    	<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<!-- twitter bootstrap -->
+    	<script src="/js/libs/bootstrap.min.js"></script>
+		<!-- Modernizr -->
+    	<script src="/js/libs/modernizr-latest.js"></script>
+
+		<!-- my javascript -->
+		<script src="/js/MiS.js"></script>
+	{% endblock %}
+</body>
+</html>

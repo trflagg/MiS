@@ -1,0 +1,75 @@
+{% extends 'MiSBase.html' %}
+
+{% block content %}
+<div id="starBackground" class="stars"></div>
+<div id="starMidfield" class="stars"></div>
+<div id="starForward" class="stars">
+<!-- Circada front stars
+ idea shamelessly stolen from
+http://designfestival.com/the-cicada-principle-and-why-it-matters-to-web-designers/
+	<div id="starForward1"></div>
+	<div id="starForward2"></div>
+	<div id="starForward3"></div>
+-->
+</div>
+<div id="bodyContent">
+	<div id="screenDivs">
+		<div id="titleScreen" class="startScreen">
+			<div class="row" id="firstRow">
+				<div class="span12">
+					<h1>Make</h1>
+				</div>
+			</div>
+			<div class="row" id="secondRow">
+				<div class="span12">
+					<h1>it So</h1>
+					<p> by hi-scor.es</p>
+				</div>
+			</div>
+			<div class="row prompt">
+				<div class="span12">
+					<p id="clickPrompt">(click to continue)</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+	{% parent %}
+	
+	<script type="text/javascript">
+	$(function() {
+		$currentDiv = $("#titleScreen");
+		divCount = 0;
+		
+		$(".stars").width($(window).width);
+		
+		//fade in text
+		$currentDiv.addClass('showText');
+		
+		//should it be 'tap'?
+		if (isMobile)
+		{
+			$("#clickPrompt").html("(tap to continue)");
+		}
+		//wait a couple of seconds
+		//then fade in click prompt
+		setTimeout( function() {
+			$("div.prompt").addClass("showPrompt");
+		}, 3000);
+		
+		//turn on click
+		var nextURL = '{{ nextURL }}';
+		$("#content").bind("click touch", function() {
+			$("#content").unbind("click touch");
+			if (nextURL != "")
+				startChangePage(nextURL);
+		});
+		
+		
+	});
+	</script>
+{% endblock %}

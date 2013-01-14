@@ -1,8 +1,10 @@
-//runs on page load
-$("#nameInput").focus();
+if (!isMobile)
+{
+	$("#nameInput").focus();
+}
 
 
-validateName = function() 
+validateName = function(event) 
 {
 	if (event.keyCode==13)
 	{
@@ -14,7 +16,11 @@ validateName = function()
 			$("#nameInput").animate({
 				backgroundColor:"#000"
 			}, 2000, "swing")
-			changePage("/start/nameEntry", "POST", {'name':name});
+			startChangePage("/start/nameEntry", "POST", {'name':name});
+		}
+		else
+		{
+			$("#nameError").html("Name must be at least 3 characters");
 		}
 	}
 	else
