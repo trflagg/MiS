@@ -1,0 +1,23 @@
+{% macro shipItem name locationName id %}
+<tr>
+	<td>{{ name }}</td>
+	<td>{{ locationName }}</td>
+	<td><a href="#", onclick="startChangePage('/start/selectShip','POST',{ship: '{{ id }}'}, true);">Make it So</a></td>
+</tr>
+{% endmacro %}
+
+<div id="selectShip" class="centerDiv">
+	<h2>Captain {{ name }},</h2>
+	<h2>please select your ship:</h2>
+	<table>
+		<tr>
+			<th>Ship</th>
+			<th>Location</th>
+			<th>&nbsp;</th>
+		</tr>
+		{% for ship in ships %}
+			{{ shipItem( ship.name, ship.locationName, ship._id) }}
+		{% endfor %}
+	</table>
+	<p id="newShipLink"><a href="#", onclick="startChangePage('/start/newShip')">New Ship</a></p>
+</div>

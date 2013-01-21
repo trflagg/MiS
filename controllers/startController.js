@@ -26,7 +26,7 @@ module.exports = function (app, service) {
 			req.session.game = req.cookies.game;
 			nextURL = "/start/selectShip";
 			//uncomment to turn cookie forwarding off
-			nextURL = "/start/nameEntry";
+			//nextURL = "/start/nameEntry";
 		}
 		else
 		{
@@ -153,7 +153,7 @@ module.exports = function (app, service) {
 						shipData = { name : foundShip.name, _id : foundShip._id, locationName : foundShip.location.name };
 						ships.push(shipData);
 					}
-					sendHTMLAndJS('./views/start/selectShip', res, { locals: {
+					sendHTMLAndJS('start/selectShip', res, { locals: {
 						ships: ships, 
 						name: req.game.name
 					}});
@@ -162,6 +162,7 @@ module.exports = function (app, service) {
 		}
 		else
 		{
+			//no ships to select - make a new one
 			newShip(req, res);
 		}
 	}
@@ -213,56 +214,36 @@ module.exports = function (app, service) {
 		//create new ship
 		//need some validation!!!
 		console.log(req.body);
-		Ship.create({
-					name : req.body.shipName,
-					security : new CrewMember({ name : req.body.security }),
-					medical : new CrewMember({ name : req.body.medical }),
-					info : new CrewMember({ name : req.body.info }),
-					empat : new CrewMember({ name : req.body.empat }),
-					engineering : new CrewMember({ name : req.body.engineering }),
-					cultural : new CrewMember({ name : req.body.cultural }),
-					controls : {
-						weapons : new ShipControl(),
-						shields : new ShipControl(),
-						sensors : new ShipControl(),
-						databank : new ShipControl(),
-						processor : new ShipControl(),
-					},
+		shipHelper.newShip({
+					shipName : req.body.shipName,
+					security : req.body.security,
+					medical : req.body.medical,
+					info : req.body.info,
+					empat : req.body.empat,
+					engineering : req.body.engineering,
+					cultural : req.body.cultural, 
 		}, function(err, newShip) {
-			if (err)
-			{
-				//need better error handling here
-				res.send(err);
+			if (err) {
+				//need better error handling here?
+				return res.send(500, err);
 			}
-			else
-			{
+			
+			//start the game!
+			req.session.ship = newShip._id;
+			req.game.ships.push(newShip._id);
+			
+			req.game.save(function(err) {
+				if (err) {
+					//error handling 
+					return res.send(500, err);
+				}
 				//start the game!
-				req.session.ship = newShip._id;
-				req.game.ships.push(newShip._id);
-				
-				//add error handling!
-				req.game.save();
-				
-				//set starting location
-				shipHelper.setSystemByName(newShip, "Struven", function(err, ship) {
-					//add error handling!
-					//set starting quest
-					shipHelper.setQuestByName(ship, "Murder on Struven", function(err, ship) {
-						//add error handling!
-						//start the game!
-						req.shipId = newShip._id;
-						req.ajax = req.body.ajax;
-						return startGame(req, res);
-					});
-						
-				});
-			}
+				req.shipId = newShip._id;
+				req.ajax = req.body.ajax;
+				return startGame(req, res);
+			});
 		});
 	}
-	
-	
-	
-	
 	
 
 

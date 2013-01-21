@@ -3,7 +3,7 @@ var allTests = function() {
 	var gameTest = require('./gameTest');
 	var expressTest = require('./expressTest');
 	var messageTest = require('./messageTest');
-	var shipTest = require('./shipTest');
+	var startTest = require('./startTest');
 	
 	var mongoose = require('mongoose');
 	mongoose.connect('localhost','testdb');
@@ -21,14 +21,14 @@ var allTests = function() {
 			console.log("");
 			expressTest.runTest(function() {
 				console.log("");
-				messageTest.runTest(function() {
+				//messageTest.runTest(function() {
 					console.log("");
-					shipTest.runTest(function() {
+					startTest.runTest(function() {
 						console.log("________ Tests Ended ______________");
 						console.log("");
 						mongoose.disconnect();
 					});
-				});
+				//});
 			})
 		});
 	});

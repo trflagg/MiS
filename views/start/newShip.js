@@ -3,7 +3,7 @@ $("#shipNameInput").focus();
 
 var curPage = "ship";
 
-validateName = function() 
+validateShip = function(event) 
 {
 	if (event.keyCode==13)
 	{
@@ -34,7 +34,6 @@ validateName = function()
 			var empat = $('#empat').val();
 			var engineering = $('#engineering').val();
 			var cultural = $('#cultural').val();
-			var shipName = $('#nameInput').val();
 			if (security.length >= 3 &&
 				medical.length >= 3 &&
 				info.length >= 3 &&
@@ -45,7 +44,8 @@ validateName = function()
 				//send data
 				$('input').animate({
 					backgroundColor:"#000"
-				}, 2000, "swing")
+				}, 2000, "swing");
+				
 				startChangePage("/start/newShip", "POST", {
 					shipName : shipName,
 					security : security,

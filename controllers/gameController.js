@@ -10,47 +10,40 @@ module.exports = function (app, service) {
 	/**
 	 * GET /game
 	 */
-	exports.game = function(req, res) {
-		//grab ship info
-		Ship.findById(req.shipId, function(err, ship) {
-			if (err || (ship == null))
-			{
-				res.send(500, "Error finding ship: "+ err);
-			}
-			else
-			{
-				//load pageUI
-				var pageUI = shipHelper.getPageUI(ship);
-				console.log(pageUI);
-				console.log(req.game);
-				console.log(req.game.handed);
-				
-				//send ajax or html?
-				//TODO: base this test off of something else? request-type?
-				if (req.ajax)
-				{
-					console.log('ajax');
-					sendHTMLAndJS('./views/game/gameAjax', res, {
-						pageUI : pageUI, 
-						locals : {
-							handed : req.game.handed,
-						},
-					});
-				}
-				else
-				{
-					res.render('./game/gameIndex', {
-						pageUI : JSON.stringify(pageUI), 
-						handed : req.game.handed,
-					});	
-				}
-			}
-		});
-	}
 	app.get('/game', 
 			middleware.requireGame(service), 
 			middleware.requireShip(service),
-			exports.game);
+			game);
+	function game(req, res) {
+		//load pageUI
+		var pageUI = shipHelper.getPageUIById(req.shipId, function(err, pageUI) {
+			
+			if (err) {
+				return res.send(500, err);
+			}
+			
+			//send ajax or html?
+			//TODO: base this test off of something else? request-type?
+			if (req.ajax)
+			{
+				console.log('ajax');
+				sendHTMLAndJS('game/gameAjax', res, {
+					pageUI : pageUI, 
+					locals : {
+						handed : req.game.handed,
+					},
+				});
+			}
+			else
+			{
+				res.render('./game/gameIndex', {
+					pageUI : JSON.stringify(pageUI), 
+					handed : req.game.handed,
+				});	
+			}
+		});
+	}
+	exports.game = game;
 	
 	
 	/**

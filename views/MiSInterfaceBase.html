@@ -1,0 +1,50 @@
+<div id="interfaceContent" class="container">
+	<div id="header">
+		<div class="row">
+			<div class="span10">
+				<h1 id="headerText">&nbsp;</h1>
+				<div id="headerLine">
+				</div>
+			</div>
+			<div id="menu" class="span2">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+					
+	<div id="locationHeader">
+		<div class="row">
+			<div class="span12">
+				<p id="locationLabel">Current Location:</p>
+				<p id="locationName"> &nbsp;</p>
+				<p id="locationInfo"> &nbsp;</p>
+			</div>
+		</div>
+	</div>
+					
+	<div id="mainBody">
+		<div class="row">
+			{% if handed == 'left' %}
+				<div class="span3">
+					<div id="commands">
+						<ul id="commandList"></ul>
+					</div>
+				</div>
+				<div class="span9">
+					<div id="bodyContent">
+					</div>
+				</div>
+			{% else %}
+				<div class="span9">
+					<div id="bodyContent">
+					</div>
+				</div>
+				<div class="span3">
+					<div id="commands">
+						<ul id="commandList"></ul>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

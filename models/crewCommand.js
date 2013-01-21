@@ -11,7 +11,8 @@ module.exports = function (mongoose) {
 	var MessageProps = require('../models/message')(mongoose).MessageProps;
 	
 	var CrewCommandProps = {
-		control			: String,
+		crew			: String,
+		text			: String,
 		name			: String,
 	};
 	CrewCommandProps = _.extend(CrewCommandProps, MessageProps);

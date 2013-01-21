@@ -45,6 +45,7 @@ module.exports = function(app, express, environment) {
     		})
  		}));
 		
+		app.use(errorHandler);
 		app.use(express.favicon());
 		app.use(express.logger('dev'));
 		app.use(express.bodyParser());
@@ -59,4 +60,8 @@ module.exports = function(app, express, environment) {
 	app.configure('development', function(){
 		app.use(express.errorHandler());
 	});
+	
+	function errorHandler(err, req, res, next) {
+  		res.send(500, "Something broke");
+	}
 }

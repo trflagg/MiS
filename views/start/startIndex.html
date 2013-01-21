@@ -1,34 +1,34 @@
 {% extends 'MiSBase.html' %}
 
 {% block content %}
-<div id="starBackground" class="stars"></div>
-<div id="starMidfield" class="stars"></div>
-<div id="starForward" class="stars">
-<!-- Circada front stars
- idea shamelessly stolen from
-http://designfestival.com/the-cicada-principle-and-why-it-matters-to-web-designers/
-	<div id="starForward1"></div>
-	<div id="starForward2"></div>
-	<div id="starForward3"></div>
--->
-</div>
-<div id="bodyContent">
-	<div id="screenDivs">
-		<div id="titleScreen" class="startScreen">
-			<div class="row" id="firstRow">
-				<div class="span12">
-					<h1>Make</h1>
+<div id="startContent">
+	<div id="starBackground" class="stars"></div>
+	<div id="starMidfield" class="stars"></div>
+	<div id="starForward" class="stars">
+	<!-- Circada front stars
+	 idea shamelessly stolen from
+	http://designfestival.com/the-cicada-principle-and-why-it-matters-to-web-designers/
+		<div id="starForward1"></div>
+		<div id="starForward2"></div>
+		<div id="starForward3"></div>
+	-->
+	</div>
+	<div id="bodyContent">
+		<div id="screenDivs">
+			<div id="titleScreen" class="startScreen" style="width: 100%">
+				<div class="row" id="firstRow">
+					<div class="span12">
+						<h1>Make</h1>
+					</div>
 				</div>
-			</div>
-			<div class="row" id="secondRow">
-				<div class="span12">
-					<h1>it So</h1>
-					<p> by hi-scor.es</p>
+				<div class="row" id="secondRow">
+					<div class="span12">
+						<h1>it So</h1>
+						<p> by hi-scor.es</p>
+					</div>
 				</div>
-			</div>
-			<div class="row prompt">
-				<div class="span12">
-					<p id="clickPrompt">(click to continue)</p>
+				<div id="clickPrompt" style="display:none;" class="prompt">
+					<p >(click to continue)</p>
 				</div>
 			</div>
 		</div>
@@ -58,8 +58,20 @@ http://designfestival.com/the-cicada-principle-and-why-it-matters-to-web-designe
 		//wait a couple of seconds
 		//then fade in click prompt
 		setTimeout( function() {
-			$("div.prompt").addClass("showPrompt");
+			$("#clickPrompt").fadeIn(2000);
 		}, 3000);
+		
+		// firefox has this freaky bug that was cutting off the
+		// ends of the letters. I need to move the text left a bit
+		// but transitions get in the way. 
+		// Better solution would be not to use all in my transition
+		// css, but I can't specify transform in transition :(
+		console.log($.browser);
+		if ($.browser.mozilla) {
+			$("#titleScreen").css("-moz-transition","none");
+			$("#titleScreen").css("margin-left","-20px");
+			$("#titleScreen").css("-moz-transition", "all 2s linear;");
+		}
 		
 		//turn on click
 		var nextURL = '{{ nextURL }}';

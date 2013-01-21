@@ -7,8 +7,11 @@ isMobile = (/iPhone|iPod|iPad|Android|BlackBerry/).test(navigator.userAgent)
  */
 function ajaxRequest(url, type, data, dataType, myCallback)
 {
+	if (url == "")
+		return;
+		
 	if (data)
-		data.ajax = true
+		data.ajax = true;
 	
 	//default to GET
 	type = (typeof type == 'undefined')?"GET":type;
@@ -26,7 +29,6 @@ function ajaxRequest(url, type, data, dataType, myCallback)
 	$.ajax(params)
     .done(function(returnedData, successString, jqXHR) { 
 	
-		//run callback or call updatePageUI
 		if (myCallback && typeof myCallback == 'function')
 		{
 			myCallback(returnedData)
@@ -37,10 +39,129 @@ function ajaxRequest(url, type, data, dataType, myCallback)
 		}
 		
 	}).fail(function(jqXHR, textStatus) {
-  		$("#content").html( "ajaxRequest failed. " + jqXHR.status + " " + jqXHR.statusText );
+  		$("#content").html( "ajaxRequest failed. " + jqXHR.status + " " + jqXHR.statusText + " "+ jqXHR.responseText);
 	});
 }
 
+
+/**
+ * updatePageUI()
+ */
+function updatePageUI(returnedData)
+{
+	//if string, just replace content
+	if (typeof returnedData == "string")
+	{
+		$("#bodyContent").html(returnedData);
+	}
+	else
+	{
+		if (returnedData.html)
+		{
+			$("#content").html(returnedData.html);
+		}
+		if (returnedData.js)
+		{
+			console.log(returnedData.js);
+			eval(returnedData.js);
+		}
+		if (returnedData.pageUI)
+		{
+			console.log(returnedData.pageUI);
+			loadPageUI(returnedData.pageUI);
+		}
+	}
+	
+	//$('input[tabindex="1"]').focus();
+	
+	
+}
+
+
+/**
+ * loadInterface()
+ */
+function loadPageUI(newPageUI)
+{
+	pageUI = newPageUI;
+	
+	setHeader(pageUI.header);
+	setLocation(pageUI.locationHeader);
+	loadCommands(pageUI.commands);
+	$("#bodyContent").html(pageUI.content);
+	reloadColors();
+}
+
+/**
+ * setHeader()
+ */
+function setHeader(header)
+{
+	$("#headerText").html(header.text)
+}
+
+/**
+ * setLocation()
+ */
+function setLocation(locationInfo)
+{
+	if('showLabel' in locationInfo)
+	{
+		if (!locationInfo.showLabel)
+		{
+			$("p#locationLabel").css("display", "none");
+		}
+	}
+	$("#locationName").html(locationInfo.locationName);
+	$("#locationInfo").html(locationInfo.description);
+}
+
+/**
+ * loadCommands()
+ */
+function loadCommands(commands) 
+{
+	for (var i = 0, ll = commands.length; i<ll; i++)
+	{
+		var command = commands[i];
+		
+		if (command.url) {
+			$("<a href='#' onclick='ajaxRequest(\""+commands[i].url+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
+				.appendTo("#commandList");
+		}
+		else if (command.subcommands) {
+			$("<a href='#' onclick='showSubcommands(\""+i+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
+				.appendTo("#commandList");
+		}
+		else {
+			console.log("Error in loadCommands. command["+i+"] does not have url or subcommands.");
+			console.log(commands);
+		}
+	}
+}
+
+
+/**
+ * reloadColors()
+ */
+function reloadColors()
+{
+	$.each(pageUI.colors, function(index, color) {
+		setColors(color.value, color.selectors);
+	});
+}
+
+/**
+ * setColors()
+ */
+
+function setColors(colorValue, selectorList)
+{
+	for (var prop in selectorList)
+	{
+		$(""+prop).css(selectorList[prop], colorValue);
+	}
+}
 
 
 /**
@@ -55,24 +176,20 @@ function startChangePage(url, method, data, goAway)
 		if (goAway)
 		{
 			var windowHeight = $(window).height();
+			
+			//turn off scroll
+			
 			//move down
-			$currentDiv.animate({top: '-'+windowHeight+'px'}, 2000, 'swing')
+			$currentDiv.css('transform', $currentDiv.css('transform') + ' translateY('+windowHeight+'px)');
 			
+			$("#starBackground").css('transform',$("#starBackground").css('transform') + ' translateY('+windowHeight*(2/3)+'px)');
+			//$("#starBackground").css('height', $("#starBackground").height() + windowHeight*(2/3));
+			$("#starMidfield").css('transform',$("#starMidfield").css('transform') + ' translateY('+windowHeight+'px)');
+			//$("#starMidfield").css('height', $("#starMidfield").height() + windowHeight);
+			$("#starForward").css('transform',$("#starForward").css('transform') + ' translateY('+windowHeight*2+'px)');
+			//$("#starForward").css('height', $("#starForward").height() + windowHeight*2);
 
-
-			$('#starMidfield').animate({
-				'backgroundPosition-y': '+='+windowHeight+'px',
-			}, 3000, 'linear');
-				
-			$('#starForward').animate({
-				'backgroundPosition-y': '+='+windowHeight*2+'px',
-			}, 3000, 'linear');
-			
-			$('#starBackground').animate({
-				'backgroundPosition-y': '+='+windowHeight*2/3+'px',
-			}, 3000, 'linear');
-			
-			$("#content").delay(1000).fadeOut("1000", 'linear', function() {
+			$("#content").delay(500).fadeOut("1000", 'linear', function() {
 				updatePageUI(returnedData); 
 				$(this).fadeIn("slow","linear")
 			});
@@ -93,7 +210,8 @@ function startChangePage(url, method, data, goAway)
 				var translateSize = windowWidth*2;
 			}
 			$currentDiv.css('transform','translateX(-'+translateSize+'px)');
-			//move in the new
+			
+			// move in the new screen
 			divCount++;
 			var jq = $("<div id='div"+divCount+"' class='startScreen'>"+returnedData.html+"</div>").appendTo("#screenDivs");
 			$currentDiv = $("#div"+divCount)
@@ -105,19 +223,19 @@ function startChangePage(url, method, data, goAway)
 			
 			$currentDiv.css('transform','translateX(-'+windowWidth+'px)');
 			
-			var starWidth = (windowWidth * (2/3)) * divCount;
+			var starWidth = (windowWidth * (2/3));
 			
-			//width screws up in firefox, so I'm yanking it
-			//unfortunately this means no parallax stars in ff :(
-			if (!($.browser.mozilla))
+			// width screws up in firefox, so I'm yanking it
+			// unfortunately this means no parallax stars in ff :(
+			//if (!($.browser.mozilla))
 			{
 				var newWidth = $(".stars").width() + starWidth;
 				//$(".stars").css('width', newWidth);
-				$("#starBackground").css('transform','translateX(-'+(starWidth/3)+'px)');
+				$("#starBackground").css('transform','translateX(-'+(starWidth/3)*divCount+'px)');
 				$("#starBackground").css('width', $("#starBackground").width() + (starWidth/3));
-				$("#starMidfield").css('transform','translateX(-'+(starWidth/2)+'px)');
+				$("#starMidfield").css('transform','translateX(-'+(starWidth/2)*divCount+'px)');
 				$("#starMidfield").css('width', $("#starMidfield").width() + (starWidth/2));
-				$("#starForward").css('transform','translateX(-'+(starWidth)+'px)');
+				$("#starForward").css('transform','translateX(-'+(starWidth)*divCount+'px)');
 				$("#starForward").css('width', $("#starForward").width() + starWidth);
 			}
 			
