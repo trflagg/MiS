@@ -73,8 +73,6 @@ function updatePageUI(returnedData)
 	}
 	
 	//$('input[tabindex="1"]').focus();
-	
-	
 }
 
 
@@ -127,11 +125,20 @@ function loadCommands(commands)
 		
 		if (command.url) {
 			$("<a href='#' onclick='ajaxRequest(\""+commands[i].url+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
-				.appendTo("#commandList");
+			.appendTo("#commandList");
 		}
 		else if (command.subcommands) {
-			$("<a href='#' onclick='showSubcommands(\""+i+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
-				.appendTo("#commandList");
+			var $superCommand = $("<a href='#' onclick='showSubcommands(\""+i+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
+								.appendTo("#commandList");
+			var $subcommandList = $("<ul id='subcommandList"+i+"' class='subcommandList'>");
+			var subcommands = command.subcommands;
+			for (var j=0, ll2 = subcommands.length; j<ll2; j++)
+			{
+				$subcommandList.append("<a href='#' onclick='ajaxRequest(\""+subcommands[j].url+"\");'><li class='commandItem'> "+subcommands[j].text+"</li></a>");
+			}
+			
+			$superCommand.append($subcommandList);
+				
 		}
 		else {
 			console.log("Error in loadCommands. command["+i+"] does not have url or subcommands.");
@@ -140,6 +147,10 @@ function loadCommands(commands)
 	}
 }
 
+function showSubcommands(index)
+{
+	$("#subcommandList"+index).show();
+}
 
 /**
  * reloadColors()

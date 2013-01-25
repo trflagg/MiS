@@ -1,4 +1,11 @@
 .DS_Store
 .DS_Store?
 node_modules
+libs/*
+node_modules/*
+public/css/libs/*
+public/js/libs/*
+environment-prod.js
+Treatment.txt
+Prologue.txt
 

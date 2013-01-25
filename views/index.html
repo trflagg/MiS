@@ -1,0 +1,51 @@
+{% extends 'MiSBase.html' %}
+
+{% block css %}
+	{% parent %}
+	
+	<style type="text/css">
+	p {
+		margin-top: 30px;
+	}
+	
+	h1 a {
+		color: #999;
+		margin-top: 30px;
+		padding-bottom: 300px;
+	}
+	h1 a:hover {
+  		text-decoration: underline;
+  		outline: 0;
+		color: #999;
+	}
+		
+	
+	</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<img src="/images/logo.png">
+	
+	<h1 style="margin-top: 50px;">Welcome Aboard Captain!</h1>
+	<p>Thank you for playing Make it So.<br/> A couple of things you should know before you begin:</p>
+	<p>1. This game uses a cookie to associate your captain's profile with your browser. You do not have to register or create a profile before you can start playing and all of your actions will be saved automatically. In the future, you will be able to connect your profile to a social-media account and then log in and play from other browsers (but I haven't gotten to that yet).</p>
+	<p>If you would like to start over, you can <a href="/start/deleteCookie/">delete your browser cookie</a>. WARNING: Deleting your cookie will delete your captain profile, all of your ships, and all of your progress.</p>
+	<p>2. This game is in the super-early-alpha-more-like-proof-of-concept stage. Please do not expect a complete and bug-free game. I'll make a bug-reporter later, but if you want to tell me about something that went wrong, you can email me at <a href="hiscoresentertainment@gmail.com">hiscoresentertainment@gmail.com</a>.</p>
+	<p>3. Actually, now that I think about it, if you have any questions or want to know more you can email me at <a href="hiscoresentertainment@gmail.com">hiscoresentertainment@gmail.com</a> or <a href="https://twitter.com/hi_scor_es">do the twitter thing</a> (which I am bad at).</p>
+	<p>4. Browser check! How could I forget about the browser check? Most modern, up-to-date browsers should work. CSS transitions and transforms are the only issue. 
+	<script type="text/javascript">
+		if (Modernizr.csstransforms &&
+			Modernizr.csstransitions) {
+				document.write("Browser check: <b>passed</b>. No problems here!")
+		}
+		else {
+			document.write("Browser check: <b>failed</b>. You should update your browser before continuing.")
+		
+		}
+	</script>
+	<p>5. Finally, by clicking the link below, you agree to the totally-boilerplate <a href="/TaC">Terms and Conditions</a>.
+	<p>Enjoy!</p>
+	<h1><a href="/start/">Make it So</a></h1>
+</div>
+{% endblock %}

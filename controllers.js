@@ -1,6 +1,7 @@
 module.exports = function(app, service, environment){
 	
 	//based on code from https://github.com/dtryon/clog/blob/master/src/controllers.js
+	require('./controllers/indexController')(app, service);
 	require('./controllers/startController')(app, service);
 	require('./controllers/gameController')(app, service);
 	

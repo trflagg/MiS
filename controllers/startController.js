@@ -46,8 +46,12 @@ module.exports = function (app, service) {
 		//delete game
 		res.clearCookie('game');
 		Game.findByIdAndRemove(game, function(err, game) {
-			err = err || "";
-			res.send("Cookie deleted.  Err:"+err);
+			if (err) {
+				res.send("Error deleting cookie: "+err);
+			}
+			else {
+				res.send("Cookie deleted.");
+			}
 		});
 	}
 		

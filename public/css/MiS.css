@@ -3,6 +3,10 @@ body
 {
 	background-color: #000;
 	color: #999;
+}
+
+.hideOverflow 
+{
 	overflow: hidden;
 }
 
@@ -18,7 +22,7 @@ h2 {
 
 p { 
 	font-size: 20px;
-	font: 'Coda', sans-serif;
+	font-family: 'Coda', sans-serif;
 }
 
 table
@@ -401,6 +405,9 @@ ul#commandList {
 	list-style: none;
 }
 
+.subcommandList {
+	display: none;
+}
 	
 
 .commandItem {

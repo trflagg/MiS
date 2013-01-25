@@ -1,17 +1,24 @@
 var setTheDB = function() {
 	
-	//test argument?
+
+	var testArg = false;
+	var devArg = false;
 	if (process.argv[2] && process.argv[2] == "-test")
 	{
 		//connect to testdb
-		var testArg = true;
+		testArg = true;
 		console.log("testArg = true");
 		var environment = require('../environment-test');
 	}
+	else if (process.argv[2] && process.argv[2] == "-prod")
+	{
+		var environment = require('../environment-prod');
+	}
 	else
 	{
-		var testArg = false;
-		var environment = require('../environment');
+		devArg = true;
+		console.log("devArg = true");
+		var environment = require('../environment-dev');
 	}
 
 	//load service based on environment

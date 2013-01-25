@@ -8,7 +8,7 @@
   "dependencies": {
     "express-resource": "*",
     "express": "*",
-	"consolidate": "*"
+	"consolidate": "*",
 	"mongodb": "*",
 	"mongoose": "*",
 	"connect-mongo": "*",

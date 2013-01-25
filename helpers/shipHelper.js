@@ -319,12 +319,12 @@ module.exports = function (service) {
 			var command = shipCommands[i];
 			newCommand = {
 				text : command.text, 
-				url : "/ship/"+i,
+				url : "/controls/ship/"+i,
 			},
 			pageUI.commands.push(newCommand)
 		}
 		
-		pageUI.commands.push({ text : "Glossary", url: "/glossary/"});
+		pageUI.commands.push({ text : "Glossary", url: "/controls/glossary/0"});
 		
 		return pageUI
 	}
