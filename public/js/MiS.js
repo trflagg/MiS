@@ -124,17 +124,17 @@ function loadCommands(commands)
 		var command = commands[i];
 		
 		if (command.url) {
-			$("<a href='#' onclick='ajaxRequest(\""+commands[i].url+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
+			$("<a href='#' onclick='ajaxRequest(\""+commands[i].url+"\");'><li class='commandItem supercommand'> "+commands[i].text+"</li></a>")
 			.appendTo("#commandList");
 		}
 		else if (command.subcommands) {
-			var $superCommand = $("<a href='#' onclick='showSubcommands(\""+i+"\");'><li class='commandItem'> "+commands[i].text+"</li></a>")
+			var $superCommand = $("<a href='#' id='command"+i+"' onclick='showSubcommands(\""+i+"\");'><li class='commandItem supercommand'> "+commands[i].text+"</li></a>")
 								.appendTo("#commandList");
 			var $subcommandList = $("<ul id='subcommandList"+i+"' class='subcommandList'>");
 			var subcommands = command.subcommands;
 			for (var j=0, ll2 = subcommands.length; j<ll2; j++)
 			{
-				$subcommandList.append("<a href='#' onclick='ajaxRequest(\""+subcommands[j].url+"\");'><li class='commandItem'> "+subcommands[j].text+"</li></a>");
+				$subcommandList.append("<a href='#' id='subcommand"+i+j+"' onclick='ajaxRequest(\""+subcommands[j].url+"\");'><li class='commandItem'> "+subcommands[j].text+"</li></a>");
 			}
 			
 			$superCommand.append($subcommandList);
@@ -149,7 +149,13 @@ function loadCommands(commands)
 
 function showSubcommands(index)
 {
-	$("#subcommandList"+index).show();
+	$(".supercommand").parent().toggle();
+	// REALLY BAD HARDCODING
+	// TODO: FIX HARDCODED COLOR
+	$("#command"+index).toggle();
+	$("#command"+index+":first-child").addClass('buttonSelected').css("color","#999");
+	$("#subcommandList"+index).toggle();
+	
 }
 
 /**
@@ -193,14 +199,14 @@ function startChangePage(url, method, data, goAway)
 			//move down
 			$currentDiv.css('transform', $currentDiv.css('transform') + ' translateY('+windowHeight+'px)');
 			
-			$("#starBackground").css('transform',$("#starBackground").css('transform') + ' translateY('+windowHeight*(2/3)+'px)');
+			$("#starBackground").css('transform',$("#starBackground").css('transform') + ' translateY('+windowHeight*(1/3)+'px)');
 			//$("#starBackground").css('height', $("#starBackground").height() + windowHeight*(2/3));
-			$("#starMidfield").css('transform',$("#starMidfield").css('transform') + ' translateY('+windowHeight+'px)');
+			$("#starMidfield").css('transform',$("#starMidfield").css('transform') + ' translateY('+windowHeight*(1/2)+'px)');
 			//$("#starMidfield").css('height', $("#starMidfield").height() + windowHeight);
-			$("#starForward").css('transform',$("#starForward").css('transform') + ' translateY('+windowHeight*2+'px)');
+			$("#starForward").css('transform',$("#starForward").css('transform') + ' translateY('+windowHeight*(2/3)+'px)');
 			//$("#starForward").css('height', $("#starForward").height() + windowHeight*2);
 
-			$("#content").delay(500).fadeOut("1000", 'linear', function() {
+			$("#content").delay(200).fadeOut("1200", 'linear', function() {
 				updatePageUI(returnedData); 
 				$(this).fadeIn("slow","linear")
 			});
