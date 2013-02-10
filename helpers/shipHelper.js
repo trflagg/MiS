@@ -3,6 +3,8 @@ module.exports = function (service) {
 	
 	var async = require('async');
 	
+	var ShipUpdate = require('./ShipUpdate')(service);
+	
 	var Ship = service.useModel('Ship');
 	var CrewMember = service.useModel('CrewMember');
 	var ShipControl = service.useModel('ShipControl');
@@ -177,20 +179,24 @@ module.exports = function (service) {
 	 * addShipCommand()
 	 * callback can be either function or queryObject
 	 */
-	helper.addShipCommand = function(ship_id, controlName, commandText, commandName, callback) {
+	helper.addShipCommand = function(ship_id, controlName, commandText, commandName, callbackOrUpdateObject) {
 		
+		// callback may be function or array to add updates to
+		var callback = callbackOrUpdateObject;
 		if (typeof callback == "object") {
-			var queryObject = callback;
+			shipUpdate = callback;
 			callback = null;
 		}
 		
+		//TODO: should I make some kind of Command object for this? 
+		// I probably will want if I have to add more.
 		var commandObject = {
 			text : commandText,
 			name : commandName
 		}
 		
 		// command is for a ship control
-		// this is really bad hardcoding, I know
+		// TODO: this is really bad hardcoding, I know
 		// I PROMISE to fix it later.
 		if (controlName == "weapons" ||
 			controlName == "shields" ||
@@ -204,7 +210,8 @@ module.exports = function (service) {
 			if (callback) {
 				return Ship.findByIdAndUpdate(ship_id, { $push : pushList }, callback);
 			}
-			return queryObject.update({ $push : pushList });
+			shipUpdate.getQueryObject().update({ $push : pushList });
+			return;
 		}
 		
 		// command is for the ship in general
@@ -212,7 +219,8 @@ module.exports = function (service) {
 			if (callback) {
 				return Ship.findByIdAndUpdate(ship_id, { $push : { 'commands' : commandObject } }, callback);
 			}
-			return queryObject.update({ $push : { 'commands' : commandObject } });
+			shipUpdate.getQueryObject().update({ $push : { 'commands' : commandObject } });
+			return;
 		}
 		
 		// not valid
@@ -388,14 +396,13 @@ module.exports = function (service) {
 	/** 
 	 * MessageHelper functions
 	 */
-	runMessageFunction = function(ship_id, func, params, queryObject, updateObject)
+	runMessageFunction = function(ship_id, func, params, shipUpdate)
 	{
 		switch(func)
 		{
 			// ADD_SHIP_COMMAND( controlName, commandText, commandName)
 			case "ADD_SHIP_COMMAND":
-				var result = helper.addShipCommand(ship_id, params[0], params[1], params[2], queryObject);
-				updateObject.add 
+				var result = helper.addShipCommand(ship_id, params[0], params[1], params[2], shipUpdate);
 				break;
 		}
 		
@@ -407,7 +414,7 @@ module.exports = function (service) {
 		return result;
 	};
 	
-	processMessageFunction = function(ship_id, text, queryObject, updateObject)
+	processMessageFunction = function(ship_id, text, shipUpdate)
 	{
 		console.log("text:" + text);
 		
@@ -420,19 +427,22 @@ module.exports = function (service) {
 		console.log("params:"+params);
 		
 		//check function
-		return runMessageFunction(ship_id, func, params, queryObject, updateObject);
+		return runMessageFunction(ship_id, func, params, shipUpdate);
 		
 	};
 	
 	
-	helper.runMessage = function(ship_id, message, callback) {
+	helper.runMessage = function(ship_id, message, callbackOrUpdateObject) {
 		var text = "";
 		var inBrackets = false;
 		var bracketText = "";
+		
+		var shipUpdate = new ShipUpdate(ship_id);
 		var queryObject = Ship.findById(ship_id);
 		var updateObject = {};
 		
 		// callback may be function or array to add updates to
+		var callback = callbackOrUpdateObject;
 		if (typeof callback == "object") {
 			updateObject = callback;
 			callback = null;
@@ -447,7 +457,7 @@ module.exports = function (service) {
 				if(c == ']')
 				{
 					inBrackets = false;
-					queryObject = processMessageFunction(ship_id, bracketText, queryObject, updateObject);
+					var result = processMessageFunction(ship_id, bracketText, shipUpdate);
 				}
 				else
 					bracketText = bracketText.concat(c);
@@ -465,16 +475,16 @@ module.exports = function (service) {
 		}
 		
 		// check for error
-		if (typeof queryObject == "string") {
-			console.log("Error in runMessage. error: "+queryObject+". message: "+message);
+		if (typeof result == "string") {
+			console.log("Error in runMessage. error: "+result+". message: "+message);
 			if (typeof callback == "function") {
-				callback("Error in runMessage. error: "+queryObject+". message: "+message, null);
+				callback("Error in runMessage. error: "+result+". message: "+message, null);
 			}
 			return null;
 		}
 		
 		// success
-		queryObject = queryObject.update({ $set : { 'lastMessageText' : text}})
+		queryObject = shipUpdate.getQueryObject().update({ $set : { 'lastMessageText' : text}})
 		console.log('lastMessageText: '+text);
 		
 		if (typeof callback == "function") {
@@ -484,7 +494,7 @@ module.exports = function (service) {
 		}
 		
 		queryObject.exec();
-		return updateObject;
+		return shipUpdate;
 	};
 	
 	return helper;

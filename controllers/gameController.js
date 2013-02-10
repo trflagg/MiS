@@ -83,15 +83,12 @@ module.exports = function (app, service) {
 			if (ship == null) {
 				return res.send(500, "Null ship from db");
 			}
-			var updateObject = {}
-			updateObject.add = {}
-			updateObject.remove = {}
+			
+			
+			return res.send(req.params.control + " is not available.");
+			
 		});
-			
-				
-			
 		
-		return res.send(req.params.control + " is not available.");
 		
 	}
 	

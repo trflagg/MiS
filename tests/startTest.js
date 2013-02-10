@@ -9,6 +9,17 @@ module.exports.runTest = function(callback) {
 		console.log("END ShipTest");
 		callback();
 	};
+	
+	//connect to mongoose
+    var checkConnectionExists = (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2);
+    if(!checkConnectionExists)
+	{
+		mongoose.connect('localhost','testdb');
+		mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+	}
+	//load models
+	var ship = require('../models/ship')(mongoose);
+	
 	mongoose.connection.collections['ships'].drop();
 	
 	//create a new game

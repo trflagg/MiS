@@ -1,4 +1,6 @@
 var allTests = function() {
+	var async = require('async');
+	
 	var utilTest = require('./utilTest');
 	var gameTest = require('./gameTest');
 	var expressTest = require('./expressTest');
@@ -15,21 +17,31 @@ var allTests = function() {
 	console.log("");
 	console.log("_____________ Running All Tests ____________");
 	
-	utilTest.runTest(function() {
-		console.log("");
-		gameTest.runTest(function() {
+	async.series([
+		function(callback) {
 			console.log("");
-			expressTest.runTest(function() {
-				console.log("");
-				//messageTest.runTest(function() {
-					console.log("");
-					startTest.runTest(function() {
-						console.log("________ Tests Ended ______________");
-						console.log("");
-						mongoose.disconnect();
-					});
-				//});
-			})
-		});
+			utilTest.runTest(callback);
+		},
+		function(callback) {
+			console.log("");
+			gameTest.runTest(callback);
+		},
+		function(callback) {
+			console.log("");
+			expressTest.runTest(callback);
+		},
+		function(callback) {
+			console.log("");
+			messageTest.runTest(callback);
+		},
+		function(callback) {
+			console.log("");
+			startTest.runTest(callback);
+		},
+	],
+	function(err, results) {
+		console.log("________ Tests Ended ______________");
+		console.log("");
+		mongoose.disconnect();
 	});
 }();
