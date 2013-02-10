@@ -224,12 +224,6 @@ module.exports = function (service) {
 		}
 	};
 	
-	helper.performCommand = function(type, name, number, callback) {
-		var UIUpdates = {};
-		
-		callback(UIUpdates);
-	};
-	
 	
 	
 	helper.getPageUI = function(ship) {
@@ -394,13 +388,14 @@ module.exports = function (service) {
 	/** 
 	 * MessageHelper functions
 	 */
-	runMessageFunction = function(ship_id, func, params, queryObject)
+	runMessageFunction = function(ship_id, func, params, queryObject, updateObject)
 	{
 		switch(func)
 		{
 			// ADD_SHIP_COMMAND( controlName, commandText, commandName)
 			case "ADD_SHIP_COMMAND":
 				var result = helper.addShipCommand(ship_id, params[0], params[1], params[2], queryObject);
+				updateObject.add 
 				break;
 		}
 		
@@ -412,7 +407,7 @@ module.exports = function (service) {
 		return result;
 	};
 	
-	processMessageFunction = function(ship_id, text, queryObject)
+	processMessageFunction = function(ship_id, text, queryObject, updateObject)
 	{
 		console.log("text:" + text);
 		
@@ -425,7 +420,7 @@ module.exports = function (service) {
 		console.log("params:"+params);
 		
 		//check function
-		return runMessageFunction(ship_id, func, params, queryObject);
+		return runMessageFunction(ship_id, func, params, queryObject, updateObject);
 		
 	};
 	
@@ -435,6 +430,13 @@ module.exports = function (service) {
 		var inBrackets = false;
 		var bracketText = "";
 		var queryObject = Ship.findById(ship_id);
+		var updateObject = {};
+		
+		// callback may be function or array to add updates to
+		if (typeof callback == "object") {
+			updateObject = callback;
+			callback = null;
+		}
 		
 		//loop through every character
 		for (i in message)
@@ -445,7 +447,7 @@ module.exports = function (service) {
 				if(c == ']')
 				{
 					inBrackets = false;
-					queryObject = processMessageFunction(ship_id, bracketText, queryObject);
+					queryObject = processMessageFunction(ship_id, bracketText, queryObject, updateObject);
 				}
 				else
 					bracketText = bracketText.concat(c);
@@ -466,9 +468,9 @@ module.exports = function (service) {
 		if (typeof queryObject == "string") {
 			console.log("Error in runMessage. error: "+queryObject+". message: "+message);
 			if (typeof callback == "function") {
-				callback(queryObject);
+				callback("Error in runMessage. error: "+queryObject+". message: "+message, null);
 			}
-			return;
+			return null;
 		}
 		
 		// success
@@ -477,11 +479,12 @@ module.exports = function (service) {
 		
 		if (typeof callback == "function") {
 			queryObject.exec(function(err) {
-				return callback(err);
+				return callback(err, null);
 			});
 		}
 		
-		return queryObject.exec();
+		queryObject.exec();
+		return updateObject;
 	};
 	
 	return helper;

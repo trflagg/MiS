@@ -11,8 +11,8 @@ module.exports = function (app, service) {
 	 * GET /game
 	 */
 	app.get('/game', 
-			middleware.requireGame(service), 
-			middleware.requireShip(service),
+			middleware.requireGame(service, true), 
+			middleware.requireShip(service, true),
 			game);
 	function game(req, res) {
 		//load pageUI
@@ -54,8 +54,42 @@ module.exports = function (app, service) {
 			middleware.requireShip(service),
 			controls);
 	function controls(req, res) {
-		var control = req.params.control;
-		var num = req.params.num;
+		var controlName = req.params.control;
+		var controlNum = req.params.num;
+		
+		//figure out what we need from db
+		//start with ship variabls
+		var dbProperties = 'location.vars quest.vars globals'
+		
+		// add command based on command name
+		//TODO: Fix the HARDCODING! BAD PROGRAMMER!
+		if (controlName == "weapons" ||
+			controlName == "shields" ||
+			controlName == "sensors" ||
+			controlName == "databank" ||
+			controlName == "processor") 
+		{
+			dbProperties = dbProperties + ' controls.'+controlName;
+		}
+		else if (controlName == "ship") {
+			dbProperies = dbProperties + ' commands';
+		}
+		
+		//request required data from db
+		Ship.findById(req.shipId, dbProperties, function(err, ship) {
+			if (err) {
+				return res.send(500, "Database error: "+err);
+			}
+			if (ship == null) {
+				return res.send(500, "Null ship from db");
+			}
+			var updateObject = {}
+			updateObject.add = {}
+			updateObject.remove = {}
+		});
+			
+				
+			
 		
 		return res.send(req.params.control + " is not available.");
 		

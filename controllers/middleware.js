@@ -25,12 +25,15 @@ module.exports.requireParams = requireParams;
  * requireGame()
  * redirects to /start if valid game _id is not found in session.
  */
-function requireGame(service) 
+function requireGame(service, redirect) 
 {
 	var Game = service.useModel('Game');
+	
 	return function(req, res, next) {
 		if (req.session.game)
 		{
+			var redirect = (typeof redirect === "undefined")?true:redirect;
+			
 			//find game
 			Game.findById(req.session.game, function(err, game) {
 				if (err || (game == null))
@@ -57,19 +60,24 @@ module.exports.requireGame = requireGame;
  * checks for a valid ship id in session 
  * and redirects to /start if not found
  */
-function requireShip(service) 
+function requireShip(service, redirect) 
 {
 	var Ship = service.useModel('Ship');
+	
 	return function(req, res, next) {
+		var redirect = (typeof redirect === "undefined")?true:redirect;
 		if (req.session.ship)
 		{
 			//set req.shipId
 			req.shipId = req.session.ship;
 			next();
 		}
-		else
+		else if (redirect)
 		{
 			res.redirect('/start/');
+		}
+		else
+		{
 		}
 	}
 }

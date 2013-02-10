@@ -2,6 +2,18 @@
 //from http://stackoverflow.com/questions/3514784/best-way-to-detect-handheld-device-in-jquery
 isMobile = (/iPhone|iPod|iPad|Android|BlackBerry/).test(navigator.userAgent)
 
+$(window).resize(function() {
+	if ($(window).width() < 767) {
+		$(".interfaceCommandSpan").removeClass('span3').addClass('span4');
+		$(".interfaceContentSpan").removeClass('span9').addClass('span8');
+	}
+  	else {
+		$(".interfaceCommandSpan").removeClass('span4').addClass('span3');
+		$(".interfaceContentSpan").removeClass('span8').addClass('span9');
+	}
+});
+
+
 /**
  * ajaxRequest()
  */
@@ -218,6 +230,7 @@ function startChangePage(url, method, data, goAway)
 			// titleScreen is different from the others since it starts at left:0, no transform
 			// the other screen divs start at left:windowWidth, transform: -windowWidth 
 			// so set them double to go offscreen
+			
 			if ($currentDiv.selector == "#titleScreen")
 			{
 				var translateSize = windowWidth;
@@ -238,23 +251,17 @@ function startChangePage(url, method, data, goAway)
 			.css('left', windowWidth+"px")
 			.show();
 			
-			$currentDiv.css('transform','translateX(-'+windowWidth+'px)');
 			
 			var starWidth = (windowWidth * (2/3));
+			var newWidth = $(".stars").width() + starWidth;
+			$("#starBackground").css('transform','translateX(-'+(starWidth/3)*divCount+'px)');
+			$("#starBackground").css('width', $("#starBackground").width() + (starWidth/3));
+			$("#starMidfield").css('transform','translateX(-'+(starWidth/2)*divCount+'px)');
+			$("#starMidfield").css('width', $("#starMidfield").width() + (starWidth/2));
+			$("#starForward").css('transform','translateX(-'+(starWidth)*divCount+'px)');
+			$("#starForward").css('width', $("#starForward").width() + starWidth);
 			
-			// width screws up in firefox, so I'm yanking it
-			// unfortunately this means no parallax stars in ff :(
-			//if (!($.browser.mozilla))
-			{
-				var newWidth = $(".stars").width() + starWidth;
-				//$(".stars").css('width', newWidth);
-				$("#starBackground").css('transform','translateX(-'+(starWidth/3)*divCount+'px)');
-				$("#starBackground").css('width', $("#starBackground").width() + (starWidth/3));
-				$("#starMidfield").css('transform','translateX(-'+(starWidth/2)*divCount+'px)');
-				$("#starMidfield").css('width', $("#starMidfield").width() + (starWidth/2));
-				$("#starForward").css('transform','translateX(-'+(starWidth)*divCount+'px)');
-				$("#starForward").css('width', $("#starForward").width() + starWidth);
-			}
+			$currentDiv.css('transform','translateX(-'+windowWidth+'px)');
 			
 			//wait for animation to end before running js
 			setTimeout(function() {
