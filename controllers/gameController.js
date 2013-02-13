@@ -45,53 +45,74 @@ module.exports = function (app, service) {
 	}
 	exports.game = game;
 	
-	
 	/**
-	 * GET /controls/:control/:num
+	 * GET /command/ship/:commandNum
 	 */
-	app.get('/controls/:control/:num',
+	app.get('/command/ship/:commandNum',
 			middleware.requireGame(service), 
 			middleware.requireShip(service),
-			controls);
-	function controls(req, res) {
-		var controlName = req.params.control;
-		var controlNum = req.params.num;
+			handleShipCommand);
+	function handleShipCommand(req, res) {
+		var commandNum = req.params.commandNum
 		
-		//figure out what we need from db
-		//start with ship variabls
-		var dbProperties = 'location.vars quest.vars globals'
-		
-		// add command based on command name
-		//TODO: Fix the HARDCODING! BAD PROGRAMMER!
-		if (controlName == "weapons" ||
-			controlName == "shields" ||
-			controlName == "sensors" ||
-			controlName == "databank" ||
-			controlName == "processor") 
-		{
-			dbProperties = dbProperties + ' controls.'+controlName;
-		}
-		else if (controlName == "ship") {
-			dbProperies = dbProperties + ' commands';
-		}
-		
-		//request required data from db
-		Ship.findById(req.shipId, dbProperties, function(err, ship) {
-			if (err) {
-				return res.send(500, "Database error: "+err);
-			}
-			if (ship == null) {
-				return res.send(500, "Null ship from db");
-			}
-			
-			
-			return res.send(req.params.control + " is not available.");
-			
+		// get message and ship data
+		Ship.findById(req.shipId)
+			.select('_id commands')
+			.exec(function(err, foundShip) {
+				console.log(foundShip.commands[commandNum].text);
+				var message = foundShip.commands[commandNum].text
+				return res.send(message);
 		});
-		
 		
 	}
 	
+	/**
+	 * GET /command/crew/:controlName/:commandNum
+	 */
+	app.get('/command/crew/:crewMember/:commandNum',
+			middleware.requireGame(service), 
+			middleware.requireShip(service),
+			handleCrewCommands);
+	function handleCrewCommands(req, res) {
+		var crewMember = req.params.crewMember;
+		var commandNum = req.params.commandNum;
+		
+		var selectFields = '_id crew.'+crewMember+'.commands';
+		
+		// get message and ship data
+		Ship.findById(req.shipId)
+			.select(selectFields)
+			.exec(function(err, foundShip) {
+				console.log(foundShip.crew[crewMember].commands[commandNum].text);
+				var message = foundShip.crew[crewMember].commands[commandNum].text
+				return res.send(message);
+		});
+		
+	}
+	
+	/**
+	 * GET /command/control/:controlName/:commandNum
+	 */
+	app.get('/command/control/:controlName/:commandNum',
+			middleware.requireGame(service), 
+			middleware.requireShip(service),
+			handleControlCommands);
+	function handleControlCommands(req, res) {
+		var controlName = req.params.controlName;
+		var commandNum = req.params.commandNum;
+		
+		var selectFields = '_id controls.'+controlName+'.commands';
+		
+		// get message and ship data
+		Ship.findById(req.shipId)
+			.select(selectFields)
+			.exec(function(err, foundShip) {
+				console.log(foundShip.controls[controlName].commands[commandNum].text);
+				var message = foundShip.controls[controlName].commands[commandNum].text
+				return res.send(message);
+		});
+		
+	}
 
 	
 	return exports;

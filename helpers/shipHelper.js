@@ -181,11 +181,12 @@ module.exports = function (service) {
 	 */
 	helper.addShipCommand = function(ship_id, controlName, commandText, commandName, callbackOrUpdateObject) {
 		
-		// callback may be function or array to add updates to
-		var callback = callbackOrUpdateObject;
-		if (typeof callback == "object") {
-			shipUpdate = callback;
-			callback = null;
+		// callback may be function or array to add updates to and pass back
+		var shipUpdate = callbackOrUpdateObject;
+		var callback = null;
+		if (typeof shipUpdate === "function") {
+			callback = shipUpdate;
+			shipUpdate = new ShipUpdate(ship_id);
 		}
 		
 		//TODO: should I make some kind of Command object for this? 
@@ -285,7 +286,7 @@ module.exports = function (service) {
 					var objUI = { text: name, subcommands: [] };
 					for (var j=0, ll2 = commands.length; j < ll2; j++)
 					{
-						objUI.subcommands.push({ text: commands[j].text, url: "/controls/"+name+"/"+j });
+						objUI.subcommands.push({ text: commands[j].text, url: "/command/control/"+name+"/"+j });
 					}
 					pageUI.commands.push(objUI);
 				}
@@ -306,7 +307,7 @@ module.exports = function (service) {
 					var objUI = { text: key };
 					for (var i=0, ll = commands.length; i < ll; i++)
 					{
-						objUI.subcommands.push({ text: commands[i].text, url: "/crew/"+key+"/"+i });
+						objUI.subcommands.push({ text: commands[i].text, url: "/command/crew/"+key+"/"+i });
 					}
 					pageUI.commands.push(objUI);
 				}
@@ -321,12 +322,13 @@ module.exports = function (service) {
 			var command = shipCommands[i];
 			newCommand = {
 				text : command.text, 
-				url : "/controls/ship/"+i,
+				url : "/command/ship/"+i,
 			},
 			pageUI.commands.push(newCommand)
 		}
 		
-		pageUI.commands.push({ text : "Glossary", url: "/controls/glossary/0"});
+		//always include glossary? Maybe not
+		//pageUI.commands.push({ text : "Glossary", url: "/glossary/"});
 		
 		return pageUI
 	}
@@ -406,7 +408,7 @@ module.exports = function (service) {
 				break;
 		}
 		
-		if (typeof result == "string") {
+		if (typeof result === "string") {
 			//error
 			console.log("Error in runMessageFunction: "+result);
 		}
@@ -431,22 +433,20 @@ module.exports = function (service) {
 		
 	};
 	
-	
 	helper.runMessage = function(ship_id, message, callbackOrUpdateObject) {
 		var text = "";
 		var inBrackets = false;
 		var bracketText = "";
 		
-		var shipUpdate = new ShipUpdate(ship_id);
-		var queryObject = Ship.findById(ship_id);
-		var updateObject = {};
-		
-		// callback may be function or array to add updates to
-		var callback = callbackOrUpdateObject;
-		if (typeof callback == "object") {
-			updateObject = callback;
-			callback = null;
+		// callback may be function or array to add updates to and pass back
+		var shipUpdate = callbackOrUpdateObject;
+		var callback = null;
+		if (typeof shipUpdate === "function") {
+			callback = shipUpdate;
+			shipUpdate = new ShipUpdate(ship_id);
 		}
+		
+		// first, get variables we will need from the ship
 		
 		//loop through every character
 		for (i in message)
@@ -457,7 +457,14 @@ module.exports = function (service) {
 				if(c == ']')
 				{
 					inBrackets = false;
+					// got function, process it and get the result!
 					var result = processMessageFunction(ship_id, bracketText, shipUpdate);
+					if (typeof result === "string") {
+						if (typeof callback === "function") {
+							callback("Error in runMessage. error: "+result+". message: "+message);
+						}
+						return "Error in runMessage. error: "+result+". message: "+message;
+					}
 				}
 				else
 					bracketText = bracketText.concat(c);
@@ -474,26 +481,17 @@ module.exports = function (service) {
 			}
 		}
 		
-		// check for error
-		if (typeof result == "string") {
-			console.log("Error in runMessage. error: "+result+". message: "+message);
-			if (typeof callback == "function") {
-				callback("Error in runMessage. error: "+result+". message: "+message, null);
-			}
-			return null;
-		}
 		
 		// success
-		queryObject = shipUpdate.getQueryObject().update({ $set : { 'lastMessageText' : text}})
+		var queryObject = shipUpdate.getQueryObject().update({ $set : { 'lastMessageText' : text}})
 		console.log('lastMessageText: '+text);
 		
-		if (typeof callback == "function") {
+		if (typeof callback === "function") {
 			queryObject.exec(function(err) {
-				return callback(err, null);
+				return callback(err);
 			});
 		}
 		
-		queryObject.exec();
 		return shipUpdate;
 	};
 	

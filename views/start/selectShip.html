@@ -1,6 +1,6 @@
-{% macro shipItem name locationName id %}
+{% macro shipItem shipName locationName id %}
 <tr>
-	<td>{{ name }}</td>
+	<td>{{ shipName }}</td>
 	<td>{{ locationName }}</td>
 	<td><a href="#", onclick="startChangePage('/start/selectShip','POST',{ship: '{{ id }}'}, true);">Make it So</a></td>
 </tr>
