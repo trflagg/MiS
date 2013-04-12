@@ -8,12 +8,12 @@
   "dependencies": {
     "express-resource": "*",
     "express": "*",
-	"consolidate": "*",
-	"mongodb": "*",
-	"mongoose": "*",
-	"connect-mongo": "*",
-	"request": "*",
-	"swig": "*",
-	"async": "*"
+	  "consolidate": "*",
+	  "mongodb": "*",
+	  "mongoose": "*",
+	  "connect-mongo": "*",
+	  "request": "*",
+	  "swig": "*",
+	  "async": "*"
   }
 }
