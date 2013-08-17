@@ -1,5 +1,7 @@
 //define the models
 
 module.exports = function(db) {
-	require('./models/ship')(db);
+    require('./argie/models/message')(db);
+	
+    require('./models/ship')(db);
 };
