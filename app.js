@@ -1,10 +1,10 @@
 var express 	= require('express'),
 	http 		= require('http'),
-	Resource 	= require('express-resource');
+	Resource 	= require('express-resource'),
+	Db			= require('argie/db');
 
 var app = express();
 
-//shamelessly copied from https://github.com/dtryon/clog/blob/master/src/app.js
 //check argument
 var testArg = false;
 var devArg = false;
@@ -25,12 +25,10 @@ else
 	console.log("devArg = true");
 	var environment = require('./environment-dev');
 }
-//load service based on environment
-var	service = require('./service');
-service.init(environment);
+var db = new Db(environment);
 
-//define models for mongoose
-require('./models')(service.getMongoose());
+//define models
+require('./models')(db);
 
 //configure express
 require('./configuration')(app, express, environment);
