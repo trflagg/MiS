@@ -8,17 +8,15 @@ var environment = require('./environment-dev'),
 
 function start() {
 
-    console.log('Creating ship');
     // ship is global
     ship = db.create('Ship');
-    console.log(ship);
 
     db.load('Message', {name: firstMessage}, function(err, message) {
         if (err) {
-            console.log(err);
+            console.log("ERROR in start:" + err);
         }
-        end();
-        // doLoop(message);
+        // end();
+        doLoop(message);
     })
 }
 
@@ -31,42 +29,72 @@ function doLoop(message) {
             console.log(result);
 
             //show command options
-            promptForCommands();
+            promptOptions(ship.getCommandTextList());
         });
     }
 }
 
-function promptForCommands() {
-    var commands = avatar.getCommandTextList();
-    var commandlength = commands.length;
-    for (var i=0; i<commandlength; i++) {
-        console.log(i + ') ' + commands[i]);
+
+function promptOptions(options) {
+
+    var length = options.length;
+
+    var string_array = processOptionArray(options);
+
+    for (var i = 0, length = string_array.length; i<length; i++) {
+       console.log(i + ')' + string_array[i]);
     }
+
     rl.question('>', function(answer) {
-        if (answer == 'q') {
-            end();
-        }
-        else {
-            var a = parseInt(answer, 10);
-            if (a > commandlength || a < 0) {
-                promptForCommands();
+        var num = parseInt(answer, 10);
+
+        if (num < length || num > 0) {
+            // child
+            if (options[num].children) {
+                promptOptions(options[num].children);
             }
+            // message
             else {
                 // run message, show result, ask for next command
-                console.log(a);
-                var result = ship.runMessage(ship.getCommandTextList()[a], function(err, result) {
+                var result = ship.runMessage(ship.getCommandTextList()[num], function(err, result) {
                     if (err) {
                         console.log(err);
                     }
                     console.log(result);
-                    promptForCommands();
+                    promptOptions(ship.getCommandTextList());
                 });
+            };
+        }
+        else {
+            if (!handleOptions(answer)) {
+                console.log('');
+                promptOptions(options);
             }
         }
-
     });
 }
 
+// options are either array of strings or object
+// [ { crew: [ [Object], [Object], [Object], [Object], [Object], [Object] ] },
+//   { commands: [ [Object], [Object], [Object], [Object], [Object] ] },
+//   { direct_messages: [ 'Guard orders' ] } ]
+function processOptionArray(options) {
+    var option_string_array = [];
+    for (var i=0, ll=options.length; i<ll; i++) {
+        option_string_array.push(options[i].text);
+    }
+
+    return option_string_array;
+}
+
+function handleOptions(answer) {
+    if (answer == 'q') {
+        end();
+        return true;
+    }
+
+    return false;
+}
 
 function end() {
     db.close();
@@ -82,7 +110,7 @@ module.exports = function() {
 
     require('./models')(db);
 
-    console.log('Welcome!');
+    console.log('Welcome to MiS!');
 
     start();
 }();
