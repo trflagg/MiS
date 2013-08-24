@@ -29,56 +29,98 @@ function doLoop(message) {
             console.log(result);
 
             //show command options
-            promptOptions(ship.getCommandTextList());
+            promptOptions(ship.getCommandTextList(), '');
         });
     }
 }
 
 
-function promptOptions(options) {
+function promptOptions(options, currentChoice) {
 
-    var length = options.length;
+    // console.log(options);
+    // console.log(currentChoice);
 
-    var string_array = processOptionArray(options);
+    var currentOptions = options;
+    if (currentChoice != '') {
+        var choices = currentChoice.split('.');
+        // console.log(choices);
 
-    for (var i = 0, length = string_array.length; i<length; i++) {
-       console.log(i + ')' + string_array[i]);
-    }
+        for (var i=0, ll=choices.length; i<ll; i++) {
 
-    rl.question('>', function(answer) {
-        var num = parseInt(answer, 10);
-
-        if (num < length || num > 0) {
-            // child
-            if (options[num].children) {
-                promptOptions(options[num].children);
+            if (currentOptions[choices[i]].children) {
+                currentOptions = currentOptions[choices[i]].children;
+                // console.log(currentOptions);
             }
-            // message
             else {
-                // run message, show result, ask for next command
-                var result = ship.runMessage(ship.getCommandTextList()[num], function(err, result) {
+                var childString = makeChildString(options, choices)
+                // console.log('cs'+childString);
+                var result = ship.runMessage(currentOptions[choices[i]].text, childString, function(err, result) {
                     if (err) {
                         console.log(err);
                     }
                     console.log(result);
-                    promptOptions(ship.getCommandTextList());
+                    promptOptions(ship.getCommandTextList(), '');
                 });
-            };
-        }
-        else {
-            if (!handleOptions(answer)) {
-                console.log('');
-                promptOptions(options);
+                return;
             }
+        }
+
+    }
+
+    var optionString = getStringArray(currentOptions);
+    // console.log(optionString);
+
+    for (var i = 0, length = optionString.length; i<length; i++) {
+       console.log(i + ')' + optionString[i]);
+    }
+    if (optionString.length === 0) {
+        console.log('No options available.');
+    }
+    if (currentChoice != '') {
+        console.log('');
+        console.log('b) back');
+    }
+    rl.question('>', function(answer) {
+
+        if (answer === 'b') {
+            promptOptions(options, currentChoice.split('.').slice(0,-1).join('.'));
+        }
+        else if (!handleOptions(answer)) {
+            console.log('');
+            currentChoice = addChoice(currentChoice, answer);
+
+            promptOptions(options, currentChoice);
         }
     });
 }
+
+function makeChildString(options, choices) {
+    var childString = '';
+    var currentOptions = options;
+    for (var i=0, ll=choices.length; i<ll-1; i++) {
+        childString = addChoice(childString, currentOptions[choices[i]].text);
+        currentOptions = currentOptions[choices[i]].children;
+    }
+    return childString;
+}
+
+function addChoice(currentChoice, newChoice) {
+    if (currentChoice != '') {
+        currentChoice = currentChoice + '.' + newChoice;
+    }
+    else {
+        currentChoice = newChoice;
+    }
+
+    return currentChoice;
+}
+
 
 // options are either array of strings or object
 // [ { crew: [ [Object], [Object], [Object], [Object], [Object], [Object] ] },
 //   { commands: [ [Object], [Object], [Object], [Object], [Object] ] },
 //   { direct_messages: [ 'Guard orders' ] } ]
-function processOptionArray(options) {
+function getStringArray(options) {
     var option_string_array = [];
     for (var i=0, ll=options.length; i<ll; i++) {
         option_string_array.push(options[i].text);
