@@ -70,18 +70,21 @@ function promptOptions(options, currentChoice) {
     var optionString = getStringArray(currentOptions);
     // console.log(optionString);
 
+    var result = '';
     for (var i = 0, length = optionString.length; i<length; i++) {
-       console.log(i + ')' + optionString[i]);
+       result = result + i + ') ' + optionString[i] + '\n';
     }
     if (optionString.length === 0) {
-        console.log('No options available.');
+        result = result + 'No options available.' + '\n';
     }
+    result = result + '' + '\n';
     if (currentChoice != '') {
-        console.log('');
-        console.log('b) back');
+        result = result + 'b) back' + '\n';
     }
+    console.log(result);
     rl.question('>', function(answer) {
-
+        console.log('====================================');
+        console.log('');
         if (answer === 'b') {
             promptOptions(options, currentChoice.split('.').slice(0,-1).join('.'));
         }
@@ -123,7 +126,17 @@ function addChoice(currentChoice, newChoice) {
 function getStringArray(options) {
     var option_string_array = [];
     for (var i=0, ll=options.length; i<ll; i++) {
-        option_string_array.push(options[i].text);
+        var childCount = options[i].childMessageCount;
+        var str = '  ';
+        if (childCount !== undefined) {
+            if (childCount > 0) {
+                str = options[i].text + ' (' + childCount + ')';
+            }
+        }
+        else {
+            str = options[i].text;
+        }
+        option_string_array.push(str);
     }
 
     return option_string_array;
