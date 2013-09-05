@@ -1,10 +1,19 @@
 
 var firstMessage = 'INIT';
 
+var Fiber = require('fibers');
 
 var environment = require('./environment-dev'),
     readline = require('readline'),
     Db = require('./argie/db');
+
+function sleep(ms) {
+    var fiber = Fiber.current;
+    setTimeout(function() {
+        fiber.run();
+    }, ms);
+    Fiber.yield();
+}
 
 function start() {
 
@@ -34,6 +43,13 @@ function doLoop(message) {
     }
 }
 
+var printLines = Fiber(function(str) {
+    lines = str.split('\n');
+    for (i=0, ll=lines.length; i<ll; i++) {
+        console.log(lines[i]);
+        sleep(500);
+    }
+});
 
 function promptOptions(options, currentChoice) {
 
