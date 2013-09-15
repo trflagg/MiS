@@ -50,6 +50,9 @@ module.exports = function(db) {
             var processorHolder = new MessageHolder();
             processorHolder.setNewMessageText('** New command added to ship_controls->processor: %s **\n')
             shipControls.addChild('processor', processorHolder);
+            var enginesHolder = new MessageHolder();
+            enginesHolder.setNewMessageText('** New command added to ship_controls->engines: %s **\n')
+            shipControls.addChild('engines', enginesHolder);
             this.addChild('ship_controls', shipControls);
 
             var dmHolder = new MessageHolder();
