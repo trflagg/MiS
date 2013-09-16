@@ -37,8 +37,11 @@ function doLoop(message) {
             // show result of message
             console.log(result);
 
+            //gOptions is global
+            gOptions = ship.getCommandTextList();
+
             //show command options
-            promptOptions(ship.getCommandTextList(), '');
+            promptOptions('');
         });
     }
 }
@@ -51,10 +54,11 @@ var printLines = Fiber(function(str) {
     }
 });
 
-function promptOptions(options, currentChoice) {
-
+function promptOptions(currentChoice) {
+    var options = gOptions;
     // console.log(options);
     // console.log(currentChoice);
+                    // console.log(ship.child('direct_messages'));
 
     var currentOptions = options;
     if (currentChoice != '') {
@@ -75,7 +79,8 @@ function promptOptions(options, currentChoice) {
                         console.log(err);
                     }
                     console.log(result);
-                    promptOptions(ship.getCommandTextList(), '');
+                    gOptions = ship.getCommandTextList();
+                    promptOptions('');
                 });
                 return;
             }
@@ -98,19 +103,46 @@ function promptOptions(options, currentChoice) {
         result = result + 'b) back' + '\n';
     }
     console.log(result);
+
+    //poll if necessary
+    // console.log(ship.getGlobal('yield'));
+    if (ship.getGlobal('yield') === 1) {
+        pollForYield();
+    }
     rl.question('>', function(answer) {
         console.log('====================================');
         console.log('');
         if (answer === 'b') {
-            promptOptions(options, currentChoice.split('.').slice(0,-1).join('.'));
+            promptOptions(currentChoice.split('.').slice(0,-1).join('.'));
         }
         else if (!handleOptions(answer)) {
             console.log('');
             currentChoice = addChoice(currentChoice, answer);
 
-            promptOptions(options, currentChoice);
+            promptOptions(currentChoice);
         }
     });
+}
+
+function pollForYield() {
+    setTimeout(function() {
+        if (ship.getGlobal('yield') === 1) {
+            ship.pollForYield(function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                if (result != false) {
+                    console.log('');
+                    console.log(result);
+                    gOptions = ship.getCommandTextList();
+                    promptOptions('');
+                }
+                else {
+                    pollForYield();
+                }
+            });
+        }
+    }, 1000);
 }
 
 function makeChildString(options, choices) {
