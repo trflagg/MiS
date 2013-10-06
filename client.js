@@ -54,6 +54,10 @@ var printLines = Fiber(function(str) {
     }
 });
 
+function clearScreen() {
+    console.log("\033[2J\033[0f");
+}
+
 function promptOptions(currentChoice) {
     var options = gOptions;
     // console.log(options);
@@ -78,6 +82,7 @@ function promptOptions(currentChoice) {
                     if (err) {
                         console.log(err);
                     }
+                    clearScreen();
                     console.log(result);
                     gOptions = ship.getCommandTextList();
                     promptOptions('');
@@ -179,6 +184,9 @@ function getStringArray(options) {
         if (childCount !== undefined) {
             if (childCount > 0) {
                 str = options[i].text + ' (' + childCount + ')';
+            }
+            else {
+                str = options[i].text + ' -';
             }
         }
         else {
