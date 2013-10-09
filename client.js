@@ -5,7 +5,7 @@ var Fiber = require('fibers');
 
 var environment = require('./environment-dev'),
     readline = require('readline'),
-    Db = require('./argie/db');
+    Db = require('./argie/argieDb/db');
 
 function sleep(ms) {
     var fiber = Fiber.current;

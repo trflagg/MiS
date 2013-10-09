@@ -1,7 +1,7 @@
 var express 	= require('express'),
 	http 		= require('http'),
 	Resource 	= require('express-resource'),
-	Db			= require('argie/db');
+	Db			= require('argie/argieDb/db');
 
 var app = express();
 
