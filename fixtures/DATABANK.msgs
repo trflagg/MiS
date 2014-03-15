@@ -1,0 +1,47 @@
+# DATA_CYGNUM
+/////////////////////
+// Databank -  Nation: Cygnum
+
+The Cygnum nation is the furthest removed nation and the most private.
+
+Cygnum was founded by the doomed Curtis migration in 2510. 
+Three deep-space cruisers carried over 200,000 immigrants from Andromedae. With all sensors indicating a very large planet orbiting Cygni 1, they brought only colonizing equpiment and no materials for station construction. When they arrived, they found only a heavy asteroid belt and two massive binary stars. More than half of the immigrants died in the years before the relief supplies came and a stable staion could be built. It has been said that the survivors were the most ingenious and conniving, giving Cygnum a reputation as a nation of shrewd schemers.
+
+There are four known systems as part of the Cygnum Nation:
+Cygni
+Rekis
+Dorset
+and Burnham
+#--
+# DATA_ARTHUR
+/////////////////////
+// Databank -  Nation: Arthur
+
+The nation of Arthur is made up of the central planets that surround Arthur, its captial.
+
+All humans know that Arthur, originally known as Earth, is the home planet of our species. When humans first colonized other star systems there were no nations, only those that originally divided Earth. After Kruger independence was declared in 2455, the remaining systems collectively called themselves Arthurian after what was, at the time, only a colloquial term for Earth. Despite the crooked direction of space expansion, the remaining planets in Arthur are still known as 'central' planets today.
+
+
+#--
+# DATA_RENIER
+/////////////////////
+// Databank -  Ship Registry: Arthurian T-DA0-10
+
+T-DAO-10 'Renier' Supply-class Combat Support Ship.
+
+Operated by Tasar Inds.
+Under contract with the Arthurian Securities Agency.
+Licensed to the Cygni region.
+#--
+# DATA_LIONHEAD
+/////////////////////
+// Databank -  Ship Registry: Cygnum P113
+
+{% loadMessage(NO_INFO) %}
+#--
+# NO_INFO
+No information.
+
+Sorry, your databank is not loaded with this information.
+You must upgrade your databank to access this article.
+

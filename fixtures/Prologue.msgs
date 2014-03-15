@@ -1,0 +1,489 @@
+# INIT
+# loadMessage('START')
+<%= system.loadMessage('START') %>
+
+#--
+# START
+<%= system.clearScreen() %>
+
+   \  |         |         
+  |\/ |   _` |  | /   -_) 
+ _|  _| \__,_| _\_\ \___| 
+
+ _ _|  |       __|       
+   |    _|   \__ \   _ \ 
+ ___| \__|   ____/ \___/ 
+
+
+by: hi-scores                                     
+
+<%= system.wait(1500) %>
+~~~~~~~~~~~~~~~~~~~~~~
+Prologue
+
+
+
+Thirty spokes join together in the hub.
+It is because of what is not there that the cart is useful.
+Clay is formed into a vessel.
+It is because of its emptiness that the vessel is useful.
+Cut doors and windows to make a room.
+It is because of its emptiness that the room is useful.
+Therefore, what is present is used for profit.
+
+But it is in absence that there is usefulness.
+
+- Laozi, Tao Te Ching
+
+<%= avatar.hideChild('crew') %>
+<%= avatar.hideChild('ship_controls') %>
+<%= avatar.hideChild('direct_messages') %>
+<% avatar.addMessage('Continue', 'START_2') %>
+
+#--
+# START_2
+
+Location: Cyngi - Andromedae Military Interchanged
+6-12-1156
+<% //system.datetime() %>
+
+<%= system.wait(2000) %>
+The interchange is nothing but dead space. It is empty of stars and rocks for several thousand light years on all sides. The only things here are two enormous warp disks facing each other and a light military docking station equally spaced between them.
+
+You watch the small port of the docking station float past your cabin and then feel the ship slow to a full stop.
+
+Helmsman Ricardo <over the intercom>: Captain, we have arrived at the Andromedae interchange station.
+Engineer Stevenson <over the intercom>: And with six minutes to spare, Captain.
+
+The orders came in quickly. Be at the Andromedae interchange by 1200. You sit at your desk and watch the dark conference light on your terminal. Six minutes later it starts flashing.
+
+<% avatar.addMessage('Join the meeting', 'JOIN_MEETING') %>
+
+#--
+# JOIN_MEETING
+<%= system.clearScreen() %>
+
+<Cpt. MacKenzie>: Hey everybody
+<%= system.wait(1500) %>
+<Cpt. Golz>: Hey
+<%= system.wait(500) %>
+<Cpt. Hawkins>: Hey
+<%= system.wait(500) %>
+<Cpt. Banerjee>: Hello
+<%= system.wait(700) %>
+<Cpt. MacKenzie>: So anyone know what this shit is all about?
+<%= system.wait(2000) %>
+<Cpt. Golz>: Nope
+<%= system.wait(500) %>
+<Cpt. Banerjee>: No
+<%= system.wait(2000) %>
+<Cpt. MacKenzie>: Figures
+<%= system.wait(3000) %>
+<Cpt. MacKenzie>: Then who's even running this thing?
+<%= system.wait(2000) %>
+<Rdml. Collins>: I am
+<%= system.wait(1500) %>
+<Cpt. MacKenzie>: Hello Rear Admiral!
+<%= system.wait(2000) %>
+<Rdml. Collins>: Hello Mike
+<%= system.wait(2000) %>
+<Rdml. Collins>: Is everyone here?
+<%= system.wait(2000) %>
+<Cpt. MacKenzie>: I think so
+<%= system.wait(1800) %>
+<Cpt. Golz>: <%= avatar.getGlobal('name') %>?
+<%= avatar.addMessage("'I'm here'", "IM_HERE") %>
+
+#--
+# IM_HERE
+
+<Rdml. Collins>: Okay lets get started.
+<%= system.wait(3400) %>
+<Rdml. Collins>: First of all, sorry for the rush orders.
+<%= system.wait(4000) %>
+<Rdml. Collins>: I was told this came from the board and they want it taken care of ASAP.
+<%= system.wait(6530) %>
+<Rdml. Collins>: Until further notice all warp travel between Arthurian and Signum space is prohibited.
+<%= system.wait(5552) %>
+<Rdml. Collins>: You are to maintain your position and prevent any interchange crossing in both directions.
+<%= system.wait(2500) %>
+<Rdml. Collins>: Any questions?
+<%= system.wait(3500) %>
+<Cpt. Hawkins>: so who's at the Sol interchange?
+<%= system.wait(2500) %>
+<Cpt. Golz>: Me
+<%= system.wait(1709) %>
+<Cpt. Golz>: Why?
+<%= system.wait(1342) %>
+<Cpt. Hawkins>: it's been nice knowing ya
+<%= system.wait(2165) %>
+<Cpt. Golz>: what do you mean?
+<%= system.wait(1000) %>
+<Cpt. Banerjee>: Here we go again
+<%= system.wait(2335) %>
+<Cpt. Hawkins>: the Signa are getting ready to attack
+<%= system.wait(1535) %>
+<Cpt. Golz>: that again?
+<%= system.wait(1035) %>
+<Cpt. Banerjee>: Whatever
+<%= system.wait(1550) %>
+<Cpt. Hawkins>: the board must have some real evidence this time
+<%= system.wait(982) %>
+<Rdml. Collins>: I have no information about any appending attack.
+<%= system.wait(1462) %>
+<Rdml. Collins>: As far as I know, this is a standard border shutdown.
+<%= system.wait(2335) %>
+<Cpt. Hawkins>: who's at Andromedae?
+<%= system.wait(2400) %>
+<Cpt. Golz>: <%= avatar.getGlobal('name') %>
+<%= system.wait(2253) %>
+<Cpt. Hawkins>: oh well - there's not much there anyways
+<%= system.wait(3153) %>
+<Cpt. MacKenzie>: Rear Admiral- do you have any idea how long this is going to last?
+<%= system.wait(2002) %>
+<Rdml. Collins>: No
+<%= system.wait(5532) %>
+<Cpt. MacKenzie>: Are the Krueger or Aquarii borders closed?
+<%= system.wait(3802) %>
+<Rdml. Collins>: No
+<%= system.wait(900) %>
+<Cpt. Hawkins>: shit
+<%= system.wait(1400) %>
+<Cpt. Hawkins>:  there you go
+<%= system.wait(1932) %>
+<Rdml. Collins>: The orders are clear.
+<%= system.wait(3590) %>
+<Rdml. Collins>: No ships are allowed through the interchange.
+<%= system.wait(3490) %>
+<Rdml. Collins>: Politics have no place here.
+<%= system.wait(3490) %>
+<Rdml. Collins>: Do NOT allow them to affect your decision making,
+<%= system.wait(2000) %>
+<Rdml. Collins>: you'll just end up running in circles.
+<%= system.wait(3515) %>
+<Rdml. Collins>: Are we done here?
+<%= system.wait(1479) %>
+<Rdml. Collins>: Everyone good?
+<%= system.wait(1515) %>
+<Cpt. Banerjee>: yes
+<%= system.wait(1200) %>
+<Cpt. Golz>: yes
+<%= system.wait(1200) %>
+<Cpt. MacKenzie>: Yes sir.
+<%= system.wait(1782) %>
+<Rdml. Collins>: Good.
+
+The meeting ends and the terminal goes dark.
+<% avatar.addMessage('Go to the bridge.', 'BRIDGE') %>
+#--
+# BRIDGE
+<%= system.clearScreen() %>
+The crew snaps to attention at your arrival. You inform them of the orders and have the Helmsman begin docking. 
+
+You stare at the large screen in front of you. The long-range sensor data streams in large charts over your head. Two hours later they have shown nothing of any significance. 
+
+Then they jump to life.
+
+Sec. Chief Tolares: Captain, a ship is emerging from the Cygni warp.
+
+<% avatar.showChild('crew') %>
+<% avatar.showChild('ship_controls') %>
+<% avatar.showChild('direct_messages') %>
+<% avatar.addTrigger('S1_PASSAGE_REDALERT') %>
+<%= avatar.addMessage("'On screen'", 'S1_ON_SCREEN') %>
+<%= avatar.addMessage("'Open hailing frequencies'", 'S1_HAIL') %>
+<%= avatar.addMessage('Scan Ship', 'S1_SCAN', 'ship_controls.sensors') %>
+
+#--
+# S1_PASSAGE_REDALERT
+<% if (avatar.getGlobal('s1_hail') == true) { %>
+<%  if (avatar.getGlobal('s1_screen') == true) { %>
+<%=    avatar.addMessage('Grant passage', 'S1_PASSAGE') %>
+<%=    avatar.addMessage('Red Alert', 'S1_RED_ALERT') %>
+<%    avatar.removeTrigger('S1_PASSAGE_REDALERT') %>
+<%   } %>
+<% } %>
+
+#--
+# S1_ON_SCREEN
+A long thick supply ship is full stop in front of the Cyngi warp disk. It is brown with an Arthurian crest and the designation DA0-10 in thick black letters on the side. 
+
+<%= avatar.addMessage('Ship Registry Arhturian DA0-10', 'DATA_RENIER', 'ship_controls.databank')  %>
+<% avatar.setGlobal('s1_screen', true) %>
+
+#--
+# S1_HAIL
+Cpt. Howard <over the intercom>: 'Hey there. This is Captain Howard of Arhturian DA0-10 - the Renier. I'm on a supply route seeking warp transfer to Andromedae.'
+
+<%= avatar.addMessage("'What are you hauling?'", 'S1_HAULING') %>
+<%= avatar.addMessage("'This interchange has been ordered closed until further notice.'", 'S1_CLOSED') %>
+<% avatar.setGlobal('s1_hail', true) %>
+
+#--
+# S1_SCAN
+Security Scan:
+    Offensive threat level: Low
+    Defensive threat level: Low
+
+Interior Scan:
+    Bio % Mass:          1 %
+    Metals % Mas:       97 %
+    Inorganic % Mass:    2 %
+
+#--
+# S1_RED_ALERT
+# loadMessage('S2_START')
+********* RED ALERT **********************
+********* RED ALERT **********************
+
+An alarm sounds and the lights darken.
+
+Cpt. Howard <over the intercom>: 'I'm not looking for any fight, Captain. I'll go around.
+
+On screen the Renier reverses course and goes back through the warp gate.
+<%= system.loadMessage('S2_START') %>
+
+#--
+# S1_PASSAGE
+# loadMessage('S2_START')
+Cpt. Howard <over the intercom>: 'Thank you, Captain. Thank you very much.'
+
+<%= avatar.addMessage('A token of thanks', 'S1_TOKEN', 'direct_messages') %>
+<%= system.loadMessage('S2_START') %>
+
+#--
+# S1_TOKEN
+-------------------------------------------------------
+////////////////////
+// Subject: A token of thanks
+// Sender: Captain James Howard
+
+Captain,
+I appreciate your help at the interchange.
+This supply route is of major economic importance to me, please accept this token of my graditude.
+
+<% if (avatar.getGlobal('s1_helpful') == true) { %>
+** Your account has received a credit transfer of 50000cr. **
+<% } else { %>
+** Your account has received a credit transfer of 20000cr. **
+<% } %>
+
+#--
+# S1_HAULING
+Cpt. Howard <over the intercom>: 'Trash mostly. A lot of Arthurian corporations don't trust the Cygna even with their garbage.'
+Cpt. Howard <over the intercom>: 'It's not a very glamorous route, but it's mighty profitable.'
+
+#--
+# S1_CLOSED
+Cpt. Howard <over the intercom>: 'Yeah, I know I should be on the civilian gates, Captain. I usually stick to 'em.'
+Cpt. Howard <over the intercom>: 'But I've got mouths to feed at home and a bonus to get. You understand, don't you?'
+Cpt. Howard <over the intercom>: 'Look, I've got a profitable route here, Captain. If you would grant me passage it would be very helpful to me.'
+Cpt. Howard <over the intercom>: 'I can make sure that it is helpful to you, too.'
+
+<%= avatar.addMessage("'What do you mean-- helpful?'", 'S1_HELPFUL') %>
+<%= avatar.addMessage("'I have my orders. This is your final warning. Leave now or we will be forced to open fire.'", 'S1_SHIP1_FIRE') %>
+
+#--
+# S1_SHIP1_FIRE
+# loadMessage('S2_START')
+Cpt. Howard: 'Okay, okay. We will go around.'
+
+The Renier reverses course and flies back through the warp disk.
+<%= system.loadMessage('S2_START') %>
+
+#--
+# S1_HELPFUL
+Cpt. Howard: 'This is a very important route, Captain. You have my word that it is in your best interest to allow us through.'
+
+The Renier silently floats on the screen in front of you.
+<% avatar.setGlobal('s1_helpful') %>
+<%= avatar.addMessage('Evaluate Captain Howard', 'S1_SHIP1_EVALUATE', 'crew.empat') %>
+
+#--
+# S1_SHIP1_EVALUATE
+Empat Sotherby: 'I see no reason to distrust Captain Howard. Though his actions are illicit, he seemed honest when he said he would pay you back.'
+
+#--
+# S2_START
+<%= avatar.clearMessages() %>
+Moments after the Renier leaves the sensors spike again.
+
+Sec. Chief Tolares: Captain, there is another ship emerging from Cygna.
+
+<%= avatar.addMessage("'On screen'", 'S2_ON_SCREEN') %>
+<%= avatar.addMessage("'Open hailing frequencies'", 'S2_HAIL') %>
+<%= avatar.addMessage('Scan Ship', 'S2_SCAN', 'ship_controls.sensors') %>
+<% avatar.setBNum('s2.intimidated_emboldened', 0) %>
+<% avatar.setGlobal('s2.counter', 0) %>
+
+#--
+# S2_ON_SCREEN
+The ship is a medium passenger liner. It bears the Cygnum crest and the number P113.
+
+<%= avatar.addMessage('Grant Passage', 'S2_GRANT') %>
+<%= avatar.addMessage('Red Alert', 'S2_REDALERT') %>
+<%= avatar.addMessage('Ship Registry: Cygnum P113', 'DATA_LIONHEAD', 'ship_controls.databank') %>
+
+#--
+# S2_SCAN
+Scan blocked by Cygnum shield.
+
+
+#--
+# S2_HAIL
+Cpt. Montgomery <over the intercom>: 'This is Captain Montgomery of Her Majesty's -the Lionhead. There has been a horrible attack on the base on Cygnus 2!'
+Cpt. Montgomery <over the intercom>: 'I am requesting emergency access to the medical facility on Andromedae 4! We  need immediate medical attention!'
+
+<%= avatar.addMessage("'What happened on Cygnus 2?'", 'S2_WHATHAPPENED') %>
+<%= avatar.addMessage("'This interchange has been ordered closed until further notice.'", 'S2_CLOSED') %>
+<%= avatar.addTrigger('S2_T1') %>
+
+#--
+# S2_T1
+<% if (avatar.getGlobal('s2.intimidated_emboldened') != 0) { %>
+<%= avatar.addMessage('How long do they have to live?', 'S2_MEDICAL', 'crew.medical') %>
+<%= avatar.addMessage('What are their shield and weapon capabilities?', 'S2_SECURITY', 'crew.security') %>
+<%= avatar.removeTrigger('S2_T1') %>
+<%= avatar.addTrigger('S2_T2') %>
+<% } %>
+
+#--
+# S2_T2
+# loadMessage('S2_REPLY_OPTIONS')
+<% if (avatar.getGlobal('s2.counter') > 2) { %>
+<%=  avatar.removeTrigger('S2_T2') %>
+<%=  avatar.addTrigger('S2_T3') %>
+
+<%   if (avatar.getBNum('s2.intimidated_emboldened') < -0.5) { %>
+There is a faint moan over the intercom.
+
+Cpt. Montgomery <over the intercom>: 'Please, Captain! I beg you to let us through!'
+Cpt. Montgomery <over the intercom>: 'What is the delay? I don't understand!'
+
+<%=   avatar.addMessage('Can I trust Captain Montgomery?', 'S2_EMPAT', 'crew.empat') %>
+<%=   system.loadMessage('S2_REPLY_OPTIONS') %>
+<%   } else if (avatar.getBNum('s2.intimidated_emboldened') > 0.5) { %>
+Cpt. Montgomery <over the intercom>: 'Captain, we have very little time to spare!'
+Cpt. Montgomery <over the intercom>: 'What is the hold up?'
+
+<%=   avatar.addMessage('Calculate the results of a release of amulphous gas into the base on Cygnus 2.', 'S2_INFO', 'crew.info') %>
+<%=   system.loadMessage('S2_REPLY_OPTIONS') %>
+<%   } else { %>
+Cpt. Montgomery <over the intercom>: 'Is there something wrong, Captain?'
+
+<%=   avatar.addMessage('Can I trust Captain Montgomery?', 'S2_EMPAT', 'crew.empat') %>
+<%=   avatar.addMessage('Calculate the results of a release of amulphous gas into the base on Cygnus 2.', 'S2_INFO', 'crew.info') %>
+<%=   system.loadMessage('S2_REPLY_OPTIONS') %>
+<%  } %>
+<% } %>
+
+#--
+# S2_REPLY_OPTIONS
+<%= avatar.addMessage("'Please bear with me, Captain Montgomery. I will have your answer soon.'", 'S2_REPLY_NICE') %>
+<%= avatar.addMessage("'Once again, Captain, this interchange is closed under Arthurian Security. I have not yet decided to grant you any exception.'", 'S2_REPLY_MEAN') %>
+
+
+#--
+# S2_REPLY_NICE
+Cpt. Montgomery <over the intercom>: 'Your answer? Captain, you must know that I am prepared to go through this warp gate whether you <i>allow</i> me to or not.'
+
+#--
+# S2_REPLY_MEAN
+Cpt. Montgomery <over the intercom>: 'I'd like to see you try and stop me! I doubt you would fire on a ship full of wounded innocents.'
+
+#--
+# S2_T3
+<%  if (avatar.getBNum('s2.intimidated_emboldened') < -0.7) { %>
+Cpt. Montgomery <over the intercom>: 'Captain, if you do not believe me, send a shuttle over and I will show you myself.'
+
+<%=  avatar.addMessage('Ready the shuttle', 'S2_SHUTTLE') %>
+<%  } else if (avatar.getBNum('s2.intimidated_emboldened') > 0.7) { %>
+Cpt. Montgomery <over the intercom>: 'Can't you contact your headquarters and get authorization?'
+
+<%=   avatar.addMessage('Is it possible to contact HQ?', 'S2_ENGINEER', 'crew.engineering') %>
+<%  } else if (avatar.getGlobal('s2.counter') === 6) { %>
+<%    if (Math.random() > 0,5) { %>
+Cpt. Montgomery <over the intercom>: 'Captain, if you do not believe me, send a shuttle over and I will show you myself.'
+
+<%=     avatar.addMessage('Ready the shuttle', 'S2_SHUTTLE') %>
+<%    } else { %>
+Cpt. Montgomery <over the intercom>: 'Can't you contact your headquarters and get authorization?'
+
+<%=     avatar.addMessage('Is it possible to contact HQ?', 'S2_ENGINEER', 'crew.engineering') %>
+<%    } %>
+<% } %>
+
+#--
+# S2_WHATHAPPENED
+Cpt. Montgomery <over the intercom>: 'Terrorists attacked a trading floor. They gunned their way in and released amulphous gas into the ventilation system.'
+Cpt. Montgomery <over the intercom>: 'Cygnus has release centers but we only have so many. You must help us!'
+
+<% avatar.addBNum('s2.intimidated_emboldened', -0.2) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+
+#--
+# S2_CLOSED
+Cpt. Montgomery <over the intercom>: 'Yes Captain I understand that but this is an emergency. Many have died already.'
+Cpt. Montgomery <over the intercom>: 'If these people aren't treated soon they will all die.'
+
+<% avatar.addBNum('s2.intimidated_emboldened', 0.2) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+
+#--
+# S2_MEDICAL
+Med. Officer Webster: 'Full recovery is possible if treated within the first four hours of exposure. After four hours, the victim's skin begins to deteriorate and severe organ failure is likely.'
+Med. Officer Webster: 'If left untreated, the victim often dies within 7 hours of exposure.'
+
+<% avatar.addBNum('s2.intimidated_emboldened', -0.4) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.medical', true) %>
+
+#--
+# S2_SECURITY
+Sec. Chief Tolares: 'It's hard to say, Captain. Cygnus ships are notoriously difficult to scan.'
+Sec. Chief Tolares: 'As a passanger liner I would expect it to be equipped with heavy shields and light offensive capabilities'
+Sec. Chief Tolares: 'Even so, I bet you could fit a full regiment in there if you wanted to.'
+
+<% avatar.addBNum('s2.intimidated_emboldened', 0.4) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.security', true) %>
+
+
+#--
+# S2_EMPAT
+Empat Sotherby: 'Captain, as you know it is always difficult to judge the honesty of a Cygnum.'
+Empat Sotherby: 'All of his voice patterns match the urgency of the situation and there is no reason not to believe what he is saying is true.'
+Empat Sotherby: 'Having said that, a well-trained Cygnum could mimick the patterns well enough beyond detection.'
+
+<% avatar.addBNum('s2.intimidated_emboldened', -0.4) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.empat', true) %>
+
+#--
+# S2_INFO
+Info Chief Cora: 'I've been working on this ever since he first said it, Captain.'
+Info Chief Cora: 'While Cygnus has little mining so there's less than a thousand amulphous release centers system-wide and an evacuation would be necessary.'
+Info Chief Cora: 'However Krueger is just as close as Aquarii and has much better amulphous resources. The better course of action would be to send all of the victims there.'
+Info Chief Cora: 'So far I've only found two of ventallation systems on trading floors on Cygnus 2 that would allow wide enough diffusion to affect a massive enough number of people.'
+Info Chief Cora: 'Both of them are publicly accessible.'
+
+<% avatar.addBNum('s2.intimidated_emboldened', 0.4) %>
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.info', true) %>
+
+#--
+# S2_ENGINEER
+Engineer Stevenson: 'I'm sorry Captain, that isn't possible. It will take at least another couple of hours before The Lionhead will even reach Aquarii.'
+Engineer Stevenson: 'I estimate that they have been traveling for a couple of hours already so they are cutting it close anyway.'
+Engineer Stevenson: 'As you know it takes a while to encrypt an ad hoc signal. There's no possible communication that could take place in time.'
+
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.engineer', true) %>
+
+#--
+# S2_SHUTTLE
+Chief Officer Meyers: 'That isn't possible, Captain. The shuttlecraft is under repair at the moment, Sir.'
+
+<% avatar.setGlobal('s2.counter', avatar.getGlobal('s2.counter') + 1) %>
+<% avatar.setGlobal('s2.shuttle', true) %>
+
