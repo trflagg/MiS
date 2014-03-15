@@ -119,7 +119,8 @@ function promptOptions(options, currentChoice) {
 
     var result = '';
     for (var i = 0, length = optionString.length; i<length; i++) {
-       result = result + i + ') ' + optionString[i] + '\n';
+        // (i+1) because client starts at 1 instead of 0
+       result = result + (i+1) + ') ' + optionString[i] + '\n';
     }
     if (optionString.length === 0) {
         result = result + 'No options available.' + '\n';
@@ -143,8 +144,12 @@ function promptOptions(options, currentChoice) {
         }
         else if (!handleOptions(answer)) {
             console.log('');
-            currentChoice = addChoice(currentChoice, answer);
-
+            if (!isNaN(answer)) {
+                // because client starts at 1 instead of 0
+                answer = new String(answer - 1);
+                currentChoice = addChoice(currentChoice, answer);
+            }
+            
             promptOptions(options, currentChoice);
         }
     });
@@ -174,20 +179,24 @@ function makeChildString(options, choices) {
     var childString = '';
     var currentOptions = options;
     for (var i=0, ll=choices.length; i<ll-1; i++) {
+        // console.log('i='+i);
         childString = addChoice(childString, currentOptions[choices[i]].text);
         currentOptions = currentOptions[choices[i]].children;
+        // console.log(childString);
     }
     return childString;
 }
 
 function addChoice(currentChoice, newChoice) {
+    // do we already have a choice?
     if (currentChoice != '') {
+        // add to the end
         currentChoice = currentChoice + '.' + newChoice;
     }
     else {
+        // select first choice
         currentChoice = newChoice;
     }
-
     return currentChoice;
 }
 
