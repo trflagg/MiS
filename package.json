@@ -9,7 +9,7 @@
     , "config"             : "*"
     , "hbs"                : "2.x"
     , "less"               : "1.x"
-    , "less-middleware"    : "*"
+    , "less-middleware"    : "0.1.15"
     , "underscore"         : "1.x"
     , "metalogger"         : "*"
   }
