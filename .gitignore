@@ -23,6 +23,7 @@ resources/*
 
 # nodebootstrap
 ###################
+=======
 .project
 .idea
 nbproject
