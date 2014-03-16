@@ -21,6 +21,8 @@
     , "less-middleware"    : "*"
     , "underscore"         : "1.x"
     , "metalogger"         : "*"
+    , "argie"              : "*"
+    , "argieDb"            : "*"
   },
   "devDependencies": {
     "suspend": "~0.3.0",

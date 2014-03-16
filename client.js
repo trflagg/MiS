@@ -3,8 +3,8 @@ var firstMessage = 'INIT';
 
 var environment = require('./environments/environment-local'),
     readline = require('readline'),
-    Db = require('./argie/argieDb/db'),
-    constants = require('./argie/constants');
+    Db = require('argieDb/db'),
+    constants = require('argie/constants');
 
 
 // the worst thing ever to do in nodejs EVER
@@ -253,8 +253,8 @@ module.exports = function() {
     rl = readline.createInterface(process.stdin, process.stdout);
     rl.setPrompt('>');
 
-    Avatar = require('./argie/models/avatar')(db),
-    Message = require('./argie/models/message')(db);
+    Avatar = require('argie/models/avatar')(db),
+    Message = require('argie/models/message')(db);
 
     init();
 

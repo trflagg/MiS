@@ -1,8 +1,8 @@
 module.exports = function(db) {
 
     var util = require('util'),
-        Avatar = require('../argie/models/avatar')(db, 'Ship'),
-        MessageHolder = require('../argie/models/messageHolder')(db);
+        Avatar = require('argie/models/avatar')(db, 'Ship'),
+        MessageHolder = require('argie/models/messageHolder')(db);
 
     Ship = function(doc) {
         Ship.super_.call(this, doc);
