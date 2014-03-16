@@ -21,6 +21,12 @@ Treatment.txt
 Prologue.txt
 resources/*
 
-
-
-.DS_Store
+# nodebootstrap
+###################
+.project
+.idea
+nbproject
+.settings
+logs
+public/bower_components
+config/runtime.json
