@@ -1,0 +1,4 @@
+{ 
+    "name" : "Main game module"
+    , "main" : "game.js"
+}
