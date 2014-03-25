@@ -1,49 +1,37 @@
 {
-  "name"          : "MiS"
-  , "version"     : "0.3.0"
-  , "private"     : true
-  , "scripts"     : {
-      "start"         : "node app"
+  "name": "MiS",
+  "version": "0.3.0",
+  "private": true,
+  "dependencies": {
+    "express-resource": "*",
+    "express": "3.x",
+    "consolidate": "*",
+    "connect-mongo": "*",
+    "request": "*",
+    "swig": "*",
+    "mongoskin": "~0.6.0",
+    "async": "~0.2.9",
+    "mongodb": "~1.3.18",
+    "yaml": "*",
+    "config": "*",
+    "hbs": "2.x",
+    "less": "1.x",
+    "less-middleware": "0.1.15",
+    "underscore": "1.x",
+    "metalogger": "*",
+    "argie": "git://github.com/trflagg/argie.git",
+    "argieDB": "git://github.com/trflagg/argieDB.git",
+    "express-dot": "~0.1.0"
+  },
+  "devDependencies": {
+    "suspend": "~0.3.0",
+    "fibers": "~1.0.1",
+    "js-yaml": "~2.1.0",
+    "assert": "*",
+    "should": "*",
+    "mocha": "*"
+  },
+  "engines": {
+    "node": ">=0.8.8"
   }
-
-  , "dependencies": {
-        "express-resource"  : "*"
-      , "express"           : "3.x"
-      , "consolidate"       : "*"
-      , "connect-mongo"     : "*"
-      , "request"           : "*"
-      , "swig"              : "*"
-      , "mongoskin"         : "~0.6.0"
-      , "async"             : "~0.2.9"
-      , "mongodb"           : "~1.3.18"
-
-      , "yaml"               : "*"
-      , "express"            : "3.x"
-      , "config"             : "*"
-      , "hbs"                : "2.x"
-      , "less"               : "1.x"
-      , "less-middleware"    : "0.1.15"
-      , "underscore"         : "1.x"
-      , "metalogger"         : "*"
-      , "config"             : "*"
-
-      , "argie"              : "git://github.com/trflagg/argie.git"
-      , "argieDB"            : "git://github.com/trflagg/argieDB.git"
-  }
-
-  , "devDependencies": {
-        "suspend"        : "~0.3.0"
-      , "fibers"         : "~1.0.1"
-      , "js-yaml"        : "~2.1.0"
-      ,  "assert"        : "*"
-      , "should"         : "*"  
-      , "mocha"          : "*"
-  }
-  
-  , "engines": {
-        "node"      : ">=0.8.8"
-  }
-  , "scripts": {
-        "test"      : "mocha"
-  }    
 }

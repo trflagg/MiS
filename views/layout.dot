@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Make it So! by hi-scor.es</title>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/{{= this.lib }}/{{= this.lib }}.css">
+    </head>
+    <body>
+        {{= it.body }}
+    </body>
+    <script type="text/javascript" data-main='js/{{= this.lib }}/main.js' src="bower_components/requirejs/require.js"></script>
+</html>

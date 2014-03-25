@@ -69,6 +69,9 @@ if [ ! -f "$NODE_LOG_DIR/err.log" ]; then
     touch $NODE_LOG_DIR/err.log
 fi
 
+# TRF: Should use something like this in prod:
+# https://github.com/visionmedia/reap
+
 
 # Let's make sure you have forever/supervisor installed, if we are gonna need it:
 if [ $NODE_HOT_RELOAD -eq 0 ] && [ ! `which forever` ]; then
