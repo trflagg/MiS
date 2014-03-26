@@ -1,3 +1,6 @@
 <div id="content">
     Make it So!
+    <input type="text" id="name-input" value="{{= it.ship.getName() }}"></input>
+    <input type="hidden" id="id-hidden" value="{{= it.ship.id() }}"></input>
+    <button id="submit-button">Change Name</button>
 </div>

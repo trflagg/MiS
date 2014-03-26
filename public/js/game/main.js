@@ -26,5 +26,17 @@ requirejs([ 'jquery',
             'backbone'
 ], function($, _, Backbone) {
     
+    $(function() {
+        $("#submit-button").click(function() {
+            var name = $("#name-input").val()
+                , id = $("#id-hidden").val()
+            $.post('/game/name',
+                {
+                    name: name,
+                    id: id
+                }
+            );
+        });
+    });
 
 });
