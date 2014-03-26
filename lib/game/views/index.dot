@@ -1,6 +1,7 @@
-<div id="content">
-    Make it So!
-    <input type="text" id="name-input" value="{{= it.ship.getName() }}"></input>
-    <input type="hidden" id="id-hidden" value="{{= it.ship.id() }}"></input>
-    <button id="submit-button">Change Name</button>
+<div id="main">
 </div>
+<div id="ship-data" data-id="{{= it.ship.id() }}"></div>
+
+<script id="locationView-template" type="text/x-handlebars-template">
+<p>Current Location: {{name}}</p>
+</script>

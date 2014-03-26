@@ -3,7 +3,8 @@ requirejs.config({
     paths: {
         'jquery': '../bower_components/jquery/jquery',
         'underscore': '../bower_components/underscore/underscore',
-        'backbone': '../bower_components/backbone/backbone'
+        'backbone': '../bower_components/backbone/backbone',
+        'handlebars': '../bower_components/handlebars/handlebars'
     },
 
     shim: {
@@ -18,25 +19,20 @@ requirejs.config({
         'underscore': {
             exports: '_'
         },
+        'handlebars': {
+            exports: 'Handlebars'
+        }
     }
 });
 
 requirejs([ 'jquery',
             'underscore',
-            'backbone'
-], function($, _, Backbone) {
-    
+            'backbone',
+            'game/appView'
+], function($, _, Backbone, appView) {
     $(function() {
-        $("#submit-button").click(function() {
-            var name = $("#name-input").val()
-                , id = $("#id-hidden").val()
-            $.post('/game/name',
-                {
-                    name: name,
-                    id: id
-                }
-            );
-        });
+
+        var app = new appView();
     });
 
 });
