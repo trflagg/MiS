@@ -2,6 +2,3 @@
 </div>
 <div id="ship-data" data-id="{{= it.ship.id() }}"></div>
 
-<script id="locationView-template" type="text/x-handlebars-template">
-<p>Current Location: {{name}}</p>
-</script>

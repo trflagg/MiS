@@ -1,18 +1,18 @@
 define([ 
     'backbone',
-    'handlebars'
-], function(Backbone) {
+    'doT!game/templates/locationView'
+], function(Backbone, template) {
 
     var locationView = Backbone.View.extend({
         initialize: function() {
-            this.template = Handlebars.compile($('#locationView-template').html());
+            this.template = template;
 
             this.render();
         },
 
         render: function() {
             $(this.el).html(this.template({
-                name: 'this.model.name'
+                name: this.model.name
             }));
             return this; 
         }

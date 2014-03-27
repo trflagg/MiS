@@ -1,14 +1,16 @@
 requirejs.config({
     baseUrl: 'js/',
     paths: {
-        'jquery': '../bower_components/jquery/jquery',
-        'underscore': '../bower_components/underscore/underscore',
-        'backbone': '../bower_components/backbone/backbone',
-        'handlebars': '../bower_components/handlebars/handlebars'
+        jquery: '../bower_components/jquery/jquery',
+        underscore: '../bower_components/underscore/underscore',
+        backbone: '../bower_components/backbone/backbone',
+        doTCompiler:  '../bower_components/doT/doT',
+        text:         '../bower_components/requirejs-text/text',
+        doT:          '../bower_components/requirejs-dot/doT'
     },
 
     shim: {
-        'backbone': {
+        backbone: {
             //These script dependencies should be loaded before loading
             //backbone.js
             deps: ['underscore', 'jquery'],
@@ -16,13 +18,14 @@ requirejs.config({
             //module value.
             exports: 'Backbone'
         },
-        'underscore': {
+        underscore: {
             exports: '_'
         },
-        'handlebars': {
-            exports: 'Handlebars'
-        }
-    }
+    },
+
+    // This tells optimizer don't bother including these 
+    // (because they're already in requirejs-doT)
+    stubModules: ['doTCompiler', 'text', 'doT']
 });
 
 requirejs([ 'jquery',
