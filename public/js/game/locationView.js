@@ -7,12 +7,15 @@ define([
         initialize: function() {
             this.template = template;
 
-            this.render();
+            if (this.model) {
+                this.listenTo(this.model, 'change', this.render);
+            }
         },
 
         render: function() {
             $(this.el).html(this.template({
-                name: this.model.name
+                name: this.model.get("name"),
+                description: this.model.get("description")
             }));
             return this; 
         }
