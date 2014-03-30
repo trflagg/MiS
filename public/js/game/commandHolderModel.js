@@ -15,9 +15,11 @@ define([
         , initialize: function(attrs, options) {
             // call superclass' initialize()
             CommandModel.prototype.initialize.apply(this, arguments);
-            
+
             CommandCollection = require('game/commandCollection');
-            this.set("children", new CommandCollection(attrs.children));
+            if (attrs && attrs.children) {
+                this.set("children", new CommandCollection(attrs.children));
+            }
         }
     });
 

@@ -3,6 +3,12 @@
     </div>
     <div id="location">
     </div>
+    <div id="crew">
+    </div>
+    <div id="shipControls">
+    </div>
+    <div id="directMessages">
+    </div>
 </div>
 <div id="ship-data" data-id="{{= it.ship.id() }}"></div>
 

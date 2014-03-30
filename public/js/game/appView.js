@@ -4,7 +4,8 @@ define([
     'game/locationView',
     'game/infoView',
     'game/infoModel',
-], function(Backbone, ShipModel, LocationView, InfoView, InfoModel) {
+    'game/commandHolderView'
+], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView) {
 
     var appView = Backbone.View.extend({
         initialize: function() {
@@ -12,7 +13,6 @@ define([
                 id: $("#ship-data").data('id')
             });
             this.listenTo(this.ship, 'change', this.shipChanged);
-            this.listenTo(this.ship.get("commands"), 'change', this.commandsChanged);
 
             this.locationView = new LocationView({
                 model: this.ship.get("location"),
@@ -23,6 +23,21 @@ define([
             this.infoView = new InfoView({
                 model: this.info,
                 el: $("#info")
+            });
+
+            this.crewView = new CommandHolderView({
+                model: this.ship.get("crew"),
+                el: $("#crew")
+            });
+
+            this.shipControlsView = new CommandHolderView({
+                model: this.ship.get("shipControls"),
+                el: $("#shipControls")
+            });
+
+            this.directMessagesView = new CommandHolderView({
+                model: this.ship.get("directMessages"),
+                el: $("#directMessages")
             });
         },
     });
@@ -35,11 +50,6 @@ define([
             shipName: ship.get("shipName")
         });
 
-    };
-
-    appView.prototype.commandsChanged = function() {
-        var commands = this.ship.get("commands");
-        console.dir(commands);
     };
 
     return appView;
