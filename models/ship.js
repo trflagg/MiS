@@ -8,6 +8,7 @@ module.exports = function(db) {
         Ship.super_.call(this, doc);
 
         if (doc) {
+            this._shipName = doc.shipName; 
 
         }
         else {
@@ -64,8 +65,16 @@ module.exports = function(db) {
 
     Ship.prototype.onSave = function(ship) {
         var doc = Ship.super_.prototype.onSave(ship);
+        doc.shipName = ship._shipName;
 
         return doc;
+    };
+
+    Ship.prototype.getShipName = function() {
+        return this._shipName;
+    };
+    Ship.prototype.setShipName = function(shipName) {
+        this._shipName = shipName;
     };
 
     db.register('Ship', Ship);
