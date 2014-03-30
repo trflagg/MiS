@@ -1,0 +1,2 @@
+<p>Current Location: {{= it.name }}</p>
+<p>{{= it.description }}</p>
