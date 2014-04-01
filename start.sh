@@ -69,6 +69,18 @@ if [ ! -f "$NODE_LOG_DIR/err.log" ]; then
     touch $NODE_LOG_DIR/err.log
 fi
 
+<<<<<<< Updated upstream
+=======
+# TRF: Should use something like this in prod:
+# https://github.com/visionmedia/reap
+# 
+
+# TRF: run sass watch?
+if [ $SASS_WATCH -eq 1 ]; then
+  sass --watch sass:public/css &
+  SASS_PID=$!;
+fi
+>>>>>>> Stashed changes
 
 # Let's make sure you have forever/supervisor installed, if we are gonna need it:
 if [ $NODE_HOT_RELOAD -eq 0 ] && [ ! `which forever` ]; then
@@ -122,4 +134,10 @@ fi
 
 if [ $NB_TAIL_LOGS ] && [ $NODE_HOT_RELOAD -eq 0 ]; then
   tail -f $NODE_LOG_DIR/forever.log
+fi
+
+# TRF: Stop sass watch
+if [ $SASS_WATCH ]; then
+    echo $SASS_PID;
+    kill $SASS_PID;
 fi
