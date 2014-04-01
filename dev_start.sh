@@ -8,7 +8,7 @@ export NODE_HOT_RELOAD=1
 export NODE_LOGGER_GRANULARLEVELS=1
 
 # TRF: run sass watch
-export SASS_WATCH=0
+export SASS_WATCH=1
 
 ./start.sh
 
