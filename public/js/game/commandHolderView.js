@@ -1,4 +1,4 @@
-define([ 
+define([
     'backbone',
     'doT!game/templates/commandHolderView'
 ], function(Backbone, template) {
@@ -17,8 +17,9 @@ define([
             $(this.el).html(this.template({
                 text: this.model.get("text")
                 , childMessageCount: this.model.get("childMessageCount")
+                , children: this.model.getChildren()
             }));
-            return this; 
+            return this;
         }
     });
 

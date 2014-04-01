@@ -3,7 +3,7 @@ define([
     , 'game/locationModel'
     , 'game/commandHolderModel'
 ], function(Backbone, LocationModel, CommandHolderModel) {
-   
+
     var shipModel = Backbone.Model.extend({
         urlRoot: 'game/ship'
 
@@ -11,9 +11,15 @@ define([
             location: new LocationModel()
             , captain: ''
             , shipName: ''
-            , directMessages: new CommandHolderModel()
-            , crew: new CommandHolderModel()
-            , shipControls: new CommandHolderModel()
+            , directMessages: new CommandHolderModel({
+                text: 'direct messages'
+            })
+            , crew: new CommandHolderModel({
+                text: 'crew'
+            })
+            , shipControls: new CommandHolderModel({
+                text: 'ship controls'
+            })
         }
 
         , initialize: function() {
@@ -32,18 +38,15 @@ define([
                 switch (command.text) {
 
                     case 'crew':
-                        this.get("crew").set(command);
+                        this.get("crew").setChildren(command.children);
                         break
                     case 'ship_controls':
-                        this.get("shipControls").set(command);
+                        this.get("shipControls").setChildren(command.children);
                         break
                     case 'direct_messages':
-                        this.get("directMessages").set(command);
+                        this.get("directMessages").setChildren(command.children);
                         break
                 }
-                // this wasn't getting triggered automatically, so do it manually
-                // could also/instead trigger on ship (i.e. this.trigger('change')) if we wanted to
-                // this.get("commands").trigger('change');
             }
         }
     });
