@@ -1,4 +1,4 @@
 <p>{{= it.text }} ({{= it.childMessageCount }})</p>
-{{~ it.children :child}}
-    <p>{{=child}}</p>
-{{~}}
+<ul id="{{= it.cid }}-children">
+
+</ul>

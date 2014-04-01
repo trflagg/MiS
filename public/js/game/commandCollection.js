@@ -14,7 +14,7 @@ define([
                 return new CommandHolderModel(attrs, options);
             }
             else {
-                return new CommandModel(atts, options);
+                return new CommandModel(attrs, options);
             }
         }
     });
