@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Make it So! by hi-scor.es</title>
+        <link href="http://fonts.googleapis.com/css?family=Audiowide|Coda|Orbitron", rel="stylesheet", type="text/css">
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/{{= this.lib }}/{{= this.lib }}.css">
     </head>

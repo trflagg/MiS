@@ -1,0 +1,23 @@
+.commandItem {
+    border: 2px solid #EEE;
+    border-radius: 30px 10px;
+    margin-bottom: 10px;
+    font: 16px Coda;
+    letter-spacing: .1em;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    -webkit-transition: all .1s;
+    -moz-transition: all .1s;
+    -o-transition: all .1s;
+    transition: all .1s;
+}
+
+.commandItem:hover {
+    color: #000;
+    background: #EEE;
+}
+
+.disabled {
+    color: #888;
+}

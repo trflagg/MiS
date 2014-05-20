@@ -7,7 +7,7 @@ define([
     var commandHolderView = Backbone.View.extend({
 
         initialize: function() {
-            this.template = template;
+            this.setTemplate();
 
             if (this.model) {
                 this.listenTo(this.model, 'change', this.render);
@@ -23,6 +23,10 @@ define([
                     , cid: this.cid
                 }));
 
+                if (this.model.get("childMessageCount") === 0) {
+                    $('p').addClass('disabled');
+                }
+
                 var children = this.model.get("children").models;
                 _.each(children, this.renderChildren, {parent: this});
             }
@@ -30,6 +34,10 @@ define([
             return this;
         }
     });
+
+    commandHolderView.prototype.setTemplate = function() {
+        this.template = template;
+    };
 
     commandHolderView.prototype.renderChildren = function(child) {
         if (child.get("children")) {

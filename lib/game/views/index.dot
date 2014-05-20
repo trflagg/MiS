@@ -3,9 +3,11 @@
     </div>
     <div id="location">
     </div>
-    <div id="crew">
-    </div>
-    <div id="shipControls">
+    <div id="commands">
+        <div id="crew" class="command-list">
+        </div>
+        <div id="shipControls" class="command-list">
+        </div>
     </div>
     <div id="directMessages">
     </div>

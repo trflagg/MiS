@@ -4,8 +4,9 @@ define([
     'game/locationView',
     'game/infoView',
     'game/infoModel',
-    'game/commandHolderView'
-], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView) {
+    'game/commandHolderView',
+    'game/commandHolderViewTopLevel'
+], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView, CommandHolderViewTopLevel) {
 
     var appView = Backbone.View.extend({
         initialize: function() {
@@ -25,12 +26,12 @@ define([
                 el: $("#info")
             });
 
-            this.crewView = new CommandHolderView({
+            this.crewView = new CommandHolderViewTopLevel({
                 model: this.ship.get("crew"),
                 el: $("#crew")
             });
 
-            this.shipControlsView = new CommandHolderView({
+            this.shipControlsView = new CommandHolderViewTopLevel({
                 model: this.ship.get("shipControls"),
                 el: $("#shipControls")
             });

@@ -1,2 +1,3 @@
-<p>Current Location: {{= it.name }}</p>
-<p>{{= it.description }}</p>
+<p class="locationView__label">Current Location:</p>
+<p class="locationView__name"> {{= it.name }}</p>
+<p class="locationView__description">{{= it.description }}</p>
