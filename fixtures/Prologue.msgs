@@ -108,7 +108,19 @@ The orders came in quickly. Be at the Andromedae interchange by 1200. You sit at
 <Rdml. Collins>: You are to maintain your position and prevent any interchange crossing in both directions.
 <%= system.wait(2500) %>
 <Rdml. Collins>: Any questions?
-<%= system.wait(3500) %>
+<%= system.wait(3153) %>
+<Cpt. MacKenzie>: Rear Admiral- do you have any idea how long this is going to last?
+<%= system.wait(2002) %>
+<Rdml. Collins>: No
+<%= system.wait(3032) %>
+<Cpt. MacKenzie>: Are the Krueger or Aquarii borders closed?
+<%= system.wait(3802) %>
+<Rdml. Collins>: No
+<%= system.wait(1200) %>
+<Cpt. Hawkins>: shit
+<%= system.wait(1400) %>
+<Cpt. Hawkins>:  there you go
+<%= system.wait(2500) %>
 <Cpt. Hawkins>: so who's at the Sol interchange?
 <%= system.wait(2500) %>
 <Cpt. Golz>: Me
@@ -124,7 +136,7 @@ The orders came in quickly. Be at the Andromedae interchange by 1200. You sit at
 <Cpt. Hawkins>: the Signa are getting ready to attack
 <%= system.wait(1535) %>
 <Cpt. Golz>: that again?
-<%= system.wait(1035) %>
+<%= system.wait(635) %>
 <Cpt. Banerjee>: Whatever
 <%= system.wait(1550) %>
 <Cpt. Hawkins>: the board must have some real evidence this time
@@ -136,20 +148,8 @@ The orders came in quickly. Be at the Andromedae interchange by 1200. You sit at
 <Cpt. Hawkins>: who's at Andromedae?
 <%= system.wait(2400) %>
 <Cpt. Golz>: <%= avatar.getGlobal('name') %>
-<%= system.wait(2253) %>
+<%= system.wait(2753) %>
 <Cpt. Hawkins>: oh well - there's not much there anyways
-<%= system.wait(3153) %>
-<Cpt. MacKenzie>: Rear Admiral- do you have any idea how long this is going to last?
-<%= system.wait(2002) %>
-<Rdml. Collins>: No
-<%= system.wait(5532) %>
-<Cpt. MacKenzie>: Are the Krueger or Aquarii borders closed?
-<%= system.wait(3802) %>
-<Rdml. Collins>: No
-<%= system.wait(900) %>
-<Cpt. Hawkins>: shit
-<%= system.wait(1400) %>
-<Cpt. Hawkins>:  there you go
 <%= system.wait(1932) %>
 <Rdml. Collins>: The orders are clear.
 <%= system.wait(3590) %>
@@ -184,7 +184,7 @@ You stare at the large screen in front of you. The long-range sensor data stream
 
 Then they jump to life.
 
-Sec. Chief Tolares: Captain, a ship is emerging from the Cygni warp.
+Security Chief Tolares: Captain, a ship is emerging from the Cygni warp.
 
 <% avatar.showChild('crew') %>
 <% avatar.showChild('ship_controls') %>
@@ -308,7 +308,7 @@ Empat Sotherby: 'I see no reason to distrust Captain Howard. Though his actions 
 <%= avatar.clearMessages() %>
 Moments after the Renier leaves the sensors spike again.
 
-Sec. Chief Tolares: Captain, there is another ship emerging from Cygna.
+Security Chief Tolares: Captain, there is another ship emerging from Cygna.
 
 <%= avatar.addMessage("'On screen'", 'S2_ON_SCREEN') %>
 <%= avatar.addMessage("'Open hailing frequencies'", 'S2_HAIL') %>
@@ -369,7 +369,8 @@ Cpt. Montgomery <over the intercom>: 'What is the hold up?'
 <%=   avatar.addMessage('Calculate the results of a release of amulphous gas into the base on Cygnus 2.', 'S2_INFO', 'crew.info') %>
 <%=   system.loadMessage('S2_REPLY_OPTIONS') %>
 <%   } else { %>
-Cpt. Montgomery <over the intercom>: 'Is there something wrong, Captain?'
+Cpt. Montgomery <over the intercom>: 'Captain, I don't understand. This is a very serious emergency.'
+Cpt. Montgomery <over the intercom>: 'Is there something wrong?'
 
 <%=   avatar.addMessage('Can I trust Captain Montgomery?', 'S2_EMPAT', 'crew.empat') %>
 <%=   avatar.addMessage('Calculate the results of a release of amulphous gas into the base on Cygnus 2.', 'S2_INFO', 'crew.info') %>
@@ -379,8 +380,8 @@ Cpt. Montgomery <over the intercom>: 'Is there something wrong, Captain?'
 
 #--
 # S2_REPLY_OPTIONS
-<%= avatar.addMessage("'Please bear with me, Captain Montgomery. I will have your answer soon.'", 'S2_REPLY_NICE') %>
-<%= avatar.addMessage("'Once again, Captain, this interchange is closed under Arthurian Security. I have not yet decided to grant you any exception.'", 'S2_REPLY_MEAN') %>
+<%= avatar.addMessage("'Please bear with me, Captain Montgomery. I will have your answer soon.' (NICE)", 'S2_REPLY_NICE') %>
+<%= avatar.addMessage("'Once again, Captain, this interchange is closed under Arthurian Security. I have not yet decided to grant you any exception.' (FORCEFUL)", 'S2_REPLY_MEAN') %>
 
 
 #--
@@ -452,7 +453,7 @@ Sec. Chief Tolares: 'Even so, I bet you could fit a full regiment in there if yo
 #--
 # S2_EMPAT
 Empat Sotherby: 'Captain, as you know it is always difficult to judge the honesty of a Cygnum.'
-Empat Sotherby: 'All of his voice patterns match the urgency of the situation and there is no reason not to believe what he is saying is true.'
+Empat Sotherby: 'All of his voice patterns match the urgency of the situation and there is no reason to believe what he is saying is not true.'
 Empat Sotherby: 'Having said that, a well-trained Cygnum could mimick the patterns well enough beyond detection.'
 
 <% avatar.addBNum('s2.intimidated_emboldened', -0.4) %>
