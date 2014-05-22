@@ -24,7 +24,7 @@ define([
                 }));
 
                 if (this.model.get("childMessageCount") === 0) {
-                    $('p').addClass('disabled');
+                    this.$('p').addClass('disabled');
                 }
 
                 var children = this.model.get("children").models;

@@ -38,6 +38,7 @@ define([
                 switch (command.text) {
 
                     case 'crew':
+                        this.get("crew").set("childMessageCount", command.childMessageCount);
                         this.get("crew").setChildren(command.children);
                         break
                     case 'ship_controls':
