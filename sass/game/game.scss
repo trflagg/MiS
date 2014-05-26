@@ -11,8 +11,14 @@
     padding: 10px;
 }
 
+#output {
+    width: 600px;
+    height: 100%;
+}
+
 #commands {
     width: 300px;
+    float: right;
 }
 
 .command-list {

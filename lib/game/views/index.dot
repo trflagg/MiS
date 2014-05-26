@@ -3,6 +3,8 @@
     </div>
     <div id="location">
     </div>
+    <div id="output">
+    </div>
     <div id="commands">
         <div id="crew" class="command-list">
         </div>
