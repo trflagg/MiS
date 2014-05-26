@@ -8,8 +8,8 @@
         </div>
         <div id="shipControls" class="command-list">
         </div>
-    </div>
-    <div id="directMessages">
+        <div id="directMessages">
+        </div>
     </div>
 </div>
 <div id="ship-data" data-id="{{= it.ship.id() }}"></div>

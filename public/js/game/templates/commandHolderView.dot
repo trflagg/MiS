@@ -1,4 +1,4 @@
-<p class="commandItem">{{= it.text }} ({{= it.childMessageCount }})</p>
+<p id="{{= it.cid }}-item" class="commandItem">{{= it.text }} ({{= it.childMessageCount }})</p>
 <ul id="{{= it.cid }}-children" class="command-list">
 
 </ul>

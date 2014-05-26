@@ -11,6 +11,7 @@ define([
         defaults: {
             childMessageCount: 0
             , children: {}
+            , show_children: false
         }
 
         , initialize: function(attrs, options) {
@@ -37,6 +38,10 @@ define([
         return _.map(this.get("children").models, function(child) {
             return child.get("id");
         });
+    };
+
+    commandHolderModel.prototype.toggleChildren = function() {
+        this.set("show_children", !this.get("show_children"));
     };
 
    return commandHolderModel;

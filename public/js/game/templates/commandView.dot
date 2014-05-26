@@ -1,1 +1,1 @@
-<p class="commandItem">{{= it.text }}</p>
+<p id="{{= it.cid }}-item" class="commandItem">{{= it.text }}</p>

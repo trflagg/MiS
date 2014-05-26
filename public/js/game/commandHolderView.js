@@ -6,6 +6,14 @@ define([
 
     var commandHolderView = Backbone.View.extend({
 
+        events: function() {
+            events = {};
+
+            events["click #"+this.cid+"-item"] = "clicked";
+
+            return events
+        },
+
         initialize: function() {
             this.setTemplate();
 
@@ -22,6 +30,13 @@ define([
                     , childMessageCount: this.model.get("childMessageCount")
                     , cid: this.cid
                 }));
+
+                if (this.model.get("show_children")) {
+                    this.$('#'+this.cid+'-children').show();
+                }
+                else {
+                    this.$('#'+this.cid+'-children').hide();
+                }
 
                 if (this.model.get("childMessageCount") === 0) {
                     this.$('p').addClass('disabled');
@@ -65,5 +80,11 @@ define([
             })
         .el);
     };
+
+    commandHolderView.prototype.clicked = function() {
+        console.log(this.model.get("text") + " clicked");
+        this.model.toggleChildren();
+    };
+
     return commandHolderView;
 });
