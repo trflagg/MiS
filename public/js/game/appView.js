@@ -5,8 +5,10 @@ define([
     'game/infoView',
     'game/infoModel',
     'game/commandHolderView',
-    'game/commandHolderViewTopLevel'
-], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView, CommandHolderViewTopLevel) {
+    'game/commandHolderViewTopLevel',
+    'game/outputView',
+    'game/outputModel'
+], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView, CommandHolderViewTopLevel, OutputView, OutputModel) {
 
     var appView = Backbone.View.extend({
         initialize: function() {
@@ -24,6 +26,12 @@ define([
             this.infoView = new InfoView({
                 model: this.info,
                 el: $("#info")
+            });
+
+            this.output = new OutputModel();
+            this.outputView = new OutputView({
+                model: this.output,
+                el: $("#output")
             });
 
             this.crewView = new CommandHolderViewTopLevel({
@@ -51,6 +59,7 @@ define([
             shipName: ship.get("shipName")
         });
 
+        this.output.set("text", ship.get("output"));
     };
 
     return appView;

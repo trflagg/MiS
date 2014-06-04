@@ -11,6 +11,7 @@ define([
             location: new LocationModel()
             , captain: ''
             , shipName: ''
+            , output: ''
             , directMessages: new CommandHolderModel({
                 text: 'direct messages'
             })
@@ -30,6 +31,7 @@ define([
             this.get("location").set(response.location);
             this.set("captain", response.captain);
             this.set("shipName", response.shipName);
+            this.set("output", response.output);
 
             var commands = response.commands;
             for (var i=0, ll=commands.length; i<ll; i++) {

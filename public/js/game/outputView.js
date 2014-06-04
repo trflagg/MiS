@@ -1,6 +1,6 @@
 define([ 
     'backbone',
-    'doT!game/templates/outputView'
+    // 'doT!game/templates/outputView'
 ], function(Backbone, template) {
 
     var outputView = Backbone.View.extend({
@@ -13,7 +13,7 @@ define([
         },
 
         render: function() {
-            $(this.el).html( this.model.get("text") );
+            $(this.el).text( this.model.get("text") );
             return this; 
         }
     });

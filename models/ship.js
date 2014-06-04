@@ -8,10 +8,13 @@ module.exports = function(db) {
         Ship.super_.call(this, doc);
 
         if (doc) {
-            this._shipName = doc.shipName; 
+            this._shipName = doc.shipName;
+            this._output = doc.output; 
 
         }
         else {
+            this._output = "";
+
             this.setNewMessageText('** New command added: %s **');
             // controls and crew members are child messageHolders
             var crew = new MessageHolder();
@@ -66,6 +69,7 @@ module.exports = function(db) {
     Ship.prototype.onSave = function(ship) {
         var doc = Ship.super_.prototype.onSave(ship);
         doc.shipName = ship._shipName;
+        doc.output = ship._output;
 
         return doc;
     };
@@ -75,6 +79,13 @@ module.exports = function(db) {
     };
     Ship.prototype.setShipName = function(shipName) {
         this._shipName = shipName;
+    };
+
+    Ship.prototype.appendOutput = function(output) {
+        this._output += output;
+    };
+    Ship.prototype.getOutput = function() {
+        return this._output
     };
 
     db.register('Ship', Ship);

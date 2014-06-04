@@ -61,3 +61,8 @@
 
 .disabled {
   color: #888; }
+
+#output {
+  white-space: pre;
+  font-family: monospace;
+  float: left; }
