@@ -14,6 +14,8 @@ define([
 
         render: function() {
             $(this.el).text( this.model.get("text") );
+            $(this.el).width( $(window).width() - 350);
+            window.scrollTo(0,document.body.scrollHeight);
             return this; 
         }
     });

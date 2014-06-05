@@ -1,23 +1,26 @@
 .commandItem {
-    border: 2px solid #EEE;
-    border-radius: 30px 10px;
     margin-bottom: 10px;
     font: 16px Coda;
     letter-spacing: .1em;
     padding: 15px;
     margin-bottom: 15px;
-    text-align: center;
-    -webkit-transition: all .1s;
-    -moz-transition: all .1s;
-    -o-transition: all .1s;
-    transition: all .1s;
+    // -webkit-transition: all .1s;
+    // -moz-transition: all .1s;
+    // -o-transition: all .1s;
+    // transition: all .1s;
+    border-style: solid;
+    border-color: #EEE;
+    border-width: 0px;
+    border-bottom-width: 2px;
 }
 
 .commandItem:hover {
     color: #000;
     background: #EEE;
+    border-color: #EEE;
 }
 
 .disabled {
     color: #888;
+    border-color: #888;
 }

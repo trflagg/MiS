@@ -1,2 +1,2 @@
 <p class="infoView__captain">Cpt. {{= it.captain }}</p>
-<h1 class="infoView__ship">{{= it.shipName }}</h1>
+<p class="infoView__ship">{{= it.shipName }}</p>

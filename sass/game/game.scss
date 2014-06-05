@@ -1,24 +1,37 @@
-#content {
-    width: 900px;
-    margin: 0 auto;
+body {
+    margin: 0px;
 }
 
+#header {
+    position: fixed;
+    width: 100%;    
+    z-index: 2;
+    background-color: #888;
+    color: #000;
+}
+
+#content {
+    width: 100%;
+    z-index: 1;
+    padding-top: 85px;
+}
 
 #location {
     font-family: Coda, sans-serif;
-    border: 2px solid #EEE;
-    border-radius: 30px 10px;
+    border: 0px solid #EEE;
     padding: 10px;
 }
 
-#output {
-    width: 600px;
-    height: 100%;
+#info {
+    margin-right: 20px;
+    margin-top: 10px;
 }
+
 
 #commands {
     width: 300px;
-    float: right;
+    position: fixed;
+    right: 0px;
 }
 
 .command-list {

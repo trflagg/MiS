@@ -1,20 +1,31 @@
+body {
+  margin: 0px; }
+
+#header {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  background-color: #888;
+  color: #000; }
+
 #content {
-  width: 900px;
-  margin: 0 auto; }
+  width: 100%;
+  z-index: 1;
+  padding-top: 85px; }
 
 #location {
   font-family: Coda, sans-serif;
-  border: 2px solid #EEE;
-  border-radius: 30px 10px;
+  border: 0px solid #EEE;
   padding: 10px; }
 
-#output {
-  width: 600px;
-  height: 100%; }
+#info {
+  margin-right: 20px;
+  margin-top: 10px; }
 
 #commands {
   width: 300px;
-  float: right; }
+  position: fixed;
+  right: 0px; }
 
 .command-list {
   list-style: none; }
@@ -23,46 +34,51 @@
   font-size: 10px; }
 
 .locationView__name {
-  font-size: 42px;
-  margin-top: -25px;
-  margin-bottom: 0px;
+  font-size: 27px;
+  margin-top: -19px;
+  margin-bottom: 7px;
   font-family: Audiowide; }
 
 .locationView__description {
   font-size: 16px;
-  margin-top: 5px; }
+  margin-top: -8px;
+  margin-bottom: -12px;
+  padding-bottom: 0px; }
 
 .infoView__captain {
   margin: 0;
   float: right;
-  line-height: 1em; }
+  line-height: 1em;
+  clear: right; }
 
 .infoView__ship {
   margin: 0;
-  line-height: 0.95em; }
+  line-height: 0.95em;
+  float: right;
+  clear: right; }
 
 .commandItem {
-  border: 2px solid #EEE;
-  border-radius: 30px 10px;
   margin-bottom: 10px;
   font: 16px Coda;
   letter-spacing: .1em;
   padding: 15px;
   margin-bottom: 15px;
-  text-align: center;
-  -webkit-transition: all .1s;
-  -moz-transition: all .1s;
-  -o-transition: all .1s;
-  transition: all .1s; }
+  border-style: solid;
+  border-color: #EEE;
+  border-width: 0px;
+  border-bottom-width: 2px; }
 
 .commandItem:hover {
   color: #000;
-  background: #EEE; }
+  background: #EEE;
+  border-color: #EEE; }
 
 .disabled {
-  color: #888; }
+  color: #888;
+  border-color: #888; }
 
 #output {
   white-space: pre;
   font-family: monospace;
-  float: left; }
+  float: left;
+  font-size: 20px; }

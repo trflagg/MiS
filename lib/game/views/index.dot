@@ -1,16 +1,20 @@
 <div id="main">
-    <div id="info">
-    </div>
-    <div id="location">
-    </div>
-    <div id="output">
-    </div>
-    <div id="commands">
-        <div id="crew" class="command-list">
+    <div id="header">
+        <div id="info">
         </div>
-        <div id="shipControls" class="command-list">
+        <div id="location">
         </div>
-        <div id="directMessages">
+    </div>
+    <div id="content">
+        <div id="output">
+        </div>
+        <div id="commands">
+            <div id="crew" class="command-list">
+            </div>
+            <div id="shipControls" class="command-list">
+            </div>
+            <div id="directMessages">
+            </div>
         </div>
     </div>
 </div>
