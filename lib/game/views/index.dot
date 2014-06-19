@@ -1,20 +1,8 @@
 <div id="main">
     <div id="header">
-        <div id="info">
-        </div>
-        <div id="location">
-        </div>
     </div>
     <div id="content">
         <div id="output">
-        </div>
-        <div id="commands">
-            <div id="crew" class="command-list">
-            </div>
-            <div id="shipControls" class="command-list">
-            </div>
-            <div id="directMessages">
-            </div>
         </div>
     </div>
 </div>
