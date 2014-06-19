@@ -1,5 +1,5 @@
 define([ 
-    'backbone',
+    'game/gameView',
     'game/shipModel',
     'game/locationView',
     'game/infoView',
@@ -8,9 +8,9 @@ define([
     'game/commandHolderViewTopLevel',
     'game/outputView',
     'game/outputModel'
-], function(Backbone, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView, CommandHolderViewTopLevel, OutputView, OutputModel) {
+], function(GameView, ShipModel, LocationView, InfoView, InfoModel, CommandHolderView, CommandHolderViewTopLevel, OutputView, OutputModel) {
 
-    var appView = Backbone.View.extend({
+    var bridgeGameView = GameView.extend({
         initialize: function() {
             this.ship = new ShipModel({
                 id: $("#ship-data").data('id')
@@ -51,7 +51,7 @@ define([
         },
     });
 
-    appView.prototype.shipChanged = function() {
+    bridgeGameView.prototype.shipChanged = function() {
         var ship = this.ship;
 
         this.info.set({
@@ -62,5 +62,5 @@ define([
         this.output.set("text", ship.get("output"));
     };
 
-    return appView;
+    return bridgeGameView;
 });

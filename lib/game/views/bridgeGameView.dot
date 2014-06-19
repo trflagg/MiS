@@ -1,22 +1,19 @@
-<div id="main">
-    <div id="header">
-        <div id="info">
-        </div>
-        <div id="location">
-        </div>
+<div id="header">
+    <div id="info">
     </div>
-    <div id="content">
-        <div id="output">
+    <div id="location">
+    </div>
+</div>
+<div id="content">
+    <div id="output">
+    </div>
+    <div id="commands">
+        <div id="crew" class="command-list">
         </div>
-        <div id="commands">
-            <div id="crew" class="command-list">
-            </div>
-            <div id="shipControls" class="command-list">
-            </div>
-            <div id="directMessages">
-            </div>
+        <div id="shipControls" class="command-list">
+        </div>
+        <div id="directMessages">
         </div>
     </div>
 </div>
-<div id="ship-data" data-id="{{= it.ship.id() }}"></div>
 
