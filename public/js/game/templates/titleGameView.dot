@@ -1,4 +1,7 @@
 <div id="titleGameView">
-    <h1>Make</h1>
-    <h1>it So</h1>
+    <div id="titleGameView__title">
+        <h1>Make</h1>
+        <h1>it So</h1>
+    </div>
+    <p id="titleGameView__text"></p>
 </div>
