@@ -21,7 +21,6 @@
     "metalogger": "*",
     "argie": "git://github.com/trflagg/argie.git",
     "argieDB": "git://github.com/trflagg/argieDB.git",
-    "express-dot": "~0.1.0"
   },
   "devDependencies": {
     "suspend": "~0.3.0",
